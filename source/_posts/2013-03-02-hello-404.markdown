@@ -1,0 +1,14 @@
+---
+layout: post
+title: "hello 404"
+date: 2013-03-02 17:49
+comments: true
+categories: [test]
+---
+
+hello, welcome!
+
+here comes Chinese:
+
+你好，欢迎。
+
