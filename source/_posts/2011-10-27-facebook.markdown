@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "facebook"
+title: " facebook, 创造，背叛与孤独"
 date: 2011-10-27 00:37
 comments: true
-categories: thought
+categories: [readingNotes]
 ---
 
 今晚又看了一遍 facebook，有了一些新的认识。
