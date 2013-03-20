@@ -9,6 +9,8 @@ categories: server
 telnet 本身不安全，但因为工作的原因对telnet还比较熟悉。
 姑且先用telnet解决虚拟机中的windows系统与linux宿主之间共享文件的文件。
 
+<!--more-->
+
 Ubuntu telnet configuration
 --------------------
 

@@ -12,6 +12,8 @@ when we call a name,
 we search it from the existing namespaces under certain rules.
 once found, stop searching.
 
+<!--more-->
+
 name
 ----
 

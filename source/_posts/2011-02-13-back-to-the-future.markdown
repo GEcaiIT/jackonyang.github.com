@@ -15,6 +15,8 @@ categories: readingNotes
 
 	男人最酷的时光都在他们还是穷光蛋的时候，疯狂、理想、执着、孤注一掷、大开大合
 
+<!--more-->
+
 《回到未来》第三部主题进行了升华，不再是单纯的科幻与科学。
 
 	your future hasn't been written yet.

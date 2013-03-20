@@ -12,6 +12,8 @@ detect and convert file encoding with enca
 by default, ubuntu provide `iconv` to detect and convert file encodings.
 there are some shortcomings of it:
 
+<!--more-->
+
 - origion encoding should be given when converting, which can be detected by `file`.
 - it will not return when error occurs, which is a little complicated when scripting.
 

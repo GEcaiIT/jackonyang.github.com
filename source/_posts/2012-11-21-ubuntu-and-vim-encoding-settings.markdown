@@ -8,6 +8,8 @@ categories: [encoding,ubuntu,vim]
 
 ubuntu 与 windows 默认字符编码不一致，导致跨平台时常常出现乱码问题。
 
+<!--more-->
+
 一般攻略的处理方式
 ------------------
 

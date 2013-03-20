@@ -20,6 +20,8 @@ vimrc 是 `main` 插件(类似 `main` 函数)，所有的配置都可以在这�
 衍生出了 global/filetype/syntax/compile 等4中主要的 plugin。
 通过 `runtime`, `source` 等命令加载其他 `plugin`
 
+<!--more-->
+
 #### vim plugin 搜索路径
 
 vim 通过路径区分 plugin 类型。

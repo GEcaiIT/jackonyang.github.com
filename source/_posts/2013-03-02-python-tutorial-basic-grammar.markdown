@@ -17,6 +17,8 @@ Contant and Variables
 
 #### strings
 
+<!--more-->
+
 1. encode and decode: by default, all strings are in unicode.
 	if a strictly ASSCII-encoded byte-stream is needed,
 	then use `str.encode("ASCII")`

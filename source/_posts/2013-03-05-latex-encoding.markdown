@@ -14,6 +14,9 @@ ubuntu 下，默认字符编码为 UTF8，个人认为，较为简单的处理�
 加载 `CJKutf8` 宏包
 并通过 `\begin{CJK}{UTF8}{gbsn}` 声明使用的编码方式。
 
+<!--more-->
+
+
 注意：字符编码和使用的字体有变化。
 
 {% include_code latex Chinese with utf8 lang:latex test.tex%}

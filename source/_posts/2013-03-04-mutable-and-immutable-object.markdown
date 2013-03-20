@@ -17,6 +17,8 @@ coders can not decide whether to pass by value or pass by reference.
 for mutable object, passing by value.
 for immutable object, pass by reference.
 
+<!--more-->
+
 call`id objName` to watch memory address
 
 {% include_code nested_list lang:python list_nesting.py %}

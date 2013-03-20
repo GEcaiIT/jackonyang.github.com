@@ -12,6 +12,8 @@ A good understanding of encoding can avoid most of it.
 Here are some common and basic concept about encoding:
 ASCII, Unicode, UTF-8, GBK, GB2312, GB18030, charset, encoding
 
+<!--more-->
+
 Charset and encoding
 --------------------
 
