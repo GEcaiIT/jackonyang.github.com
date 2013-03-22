@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "加速工作效率的 vim 最佳配置策略"
+title: "加速工作效率的 vim 配置策略"
 date: 2013-03-19 01:22
 comments: true
 categories: vim
@@ -57,14 +57,10 @@ vim plugin 与配置文件，本质上是同一个概念。
 
 ##### move fast
 
-- 行列/位置移动。到第n行，移动n行，到文件/屏幕开头结尾。
-- 语义移动。移动n个单词/句子/段落
-- 查找性移动。移动到当前单词出现的下一个位置
-- 代码中的移动。变量/函数/类 定位/引用的位置。代码块移动，跨文件移动。
+自带的功能已经足够强大，为了方便在代码之间的跳转，安装 ctags/taglist。
+根据个人实践，cscope 用处不大。
 
-其中，代码中的移动需要插件 ctags/cscope
-
-为了获得更多的实时位置信息，使用 taglist
+详细用法 [戳这里](http://jackonyang.github.com/blog/2013/03/22/vim-better-navigation/)
 
 ###### easy writing
 
@@ -75,12 +71,14 @@ vim plugin 与配置文件，本质上是同一个概念。
 
 ##### more readable: 
 
-- highlighting syntax on
-- more infomative statusline
-- modifying tabs
+- highlight: syntax on，语言的配置文件放入 systax 目录下。
+- statusline: 始终显示：文件格式、类型，光标行列数、百分比，文章总行数。
+- current line: 背景色使用 darkgray.
 
 ##### multi-files:
 
-- winmanager
-- BufExplorer
-- lookup file
+很多人提到安装 winmanager，我还没体会到这个插件带来的效率提升。
+
+##### more
+
+- modifying tabs。不同平台和场合，tab 长度的定义相差较大。实践中，逐步开始转向 4 空格的长度，甚至直接使用 4 空格。python特别需要，tab 转 4 空格。
