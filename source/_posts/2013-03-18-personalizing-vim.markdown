@@ -38,7 +38,6 @@ vim73,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 建议个人的所有设置全部放在 `$HOME/.vim` 中，与版本隔离，方便备份。
 vim 中执行 `:echo $variable` 查看变量取值.
 
-
 #### global plugin
 
 global plugin 对全局生效，所以默认自动加载。
@@ -72,7 +71,6 @@ autocmd FileType echo echo "hello"
 :filetype
 filetype detection:ON  plugin:ON  indent:ON
 ```
-
 #### 深入 filetype plugin
 
 ``` vim using filetype plugin

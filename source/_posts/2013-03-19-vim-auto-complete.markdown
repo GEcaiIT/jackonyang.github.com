@@ -3,7 +3,7 @@ layout: post
 title: "vim auto complete"
 date: 2013-03-19 14:34
 comments: true
-categories: [vim, easy writing]
+categories: [vim]
 ---
 
 linux shell 下重度依赖自动补全命令和文件名，

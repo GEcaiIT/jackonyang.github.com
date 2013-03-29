@@ -3,7 +3,7 @@ layout: post
 title: "vim 快速移动"
 date: 2013-03-22 18:23
 comments: true
-categories: 
+categories: vim
 ---
 
 vim 支持众多快速跳转命令，以至于，只有想不到的，没有做不到的。
