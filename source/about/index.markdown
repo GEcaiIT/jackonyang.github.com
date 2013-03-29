@@ -16,6 +16,10 @@ python 写的一个 [人人网信息抓取与分析工具](https://github.com/Ja
 
 calibre 维护的 [我的电子书库](https://github.com/JackonYang/book-repo)
 
+email: jiekunyang@gmail.com
+
+weibo: [jackonyang](http://weibo.com/1812460214/)
+
 ### 控: latex, vim, ubuntu/开源, git
 
 ##### latex
