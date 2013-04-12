@@ -3,7 +3,7 @@ layout: post
 title: "goagent 翻墙的核心配置流程"
 date: 2013-03-20 19:11
 comments: true
-categories: [proxy,gae]
+categories: [proxy]
 ---
 
 用 goagent 做代理，应该是当前最稳定的选择之一，而且免费。
