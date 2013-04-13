@@ -27,7 +27,5 @@ utf8 编码块平台中文支持
     winedit 默认使用 GBK 打开源文件，不会自动检测字符编码，打开以后显示乱码。
     源码文件第一行声明字符编码即可。
 
-注意：字符编码和使用的字体有变化。
-
 {% include_code latex Chinese with utf8 lang:latex test.tex%}
 
