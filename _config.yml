@@ -2,12 +2,14 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://JackonYang.github.com
+title: Jackon Yang's blog
+subtitle: PKM, SNS and data mining
+author: Jackon Yang
 simple_search: http://google.com/search
-description:
+description: 
+
+email: jiekunyang at gmail.com
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -45,7 +47,8 @@ titlecase: true       # Converts page and post titles to titlecase
 
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
-default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
+# default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
+default_asides: [asides/sina_weibo.html, asides/recent_posts.html, asides/github.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
@@ -57,15 +60,21 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 #   3rd Party Settings    #
 # ----------------------- #
 
+#Sina Weibo
+sina_user: jackonyang
+sina_hidden: false 
+
+
 # Github repositories
-github_user:
-github_repo_count: 0
+github_user: jackonyang
+github_repo_count: 6
 github_show_profile_link: true
 github_skip_forks: true
 
-# Twitter
-twitter_user:
-twitter_tweet_button: true
+# Twitter # twitter_user: # twitter_tweet_count: 4 # twitter_show_replies: false
+# twitter_follow_button: true
+# twitter_show_follower_count: false
+# twitter_tweet_button: true
 
 # Google +1
 google_plus_one: false
@@ -84,9 +93,12 @@ pinboard_count: 3
 delicious_user:
 delicious_count: 3
 
+# duoshuo_short_name: jackonyang
+# duoshuo_show_comment_count: true
+
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+disqus_short_name: jackonyang
+disqus_show_comment_count: true
 
 # Google Analytics
 google_analytics_tracking_id:
