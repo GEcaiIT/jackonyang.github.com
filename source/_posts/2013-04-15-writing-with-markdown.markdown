@@ -7,6 +7,7 @@ categories: [markdown]
 ---
 
 github 的 wiki, issue 等都是支持 markdown 语法的。
+
 使用 markdown 已经半年多，结合多年的 latex 排版经验，
 已经有了一个相对深入的认识，整理如下。
 
@@ -15,37 +16,37 @@ github 的 wiki, issue 等都是支持 markdown 语法的。
 markdown 设计理念 <a id="design"></a>
 -----------------
 
-markdown 首先是一个所想即所得的语言。
+markdown 首先是一个所想即所得的语言。  
 精髓在于：源码可读性高，书写方便。
 
 #### 高可读性导致逻辑和显示分离不彻底
 
-即使是初学者写出的 markdown 源码，读起来也像阅读最终的页面一样方便。
-换一个角度思考就是，markdown 的源码与最终的显示样式还是有些关联的。
-latex 彻底的将显示与逻辑结构分离，书写的时候只需关心逻辑结构。
+即使是初学者写出的 markdown 源码，读起来也像阅读最终的页面一样方便。  
+换一个角度思考就是，markdown 的源码与最终的显示样式还是有些关联的。  
+latex 彻底分离显示与逻辑结构，书写时只需关心逻辑结构。  
 一个典型的例子是：markdown 本没有标题的概念，只有字号。
-latex 则是标题，下一级标题，下下一级标题--纯粹的逻辑结构
+latex 则是标题，下一级标题，下下一级标题——纯粹的逻辑结构
 
 #### 首次书写方便，适合于快速迭代
 
-markdown 的本质是书写语言，可以一般的书写任务。
-latex 则是排版语言，越追求完美的书写任务，latex 的优势越明显。
+markdown 的本质是书写语言，可以满足一般的书写任务。  
+latex 则是排版语言，越追求完美的任务，latex 的优势越明显。  
 对于需要反复修改的文章，markdown 就显得力不从心。
 比如：各种交叉引用、序号，都需要手动维护。
 
 语法的学习资料
 --------------
 
-[markdown 首页][mkhome] 提供了当不错的学习说明。
+[markdown 首页][mdhome] 提供了当不错的学习说明。  
+一个高效的学习方法是：
+看 markdown 首页的介绍和源码、在 [dingus][] 中测试一下效果。
 
-看一些首页的介绍文字、学习首页的源码、在 [dingus][] 中测试一下效果。
-
-github 的 wiki, issue 中的部分细节有些特殊之处。
+markdown 版本众多，不同版本的语法存在一些区别。
 
 #### github wiki 语法
 
 [wiki 语法案例](https://github.com/JackonYang/book-repo/wiki/markdown-%E8%AF%AD%E6%B3%95-%E6%A1%88%E5%88%97)
-该wiki页面包含了大部分常用的 markdown 语法
+该 wiki 页面包含了大部分常用的 markdown 语法
 
 1. wiki 编辑时的工具栏。
 
@@ -56,8 +57,15 @@ github 的 wiki, issue 中的部分细节有些特殊之处。
 
 #### octopress blog
 
-- 插入图片 `{% img /images/pic_name.png %}`
-- 插入代码文件 `{% include_code [title] [lang:language] path/to/file %}`
+<dev>
+<pre><code>
+{% img /images/pic_name.png %}
+</code></pre>
+</dev>
+
+```
+{% include_code [title] [lang:language] path/to/file %}
+```
 
 书写高质量的代码
 ----------------
