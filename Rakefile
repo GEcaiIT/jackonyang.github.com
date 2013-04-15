@@ -221,6 +221,16 @@ task :deploy do
 
   Rake::Task[:copydot].invoke(source_dir, public_dir)
   Rake::Task["#{deploy_default}"].execute
+  Rake::Task[:bak_source].execute
+end
+
+desc "backup source .md files"
+task :bak_source do
+
+  cd "#{source_dir}" do
+      system
+  end
+
 end
 
 desc "Generate website and deploy"
