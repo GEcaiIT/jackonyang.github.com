@@ -230,10 +230,8 @@ task :bak_source do
   cd "#{source_dir}" do
     system "git add ."
     system "git add -u"
-    puts "\n## Commiting: source code updated at #{Time.now.utc}"
     message = "source code updated at #{Time.now.utc}"
     system "git commit -m \"#{message}\""
-    puts "\n## Pushing source code #{source_dir}"
     system "git push origin #{source_branch} --force"
     puts "\n## blog source code backup complete"
   end
@@ -270,10 +268,8 @@ multitask :push do
   cd "#{deploy_dir}" do
     system "git add ."
     system "git add -u"
-    puts "\n## Commiting: Site updated at #{Time.now.utc}"
     message = "Site updated at #{Time.now.utc}"
     system "git commit -m \"#{message}\""
-    puts "\n## Pushing generated #{deploy_dir} website"
     system "git push origin #{deploy_branch} --force"
     puts "\n## Github Pages deploy complete"
   end
