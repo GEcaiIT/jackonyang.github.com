@@ -13,6 +13,7 @@ deploy_default = "push"
 
 # This will be configured for you when you run config_deploy
 deploy_branch  = "master"
+source_branch  = "source"
 
 ## -- Misc Configs -- ##
 
@@ -226,11 +227,16 @@ end
 
 desc "backup source .md files"
 task :bak_source do
-
   cd "#{source_dir}" do
-      system
+    system "git add ."
+    system "git add -u"
+    puts "\n## Commiting: source code updated at #{Time.now.utc}"
+    message = "source code updated at #{Time.now.utc}"
+    system "git commit -m \"#{message}\""
+    puts "\n## Pushing source code #{source_dir}"
+    system "git push origin #{source_branch} --force"
+    puts "\n## blog source code backup complete"
   end
-
 end
 
 desc "Generate website and deploy"
