@@ -1,101 +1,124 @@
 ---
 layout: post
-title: "vim plugin 与个性化设置的原理"
+title: "vim plugin 的原理"
 date: 2013-03-18 15:33
 comments: true
 categories: vim
 ---
 
-#### vim `plugin` 类型及其相互关系
+vim 个性化设置与功能扩展均通过 script 来实现，这种 script 又叫 plugin。
 
-vim 设置与功能扩展均通过 `script` 来实现，这种 `script` 又叫 `plugin`。
-常见 `plugin` 类型： 
-vimrc, global plugin, filetype plugin, syntax plugin, compiler plugin
-通常提到的 `vimrc` 也是一种 plugin. 或者说，所有的 plugin 都在配置 vim 的行为。
+最常用的配置文件 vimrc，也是一种 plugin。
+或者说，所有的 plugin 都在配置 vim 的行为。
+
+plugin 是 vim 的核心与精髓。
+
+<!--more-->
+
+plugin 类型及其相互关系
+---------------------------
+
+常见的 plugin 类型： 
+
+- vimrc
+- global
+- filetype
+- syntax
+- compiler
 
 vimrc 是 `main` 插件(类似 `main` 函数)，所有的配置都可以在这一个文件中完成。
 所有其他配置都直接或间接由该文件调用以生效。
 
 与其他编程语言一样，为了提高源文件的可读性，增加代码的可重用性等，
 衍生出了 global/filetype/syntax/compile 等4中主要的 plugin。
-通过 `runtime`, `source` 等命令加载其他 `plugin`
+通过 `runtime`, `source` 等命令加载其他 plugin
 
-<!--more-->
 
-#### vim plugin 搜索路径
+vim 搜索路径
+------------
 
 vim 通过路径区分 plugin 类型。
-由`runtimepath`控制路径搜索顺序，一旦找到 plugin 停止搜索。
+由`runtimepath`控制搜索顺序，一旦找到立即停止。
 
-```vim default search path of vim
+默认搜索顺序：
+
+1. `$HOME/.vim`: linux home 目录下的用户个性化设置
+2. `$VIMRUNTIME: 系统自带的 plugin
+
+建议个人的所有设置全部放在 `$HOME/.vim` 中，与版本隔离，方便备份。
+vim 中执行 `:echo $variable` 查看变量取值.
+
+```vim 查看默认 plugin 搜索路径
 :set runtimepath?
 runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/
 vim73,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 ```
 
-默认，vim 首先搜索 `$HOME/.vim`,其次是`$VIMRUNTIME`。
-系统默认 plugin 都在 `$VIMRUNTIME` 中，
-建议个人的所有设置全部放在 `$HOME/.vim` 中，与版本隔离，方便备份。
-vim 中执行 `:echo $variable` 查看变量取值.
+global plugin
+-------------
 
-#### global plugin
+global plugin 位于 `plugin` 目录下，对全局生效，所以默认自动加载。
 
-global plugin 对全局生效，所以默认自动加载。
+filetype plugin
+---------------
 
-所在路径： `plugin` (`$VIMRUNTIME/plugin/, $HOME/.vim/plugin/`)
+filetype plugin 只对特定类型的文件生效。
 
-#### filetype plugin
+根据文件类型动态决定行为，通过事件监听(autocmd)实现。
+基本原理如下：
 
-filetype plugin 只对特定类型的文件生效，所以需要根据文件类型动态决定行为，
-通过事件监听(autocmd)实现。基本原理如下：
-
-``` vim sample of filetype plugin
-" open filetype and filetype plugin
+``` vim sample of autocmd/filetype plugin
+" required
 filetype plugin on
-" define behavior when filetype change to `echo`
+" define behavior when filetype change to `tt`
 " here, the behavior is set to execute `echo "hello"`
-autocmd FileType echo echo "hello"
-" execute cmd below to watch the behavior
-:set filetype=echo
+autocmd FileType tt echo "hello"
+" execute cmd below, output "hello" at the bottom of vim window
+:set filetype=tt
 ```
 
-如果没有显式声明 `set filetype=a` 的行为，则加载 `ftplugin` 目录下的 `a.vim`
+如果没有用 autocmd 显式声明 xxx 文件对应的行为，
+则加载 ftplugin 目录下的 `xxx.vim`
+
 ``` vim sample of default filetype action.
 :set filetype=c
 "expt: load c.vim and change highlight in c syntax
 "required: c.vim in ftplugin, it is in $VIMRUNTIME/ftplugin by default
 ```
 
-注意：使用 ftplugin 时，需要 `filetype` 和 `filetype plugin` on
+注意：使用 ftplugin 时，需要开启 `filetype` 和 `filetype plugin`
+
 ``` vim watch status of filetype
+:filetype plugin on
 :filetype
 filetype detection:ON  plugin:ON  indent:ON
 ```
-#### 深入 filetype plugin
+一个更深入 filetype plugin 的例子
 
-``` vim using filetype plugin
+``` vim using filetype plugin with buffer
 autocmd BufNewFile,BufRead *.xml source ~/.vim/ftplugin/xml.vim
 ```
 
-同样是事件监听机制，只是监听的事件变成: 创建或打开 .xml文件(BufNewFile,BufRead),
-执行的行为是: 加载 `ftplugin/xml.vim`
+同样是事件监听机制，区别在于:
 
-#### syntax plugin
+- 监听的事件: 创建或打开 .xml文件(BufNewFile,BufRead)
+- 执行的行为: 加载 `ftplugin/xml.vim`
+
+syntax plugin
+-------------
 
 原理与 ftplugin 类似，监听 syntax 事件，加载 syntax 目录下的插件。
+触发 filetype 事件的同时，也会触发对应的 syntax 事件。
+
 ``` vim sample of syntax
 syntax on
 :set syntax=c
 ```
 
-触发 filetype 事件的同时，也会触发对应的 syntax 事件。
+compile plugin
+--------------
 
-#### compile plugin
-
-同样是事件监听。
-
-首先点击下载插件[compiler/python.vim](http://www.vim.org/scripts/script.php?script_id=1439)保存到 `~/.vim/compiler/`
-该插件默认使用 `python2.x` 编译
+同样是事件监听，插件位于 compiler 目录。
 
 ``` vim sample of compiler plugin
 " add below to vimrc
@@ -105,24 +128,29 @@ autocmd BufNewFile,BufRead *.py compiler python`
 " expt: errors printed
 ```
 
-#### 更多的一些细节
+更多的一些细节
+--------------
 
-1. nocompatible
+#### 与 vi 的兼容性。
 
-	据说 vim 的很多特性依赖于 noncompatible.把 `set noncompaible`放在配置文件开始处即可。
+vim 在 vi 的基础上进行了很多的功能扩展。
+若要使用 vim 的特性，vim 必须运行于与 vi 不兼容的模式。
 
-	ubuntu 12.04 默认的 vimrc 先加载 ubuntu.vim， 其中设置了该选项。
+一般，把 `set noncompaible`放在配置文件开始处即可。  
+ubuntu 12.04 默认的 vimrc 先加载 ubuntu.vim， 其中设置了该选项。
 
-2. vim feature-list
+#### vim feature-list
 
-	vim 自身有很多 feature, plugin 大多依赖于相应的 feature.
-	为了使 vimrc 通用，使用 plugin 前先用`has()` 检测feature 是否存在。
-	`:version` 查看 feature-list
+vim 自身有很多 feature, plugin 都依赖于相应的 feature.
 
-```vim vimrc check if feature exists
+为了使 vimrc 通用，使用 plugin 前先用`has()` 检测feature 是否存在。
+如下：
+
+```vim check if feature exists first
 if has("syntax")
 	syntax on
 endif
 ```
 
+`:version` 查看 feature-list
 {% include_code feature list lang:vim feature_list_vim.txt%}
