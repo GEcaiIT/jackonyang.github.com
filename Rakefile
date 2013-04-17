@@ -230,7 +230,7 @@ task :bak_source do
   cd "#{source_dir}" do
     system "git add ."
     system "git add -u"
-    message = "source code updated at #{Time.now.utc}"
+    message = "source code backup at #{Time.now.utc}"
     system "git commit -m \"#{message}\""
     system "git push origin #{source_branch} --force"
     puts "\n## blog source code backup complete"

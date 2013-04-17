@@ -6,8 +6,8 @@ url: http://JackonYang.github.com
 title: Jackon Yang's blog
 subtitle: PKM, SNS and data mining
 author: Jackon Yang
-simple_search: http://google.com/search
-description: 
+simple_search: 
+description: personal knowledge management system
 
 email: jiekunyang at gmail.com
 
@@ -77,3 +77,6 @@ linkedin_user: jiekunyang
 # Disqus Comments
 disqus_short_name: jackonyang
 disqus_show_comment_count: true
+
+# Gravatar  
+gravatar_email: jiekunyang@gmail.com
