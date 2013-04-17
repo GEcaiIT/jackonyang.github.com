@@ -54,6 +54,13 @@ runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/
 vim73,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 ```
 
+plugin 安装
+-----------
+
+拷贝到对应的 plugin 目录下即可。
+
+更新帮助文档，在 vim 中运行 `:helptags ~/vimfiles/doc`
+
 global plugin
 -------------
 
