@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "topic"
+title: "学习计划跟踪"
 date: 2013-04-17 15:58
 comments: true
 sharing: true
@@ -18,14 +18,17 @@ footer: true
 从最早的追求排版上的美学，到后来关注更好的结构化内容。
 latex 是我沉迷的第一个软件，也是膜拜 knuth 的开始。
 
-[vim](/blog/categories/vim)
+好的工具不再只是一个工具，而是一种理念。
+
+vim
 ---
 
-大一开始使用 vim，经历了最初的痛苦，到按坏了键盘上的 `i` 键。
-现在追求 all-in-vim, 写代码、写博客，firefox/pdf 阅读器
+2008 年开始使用 vim，切身体验到了按坏键盘`i`键以后的痛苦。  
+现在追求 all-in-vim, 写代码、写博客、firefox、pdf 阅读器
 
-好的工具不再只是一个工具，而是一种理念。
-latex 是，vim 也是。
+[学习任务与进度跟踪](/milestone/vim.html)
+
+[vim 相关总结文章](/blog/categories/vim)
 
 [linux](/blog/categories/linux)
 -----
