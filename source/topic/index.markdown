@@ -26,8 +26,6 @@ vim
 2008 年开始使用 vim，切身体验到了按坏键盘`i`键以后的痛苦。  
 现在追求 all-in-vim, 写代码、写博客、firefox、pdf 阅读器
 
-[学习任务与进度跟踪](/milestone/vim.html)
-
 [vim 相关总结文章](/blog/categories/vim)
 
 [linux](/blog/categories/linux)
