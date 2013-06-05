@@ -23,6 +23,10 @@ categories: [javascript,primer]
 更不能寄希望于代码实现了计划中的封装功能。
 代码量大了以后，变得难以维护。
 
+-- 2013.6.5 日补充。javascript 可以很好的封装变量命名空间。
+一般的编程语言中，包含 modules/class/function 等很多概念，
+Javascript 中只有 function，通过 function 实现了上述所有功能。
+
 直接操纵 HTML，可以很好的控制显示的样式和内容。无需涉及太深的技术细节。
 只要搞清显示的内容、用户操作等之间的关系即可。
 可以理解为一种快速 GUI 的方式，跨平台。
