@@ -9,10 +9,11 @@ ssh_port       = "22"
 document_root  = "~/website.com/"
 rsync_delete   = false
 rsync_args     = ""  # Any extra arguments to pass to rsync
-deploy_default = "rsync"
+deploy_default = "push"
 
 # This will be configured for you when you run config_deploy
-deploy_branch  = "gh-pages"
+deploy_branch  = "master"
+source_branch  = "source"
 
 ## -- Misc Configs -- ##
 
@@ -221,6 +222,19 @@ task :deploy do
 
   Rake::Task[:copydot].invoke(source_dir, public_dir)
   Rake::Task["#{deploy_default}"].execute
+  Rake::Task[:bak_source].execute
+end
+
+desc "backup source .md files"
+task :bak_source do
+  cd "#{source_dir}" do
+    system "git add ."
+    system "git add -u"
+    message = "source code backup at #{Time.now.utc}"
+    system "git commit -m \"#{message}\""
+    system "git push origin #{source_branch} --force"
+    puts "\n## blog source code backup complete"
+  end
 end
 
 desc "Generate website and deploy"
@@ -254,10 +268,8 @@ multitask :push do
   cd "#{deploy_dir}" do
     system "git add ."
     system "git add -u"
-    puts "\n## Commiting: Site updated at #{Time.now.utc}"
     message = "Site updated at #{Time.now.utc}"
     system "git commit -m \"#{message}\""
-    puts "\n## Pushing generated #{deploy_dir} website"
     system "git push origin #{deploy_branch} --force"
     puts "\n## Github Pages deploy complete"
   end
