@@ -27,15 +27,76 @@ Douglas Crockford 在下面的 2 部视频中非常精髓的讲解了 JAVAScript
 [jslanguage]: http://v.youku.com/v_show/id_XMzMzNzQ0MzY4.html
 [jsadvanced]: http://v.youku.com/v_show/id_XMzMzNzgxNzA4.html
 
-个人整理如下：
+整理如下：
 
-1. Prototype 继承: 用 Crockford 的话说，这是 javascript 完成 JAVA 想做但没做成的事情的主要原因。
+1. Prototype 继承: 
+
+    用 Crockford 的话说，这是 javascript 完成 JAVA 想做但没做成的事情的主要原因。
 2. closure 闭包: 函数式编程。
-3. Object container: 使用 Object 作为存储容器。对象/Array/function 等都使用这种结构存储。
-4. linkage: 对象之间的访问连接，这是糟粕，导致的了很多问题。不得不理解，尽量规避。
+3. Objects as general containers: 
 
-函数
-----
+    使用 Object 作为存储容器。对象/Array/function 等都使用这种结构存储。  
+    `new Object()`创建了一个空的容器。
+4. linkage though global variables: 
+
+    global 变量会建立linkage，表现为共享了一个命名空间，这是糟粕，导致的了很多问题。不得不理解，尽量规避。
+
+__大小写敏感，所有的关键字都是小写的，除了构造函数。__
+
+基本数据类型
+------------
+
+1. number
+
+    - `Number('123')` 或 ` +'123'` 转换成 number 类型。
+    - 只有 float 类型，不精确, `0.1 + 0.2 = 0.30000000000000004`
+    - `NaN` 的类型是 `number`, 不等于任何数字，包括本身。
+2. boolean
+
+    - false: 0, '', null, undefined
+    - !!: 转成 boolean 类型
+3. undefined
+
+    - 变量的默认值
+    - typeof undefined 返回 undefinded
+4. null
+
+    - 空的对象引用，typeof null 返回 object.
+    - 变量赋值为 null 以后，会自动被回收。
+5. string
+
+    - 不可变
+
+操作符
+------
+
+1. `a && b`: 如果 a 为true，返回b，否则，返回a
+2. `a || b`: 如果 a 为 false，返回b。可以用于取变量值的默认值。
+3. `+`: 可以用于做加法运算，或连接string。
+
+Object
+------
+
+1. 字面量
+2. constructor
+3. prototype, linkage
+4. container, key/value
+5. `===` 比较的是reference，而不是value
+
+Arrays
+------
+
+1. inherits from Object
+2. indexes are converted to strings and used as names for retrieving values.
+3. very efficient for sparse arrays.
+4. length 方法, 比最大的索引大1.
+5. 建议使用传统的for循环，而不是 for in
+6. delete 一个value, value 的值变为 undefined，占位符不会消失。用 splice 删除。
+7. don't use arrays as protytypes, length 方法不会继承。
+8. Array.prototype 赋值来修改全部 array 的行为。
+
+函数与闭包
+----------
 
 在 JAVAScript 中，函数即对象。
 
