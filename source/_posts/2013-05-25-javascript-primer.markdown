@@ -1,45 +1,63 @@
 ---
 layout: post
-title: "javascript primer"
+title: "javascript 概述"
 date: 2013-05-25 10:19
 comments: true
 categories: [javascript,primer]
 ---
 
-看了一个星期的 javascript，主要做了以下几件事情：
+JAVAScript 可以分成 3 部分来看，分别是：core(EMCAScript), DOM, BOM.
 
-- 刷了 4 本书：js精粹，疯狂js讲义，js高级程序设计。ajax 基础教程。
-- 2段代码：宽搜做拓扑图的树形图，输入框自动补全。
-- 尝试了几个工具：通过 jslint 了解了编码规范，试用了 qunit 单元测试框架。
+- core 是通常所说的原生 javascript，提供核心语言功能。建议使用符合 EMCAScript 标准的语法。
+- DOM 即文档对象模型，访问和操作网页内容的方法和接口。事件操作归属于 DOM。
+- BOM 浏览器对象模型，提供与浏览器交互的方法和接口。AJAX/cookies 归属于 BOM。
 
 <!--more-->
 
-对 javascript 初步认识
-----------------------
+{% img /images/JAVAScriptOverview.png 'JAVAScript overview' %}
 
-总体感觉，javascript 不适合于做大型项目，
-变量命名空间问题导致难以实现很好的封装。
-我们总不能寄希望于写代码的人恰好知道如何非常好的封装变量，
-更不能寄希望于代码实现了计划中的封装功能。
-代码量大了以后，变得难以维护。
+key ideas
+---------
 
--- 2013.6.5 日补充。javascript 可以很好的封装变量命名空间。
+Douglas Crockford 在下面的 2 部视频中非常精髓的讲解了 JAVAScript 的核心概念:
+
+- [The JavaScript Programming Language][jslanguage]
+- [Advanced JavaScript][jsadvanced]
+
+[jslanguage]: http://v.youku.com/v_show/id_XMzMzNzQ0MzY4.html
+[jsadvanced]: http://v.youku.com/v_show/id_XMzMzNzgxNzA4.html
+
+个人整理如下：
+
+1. Prototype 继承: 用 Crockford 的话说，这是 javascript 完成 JAVA 想做但没做成的事情的主要原因。
+2. lambda 闭包: 函数式编程。
+3. Object container: 使用 Object 作为存储容器。对象/Array/function 等都使用这种结构存储。
+4. linkage: 对象之间的访问连接，这是糟粕，导致的了很多问题。不得不理解，尽量规避。
+
+函数
+----
+
+在 JAVAScript 中，函数即对象。
+但是，与 python 的一切皆对象的理念略有不同，JAVAScript 中，函数是第一位的。
+
 一般的编程语言中，包含 modules/class/function 等很多概念，
 Javascript 中只有 function，通过 function 实现了上述所有功能。
+通过 function 可以封装变量的命名空间，
+通过 function 可以创建对象，即 class 的实例，
+通过 Prototype 方式可以从一个对象继承出一个新的对象，不需要显式定义 class。
 
-直接操纵 HTML，可以很好的控制显示的样式和内容。无需涉及太深的技术细节。
+DOM 与 BOM
+----------
+
+与浏览器配合，是 JAVAScript 的一大竞争力。
+
+可以直接访问操纵 HTML，方便的控制显示的样式和内容。无需涉及太深的技术细节。
 只要搞清显示的内容、用户操作等之间的关系即可。
 可以理解为一种快速 GUI 的方式，跨平台。
-js 主要用于处理显示、交互式相关的内容，不做复杂的业务逻辑处理。
 
-作为js的基本语法，
-运行环境的作用域对象、函数即对象、字面量、原型与原型链是非常具有学习价值的。
-其中，函数是核心。
+事件监听让交互成为可能，极其方便的互动。
 
-javascript 语言本身并无太大的优势和竞争力。
-关键在于与其他技术结合。关键点包括：dom，bom，ajax。
-
-事件是另一个核心内容。具体的归属问题，暂不确定。
+AJAX 动态获取数据，大大丰富了网页的行为。
 
 学习曲线与书籍
 --------------
@@ -65,11 +83,13 @@ javascript 语言本身并无太大的优势和竞争力。
 4. [编写高质量代码 : Web前端开发修炼之道][js_practise] 学习编码规范。
 
     这书读起来速度快，不耽误时间。
+
     从最烂的代码一点一点优化到最佳规范，触动很大，也加深的对规范的理解。
 
 5. [编写可维护的JavaScript][js_better] 关于如何写出高质量的代码。
 
-    还没看，看目录还不错。
+    内容很赞，讲解了规范的来龙去脉和影响。
+
 
 [js_abc]: http://book.douban.com/subject/10759600/
 [js_practise]: http://book.douban.com/subject/4881987/
