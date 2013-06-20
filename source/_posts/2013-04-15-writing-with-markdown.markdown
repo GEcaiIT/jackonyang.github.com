@@ -1,15 +1,18 @@
 ---
 layout: post
-title: " 编写高质量的 markdown 源文件"
+title: " 使用 markdown 编写文档"
 date: 2013-04-15 01:52
 comments: true
 categories: [markdown]
 ---
 
-github 的 wiki, issue 等都是支持 markdown 语法的。
+Markdown 是一种轻量级标记语言，所想即所得，优势较多：
 
-使用 markdown 已经半年多，结合多年的 latex 排版经验，
-已经有了一个相对深入的认识，整理如下。
+- 比 latex/html/xml 等更加便捷，可读性更高。
+- 使用纯文本写作，可以方便的进行版本控制。 
+- 通过 pandoc 等工具可以方便的转换为 docx/html/latex 等多种格式。
+
+使用 markdown 已经半年多，结合多年的 latex 排版经验，整理如下。
 
 <!--more-->
 
