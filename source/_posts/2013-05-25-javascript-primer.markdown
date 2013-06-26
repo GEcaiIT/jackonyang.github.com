@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "javascript 概述"
+title: "原生 javascript 概述"
 date: 2013-05-25 10:19
 comments: true
 categories: [javascript,primer]
@@ -8,18 +8,18 @@ categories: [javascript,primer]
 
 JAVAScript 可以分成 3 部分来看，分别是：core(EMCAScript), DOM, BOM.
 
-- core 是通常所说的原生 javascript，提供核心语言功能。建议使用符合 EMCAScript 标准的语法。
-- DOM 即文档对象模型，访问和操作网页内容的方法和接口。事件操作归属于 DOM。
-- BOM 浏览器对象模型，提供与浏览器交互的方法和接口。AJAX/cookies 归属于 BOM。
+- core 即原生 javascript，提供核心语言功能。多使用 EMCAScript 标准。
+- DOM 即文档对象模型，访问和操作网页内容的方法和接口。如：事件
+- BOM 浏览器对象模型，提供与浏览器交互的方法和接口，如：AJAX/cookies.
 
 <!--more-->
 
 {% img /images/JAVAScriptOverview.png 'JAVAScript overview' %}
 
-key ideas
----------
+原生 JAVAScript 的核心概念
+---------------------
 
-Douglas Crockford 在下面的 2 部视频中非常精髓的讲解了 JAVAScript 的核心概念:
+Douglas Crockford 在下面的 2 部视频中非常精髓的讲解了原生 JAVAScript 的核心概念:
 
 - [The JavaScript Programming Language][jslanguage]
 - [Advanced JavaScript][jsadvanced]
@@ -29,53 +29,84 @@ Douglas Crockford 在下面的 2 部视频中非常精髓的讲解了 JAVAScript
 
 整理如下：
 
-1. Prototype 继承: 
+- Prototype 继承: 
 
-    用 Crockford 的话说，这是 javascript 完成 JAVA 想做但没做成的事情的主要原因。
-2. closure 闭包: 函数式编程。
-3. Objects as general containers: 
+    Crockford 说：这是 JAVAScript 完成 JAVA 想做但没做成的事情的主要原因。
+- closure 闭包: 函数式编程。
+- Objects as general containers: 
 
-    使用 Object 作为存储容器。对象/Array/function 等都使用这种结构存储。  
+    使用 object 作为存储容器。object/array/function 等都使用这种结构存储。  
     `new Object()`创建了一个空的容器。
-4. linkage though global variables: 
+- linkage though global variables: 
 
-    global 变量会建立linkage，表现为共享了一个命名空间，这是糟粕，导致的了很多问题。不得不理解，尽量规避。
+    Prototype 继承的原因，导致对象之间存在 linkage。  
+    global 变量之间也会有 linkage，表现为共享一个命名空间。  
+    这是糟粕，导致的了很多问题。不得不理解，尽量规避。
 
-__大小写敏感，所有的关键字都是小写的，除了构造函数。__
+JAVAScript 语法该要
+-------------------
 
-基本数据类型
-------------
+大小写敏感，所有的关键字都是小写的，习惯上，构造函数首字母大写。
 
-1. number
+#### 基本数据类型
 
-    - `Number('123')` 或 ` +'123'` 转换成 number 类型。
-    - 只有 float 类型，不精确, `0.1 + 0.2 = 0.30000000000000004`
-    - `NaN` 的类型是 `number`, 不等于任何数字，包括本身。
-2. boolean
+1. number. 只有 float 类型，不精确, `0.1 + 0.2 = 0.30000000000000004`
+2. boolean. false 值包括：0, '', null, undefined
+3. string. 不可变。
+4. undefined. 变量的默认值, 
+5. null. 空的对象引用，变量赋值为 null 以后，会自动被回收。
 
-    - false: 0, '', null, undefined
-    - !!: 转成 boolean 类型
-3. undefined
+#### 数据类型转换
 
-    - 变量的默认值
-    - typeof undefined 返回 undefinded
-4. null
+number/boolean/string，数据类型的首字母大写即为构造函数，可以实现类型转换。
 
-    - 空的对象引用，typeof null 返回 object.
-    - 变量赋值为 null 以后，会自动被回收。
-5. string
+``` javascript 
+// 数据类型转换
+> Number('0001230') // 转为 number
+1230
+> +[] // 转为 number
+0
+> Boolean(0) // 转为 boolean
+false
+> !!'0' // 转为 boolean
+true
+> String(123)  // 转为 string
+"123"
+> String(0123)  // 0 开头的数字，八进制
+"83"
+```
 
-    - 不可变
+#### 注意事项
 
-操作符
-------
+``` javascript
+// undefined 与 false
+> !!undefined 
+false
+> undefined == false
+false
+> undefined === false
+false
+// 特殊变量的数据类型
+typeof NaN
+"number"
+// NaN 不等于任何值，包括本身
+> NaN === NaN
+false
+// undefined 的类型是 undefined
+> typeof undefined
+"undefined"
+// null 的类型是 object
+> typeof null
+"object"
+```
+
+#### 操作符
 
 1. `a && b`: 如果 a 为true，返回b，否则，返回a
 2. `a || b`: 如果 a 为 false，返回b。可以用于取变量值的默认值。
-3. `+`: 可以用于做加法运算，或连接string。
+3. `+`: 可以用于做加法运算，或连接string。加法运算时，自动类型转换。
 
-Object
-------
+#### Object
 
 1. 字面量
 2. constructor
@@ -83,8 +114,7 @@ Object
 4. container, key/value
 5. `===` 比较的是reference，而不是value
 
-Arrays
-------
+#### Arrays
 
 1. inherits from Object
 2. indexes are converted to strings and used as names for retrieving values.
@@ -95,8 +125,7 @@ Arrays
 7. don't use arrays as protytypes, length 方法不会继承。
 8. Array.prototype 赋值来修改全部 array 的行为。
 
-函数与闭包
-----------
+#### 函数与闭包
 
 在 JAVAScript 中，函数即对象。
 
