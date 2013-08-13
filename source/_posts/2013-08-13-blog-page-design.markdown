@@ -59,3 +59,27 @@ banner 代码位于 `source/_includes/custom/header.html`
 为了响应式和布局方便，
 题目和时间是否需要分行展示?
 分类和标签信息是否需要分行展示?
+
+#### reference
+
+http://ux.etao.com/
+
+http://coolshell.cn/articles/10337.html
+
+http://ethan.herokuapp.com/work
+
+http://blog.alexharr.is/
+
+http://designthinking.ideo.com/
+
+http://article.yeeyan.org/view/163202/156620
+
+http://www.yeeyan.org/articles/view/38227/11310
+
+http://tech.ddvip.com/2008-10/122345307175323.html
+
+http://www.hi-id.com/
+
+http://designmind.frogdesign.com/blog/
+
+http://www.360doc.com/content/11/0314/21/519755_101151742.shtml
