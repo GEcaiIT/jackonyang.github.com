@@ -15,6 +15,8 @@ categories:
 
 基于这些不好的背单词经历，我试图做一个半自动的自定义词库。
 
+项目地址：[https://github.com/JackonYang/personalization-vocabulary](https://github.com/JackonYang/personalization-vocabulary)
+
 <!--more-->
 
 #### 功能概述
