@@ -3,7 +3,7 @@ layout: post
 title: "《不能承受的生命之轻·轻与重》读后感"
 date: 2011-10-12 17:42
 comments: true
-categories: readingNotes
+categories: reading
 ---
 
 摘要与概述

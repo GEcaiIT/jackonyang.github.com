@@ -3,7 +3,7 @@ layout: post
 title: "matlab 做图的基本概念"
 date: 2013-04-09 22:47
 comments: true
-categories: [matlab,育儿]
+categories: [coding,vivian]
 ---
 
 matlab 做图，主要可以分成两种情况:

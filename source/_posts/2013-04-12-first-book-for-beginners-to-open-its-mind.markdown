@@ -3,7 +3,7 @@ layout: post
 title: "时间管理——调整自己心智的第一本书"
 date: 2013-04-12 21:29
 comments: true
-categories: [书评,method,时间管理,育儿]
+categories: [reading,vivian]
 ---
 
 拥有足够的可支配时间，是我们提升自我的基础。

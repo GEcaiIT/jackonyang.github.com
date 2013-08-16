@@ -3,7 +3,7 @@ layout: post
 title: "python tutorial: basic grammar"
 date: 2013-03-02 21:50
 comments: true
-categories: [python]
+categories: [coding]
 ---
 
 Contant and Variables

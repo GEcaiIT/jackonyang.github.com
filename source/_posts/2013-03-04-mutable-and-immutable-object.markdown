@@ -3,7 +3,7 @@ layout: post
 title: "python mutable and immutable object"
 date: 2013-03-04 12:41
 comments: true
-categories: python
+categories: coding
 ---
 
 there are two types in python: mutable and immutable.

@@ -3,7 +3,7 @@ layout: post
 title: "python namespace and scope"
 date: 2013-03-04 11:05
 comments: true
-categories: python
+categories: coding
 ---
 
 the fact of variable scope in python is that:

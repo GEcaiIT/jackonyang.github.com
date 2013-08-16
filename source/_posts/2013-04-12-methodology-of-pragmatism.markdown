@@ -3,7 +3,7 @@ layout: post
 title: "方法论的相关图书及阅读建议"
 date: 2013-04-12 21:24
 comments: true
-categories: [method,reading,育儿]
+categories: [reading,vivian]
 ---
 
 持续的学习，持续的让自己更优秀。

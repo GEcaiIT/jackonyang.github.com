@@ -3,7 +3,7 @@ layout: post
 title: "Win7 系统安装与常用软件列表"
 date: 2013-04-10 22:18
 comments: true
-categories: windows7
+categories: [vivian,etc]
 ---
 
 主要记录个人安装 win7 的步骤，以及常用软件列表。

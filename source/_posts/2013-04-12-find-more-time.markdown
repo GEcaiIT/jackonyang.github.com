@@ -3,7 +3,7 @@ layout: post
 title: "关于'没有时间'的反思与解决方案"
 date: 2013-04-12 02:09
 comments: true
-categories: 时间管理,育儿
+categories: [vivian]
 ---
 
 每天都在忙

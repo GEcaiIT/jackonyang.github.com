@@ -3,7 +3,7 @@ layout: post
 title: "如何对待别人的建议"
 date: 2013-04-08 00:14
 comments: true
-categories: [日省吾身]
+categories: [review]
 ---
 
 在我们的生命中，总会有连绵不断的人给自己提出建议。

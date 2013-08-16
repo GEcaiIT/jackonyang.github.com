@@ -3,7 +3,7 @@ layout: post
 title: "detect and convert file encoding"
 date: 2012-08-26 01:38
 comments: true
-categories: [encoding,ubuntu]
+categories: [encoding, etc]
 ---
 
 detect and convert file encoding with enca

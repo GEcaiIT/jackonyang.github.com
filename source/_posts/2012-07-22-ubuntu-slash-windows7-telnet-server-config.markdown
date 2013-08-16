@@ -3,7 +3,7 @@ layout: post
 title: "ubuntu/windows7 telnet server config"
 date: 2012-07-22 19:54
 comments: true
-categories: server
+categories: [etc]
 ---
 
 telnet 本身不安全，但因为工作的原因对telnet还比较熟悉。

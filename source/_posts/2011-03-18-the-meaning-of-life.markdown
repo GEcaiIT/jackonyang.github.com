@@ -3,7 +3,7 @@ layout: post
 title: "《乐者为王》前言读后感"
 date: 2011-03-18 23:41
 comments: true
-categories: readingNotes
+categories: reading
 ---
 
 原文摘录

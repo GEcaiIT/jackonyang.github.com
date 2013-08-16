@@ -3,7 +3,7 @@ layout: post
 title: "人的算法与计算机的算法"
 date: 2013-04-09 00:07
 comments: true
-categories: [algorithm,育儿]
+categories: [coding,vivian]
 ---
 
 本文定位：让不懂算法的人理解计算机算法的基本概念。

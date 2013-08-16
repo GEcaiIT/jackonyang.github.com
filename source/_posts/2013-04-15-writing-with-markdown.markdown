@@ -3,7 +3,7 @@ layout: post
 title: " 使用 markdown 编写文档"
 date: 2013-04-15 01:52
 comments: true
-categories: [coding-markdown]
+categories: [coding]
 ---
 
 Markdown 是一种轻量级标记语言，所想即所得，优势较多：

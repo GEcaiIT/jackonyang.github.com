@@ -3,7 +3,7 @@ layout: post
 title: "ubuntu and vim encoding settings"
 date: 2012-11-21 12:40
 comments: true
-categories: [encoding,ubuntu,vim]
+categories: [encoding,etc,vim]
 ---
 
 ubuntu 与 windows 默认字符编码不一致，导致跨平台时常常出现乱码问题。

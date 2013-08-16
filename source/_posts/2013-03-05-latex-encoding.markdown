@@ -3,7 +3,7 @@ layout: post
 title: "latex 字符编码与跨平台中文支持"
 date: 2013-03-05 02:49
 comments: true
-categories: [latex,encoding]
+categories: [coding,encoding]
 ---
 
 大多数 windows 用户从来没有考虑过 latex 字符编码的问题。

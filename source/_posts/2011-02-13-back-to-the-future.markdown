@@ -3,7 +3,7 @@ layout: post
 title: "back to the future"
 date: 2011-02-13 00:13
 comments: true
-categories: readingNotes
+categories: reading
 ---
 
 今天看了四部电影：《硅谷传奇》《回到未来》（三部）
