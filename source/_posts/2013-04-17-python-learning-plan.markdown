@@ -3,7 +3,7 @@ layout: post
 title: "python 学习计划与书目"
 date: 2013-04-17 10:29
 comments: true
-categories: [python,plan,reading]
+categories: coding-python
 ---
 
 已经有半年多 python 编程实践。现在是时候更加深入的理解 python 了。

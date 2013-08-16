@@ -3,7 +3,7 @@ layout: post
 title: "原生 javascript 概述"
 date: 2013-05-25 10:19
 comments: true
-categories: [javascript,primer]
+categories: coding-javascript
 ---
 
 JAVAScript 可以分成 3 部分来看，分别是：core(EMCAScript), DOM, BOM.

@@ -3,7 +3,7 @@ layout: post
 title: "博客页面原型设计"
 date: 2013-08-13 10:30
 comments: true
-categories:
+categories: project
 ---
 
 使用 octopress 搭建个人博客，重新设计前端页面的主题和展示样式.

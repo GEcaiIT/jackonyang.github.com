@@ -3,7 +3,7 @@ layout: post
 title: "thoughtworks 面试总结"
 date: 2013-03-22 10:18
 comments: true
-categories: [thoughtworks,日省吾身]
+categories: [review]
 ---
 
 从 3 月 10 日给 thoughtworks 投简历开始，经过电面、笔试、写代码、pair、face to face 等几个流程，我想，昨天应该是最后的环节了吧。历时 12 天，不算短，但安排的很紧凑。公司的响应速度很快，总是比我估算的时间提前 4-5 个小时给结果。

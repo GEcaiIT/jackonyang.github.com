@@ -3,7 +3,7 @@ layout: post
 title: "支持半自动化自定义词库的背单词软件"
 date: 2013-08-13 11:15
 comments: true
-categories: 
+categories: project
 ---
 
 背单词总是很痛苦的一件事情。
