@@ -3,7 +3,7 @@ layout: post
 title: "privacy under data bang"
 date: 2011-11-02 14:38
 comments: true
-categories: [project]
+categories: [project,data-mining]
 ---
 
 数据挖掘环境下的个人信息安全

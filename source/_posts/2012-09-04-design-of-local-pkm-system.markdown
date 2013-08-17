@@ -3,7 +3,7 @@ layout: post
 title: "design of local pkm system"
 date: 2012-09-04 02:25
 comments: true
-categories: [project]
+categories: [project,data-mining]
 ---
 
 我相信，个人知识管理(pkm)终将会成为一个时代的宠儿，尤其是随着大数据时代的到来。
