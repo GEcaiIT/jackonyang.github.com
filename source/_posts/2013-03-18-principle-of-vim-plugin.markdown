@@ -7,11 +7,11 @@ categories: vim
 ---
 
 vim 个性化设置与功能扩展均通过 script 来实现，这种 script 又叫 plugin。
+plugin 是 vim 的核心与精髓。
 
 最常用的配置文件 vimrc，也是一种 plugin。
-或者说，所有的 plugin 都在配置 vim 的行为。
+换句话说，所有的 plugin 都在配置 vim 的行为。
 
-plugin 是 vim 的核心与精髓。
 
 <!--more-->
 
@@ -26,26 +26,26 @@ plugin 类型及其相互关系
 - syntax
 - compiler
 
-vimrc 是 `main` 插件(类似 `main` 函数)，所有的配置都可以在这一个文件中完成。
+vimrc 是核心 plugin (类似 `main` 函数)，所有的配置都可以在这一个文件中完成。
 所有其他配置都直接或间接由该文件调用以生效。
 
 与其他编程语言一样，为了提高源文件的可读性，增加代码的可重用性等，
-衍生出了 global/filetype/syntax/compile 等4中主要的 plugin。
+衍生出了 global/filetype/syntax/compile 等 4 中主要的 plugin。
 通过 `runtime`, `source` 等命令加载其他 plugin
-
 
 vim 搜索路径
 ------------
 
 vim 通过路径区分 plugin 类型。
-由`runtimepath`控制搜索顺序，一旦找到立即停止。
+由 `runtimepath` 控制搜索顺序，一旦找到立即停止。
 
 默认搜索顺序：
 
 1. `$HOME/.vim`: linux home 目录下的用户个性化设置
 2. `$VIMRUNTIME: 系统自带的 plugin
 
-建议个人的所有设置全部放在 `$HOME/.vim` 中，与版本隔离，方便备份。
+建议将个性化配置全部放在 `$HOME/.vim` 中，
+与 vim 自带的配置文件隔离，方便备份。
 vim 中执行 `:echo $variable` 查看变量取值.
 
 ```vim 查看默认 plugin 搜索路径
