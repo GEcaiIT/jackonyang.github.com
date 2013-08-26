@@ -39,6 +39,9 @@ banner 代码位于 `source/_includes/custom/header.html`
 - rss订阅
 - 分类浏览
 
+博客内容的导航--目录，参考
+http://www.zfanw.com/blog/zencoding-vim-tutorial-chinese.html
+
 #### 博客摘要与详细信息
 
 - 发表时间
