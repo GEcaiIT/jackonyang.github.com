@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "vim plugin 的原理"
+title: "vim plugin 原理"
 date: 2013-03-18 15:33
 comments: true
 categories: vim
