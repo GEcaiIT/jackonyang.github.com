@@ -1,38 +1,26 @@
-" basic settings
-set nocompatible  " Use Vim defaults instead of 100% vi compatibility
-syntax on
-filetype plugin indent on
+set nocompatible               " be iMproved
+filetype off                   " vundle required!
 
-" encoding
-set encoding=utf-8  " vim cache encoding
-set fileencodings=utf-8,gb18030,gbk " open file with
-set fileencoding=utf-8 " save file with
-" <BACKSPACE>
-set backspace=indent,eol,start  " more powerful backspacing
-" tabs
-set tabstop=4 " tab width 
-set shiftwidth=4 " width of nested tabs
-set expandtab " input spaces instead of tab when typing a tab
-set softtabstop=4 " 1. space deleted when typing <BackSpace>
+" use git instead default https when building absolute repo URIs
+let g:vundle_default_git_proto = 'git' 
 
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-    set mouse=a
-endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-" status line
-" always shown, shown as the second last line in the editor window
-set laststatus=2 " 
-" format, by default, vim does not show the status line at all.
-set statusline=%F%m%r%h%w\[FORMAT=%{&ff}]\[TYPE=%Y]\[POS=%04l,%04v][%p%%]\[LEN=%L] 
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
 
-" TODO: make it available
-" to save, press ctrl-s
-" nmap <F3> :w<CR>
-" imap <c-s> <Esc>:w<CR>a
+" My Bundles here:
+"
+" original repos on github
+" Bundle 'tpope/vim-rails.git'
+" vim-scripts repos
+Bundle 'Emmet.vim'
+Bundle 'highlight_current_line.vim'
+" non github repos
+" Bundle 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (ie. when working on your own plugin)
+" Bundle 'file:///Users/gmarik/path/to/plugin'
 
-" search as you type
-set incsearch
-
-" keep 50 lines of command line history
-set history=50      
+filetype plugin indent on     "vundle required!
