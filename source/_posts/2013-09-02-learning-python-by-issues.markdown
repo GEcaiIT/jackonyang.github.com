@@ -16,13 +16,9 @@ python 入门系列文章整理，假定已经掌握如下内容：
 
 <!--more-->
 
-#### 搭建开发环境 -- python2.7 + editor/IDE + pip
+#### 搭建开发环境 python2.7 + pip
 
-开发环境主要包括：
-
-- 运行环境: python2.7
-- 编辑器: windows 下使用自带的 IDLE，linux 下使用 vim.
-- 类库管理工具: pip
+[详细步骤](/blog/2013/09/02/python-dev-env/)
 
 #### 打印中文"你好" -- 理解字符编码
 
@@ -32,24 +28,15 @@ python 代码文件的第一行声明使用 utf-8 编码，即可处理中文。
 
 {% include_code deal with non_ASCII characters lang:python hello_world_cn.py%}
 
-[intro-encoding]: /blog/2012/11/19/introduction-to-common-encoding/
-
 #### 简单的单词数统计 -- 流程控制与常用数据结构
 
-- 流程控制
+给定一段英文文本，包含逗号(',')分割的多个短句，统计各英文单词的出现频率
 
-    - if 判断
-    - for 循环：习惯使用 python 的 for ... in 句式
-- 基本数据类型
-
-    - str
-    - number
-- 数据结构，主要包括：
-
-    - list: 与 c 语言的数组相似。可以动态改变大小。
-    - set: 集合。类似 list， 但元素不能重复，无序。
-    - dict: key-value 对的集合，key 不能重复
+相关 [python 语法简要介绍][python-gramma]，代码如下：
 
 {% include_code calculate word frequency lang:python word_freq.py%}
 
 #### scope, namespace and package
+
+[intro-encoding]: /blog/2012/11/19/introduction-to-common-encoding/
+[python-gramma]: /blog/2013/03/02/python-tutorial-basic-grammar/
