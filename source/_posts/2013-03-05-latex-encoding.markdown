@@ -12,7 +12,7 @@ categories: [coding,encoding]
 因为，ubuntu 默认安装包中缺少这种字体。
 
 跨平台、多语言支持，utf8 编码是最好的解决方案。
-关于字符编码的基本概念，点击 [这里](http://jackonyang.github.io/blog/2012/11/19/introduction-to-common-encoding/)
+关于字符编码的基本概念，点击 [这里](/blog/2012/11/19/introduction-to-common-encoding/)
 
 <!--more-->
 
