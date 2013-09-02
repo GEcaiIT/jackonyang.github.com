@@ -32,7 +32,17 @@ python 代码文件的第一行声明使用 utf-8 编码，即可处理中文。
 
 给定一段英文文本，包含逗号(',')分割的多个短句，统计各英文单词的出现频率
 
-相关 [python 语法简要介绍][python-gramma]，代码如下：
+相关 python 语法阅读
+[a byte of python](http://vdisk.weibo.com/s/iYGnToBWPfv2)，
+主要涉及：
+
+- str 数据类型
+- list
+- dict
+- for 循环
+- if 判断
+
+代码如下：
 
 {% include_code calculate word frequency lang:python word_freq.py%}
 
