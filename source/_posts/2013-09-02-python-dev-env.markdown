@@ -28,13 +28,13 @@ python 主要包括 2.x 和 3.x 两个大版本，代码之间不兼容。
 #### setuptools
 
 1. [下载 setuptools][download-setuptools] 并解压
-2. dos 下进入解压目录执行 `python setup.py install`
+2. DOS 下进入解压目录执行 `python setup.py install`
 
 #### pip
 
 1. [下载 pip][download-pip] 并解压
-2. dos 下进入解压目录执行 `python setup.py install`
-3. [设置环境变量][set-env]，PATH 中添加 pip 的路径，默认为 `c:\python27\Script'
+2. DOS 下进入解压目录执行 `python setup.py install`
+3. [设置环境变量][set-env]，PATH 中添加 pip 的路径，默认为 `c:\python27\Scripts'
 
 [download-python]: http://www.python.org/getit/
 [download-setuptools]: https://pypi.python.org/pypi/setuptools/1.1
