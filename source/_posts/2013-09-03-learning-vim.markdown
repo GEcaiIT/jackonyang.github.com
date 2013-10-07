@@ -31,35 +31,30 @@ vim 速度快的根本原因在于，
 
 解决这个问题的关键是： mode(模式)。
 
-#### mode 种类
+#### mode 类型与快速切换
 
-vim 有很多 mode，新手只需要记住 2 个: 
+vim 有很多 mode，常见的有 3 个: 
 
-- insert mode: 键盘输入的所有东西都会插入到文本内容中。
-- command mode: 输入的是命令。
+1. Normal/Command mode: 快速移动、修改文档，切换到其他模式。  
+    打开 vim 时，默认是 Normal mode.
+2. Insert mode: 键盘输入的所有东西都会插入到文本内容中.  
+    Normal 下 `i` 进入 Insert mode, `Esc` 回到 Normal mode.
+3. Command-line mode: 打开/保存文件, 查找/替换，执行外部命令等。  
+    Normal 下 `:` 进入 Command mode, `Esc` 回到 Normal mode
 
-#### mode 间切换
+常见命令
+--------
 
-打开 vim 时，默认是 command mode，进入 insert mode 的方法很多。
-最简单最常用的是 `i`，在当前光标所在的位置开始插入内容。
-也可以用`a`，在当前光标的后面插入内容。
+#### 快速插入：Normal --> Insert mode 的更多方法
 
-insert mode 回到 command mode 的方法很单一，键盘左上角的 `Esc`。
-`Esc` 恰如 iphone 的 home 键，不管你遇到了什么，
-按一下 `Esc` 世界瞬间清净了--回到了 command mode.
+Normal --> Insert 的方法很多。`i` 只是最简单，最常见的一种。
+不同命令的区别仅仅在于插入的位置不同
 
-如果在 command mode 下按 `Esc`，
-那么之前没输入完的命令全部清空，可以从头另输入。恰如输入密码时的重置功能。
+- i 当前光标处
+- a 在光标后
+- I 当前行首
+- A 当前行尾
+- o 下一行（插入一行）
+- o 上一行（插入一行）
 
-常用的基本命令
---------------
-
-严格说来，输入命令的模式可以细分为 command-mode 和 commandline-mode。  
-在 command-mode 下输入 `:` 进入 commandline-mode
-
-同一个命令，在不同模式下，功能不同。
-command-mode 下 w 是向右移动一个单词，commandline-mode 是保存。
-
-#### commandline-mode 命令
-
-最基本的命令有 2 个
+#### 剪切/复制/粘贴
