@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "精益阅读"
+title: "阅读过程管理"
 date: 2013-10-19 10:16
 comments: true
 categories: [project,reading]
