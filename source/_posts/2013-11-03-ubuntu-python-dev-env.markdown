@@ -119,19 +119,6 @@ blog with octopress
 
 {% include_code blog with octopress lang:bash install_octopress.sh %}
 
-SVN and HTTP connection
------------------------
-
-<pre> <code>
-$ sudo apt-get install subversion svn-workbench apache2 libapache2-svn
-# create group and add user
-$ sudo addgroup subversion
-$ sudo usermod -G subversion -a www-data
-# user and user group
-$ sudo a2enmod dav_svn
-$ sudo vim /etc/apache2/mods-enabled/dav_svn.conf
-</code> </pre> 
-
 dropped
 -------
 
