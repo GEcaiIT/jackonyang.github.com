@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "科技书籍的阅读过程管理工具"
+title: "科技图书的阅读过程管理工具"
 date: 2013-10-21 23:14
 comments: true
 categories: [project]
