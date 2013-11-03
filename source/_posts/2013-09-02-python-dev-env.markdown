@@ -3,7 +3,7 @@ layout: post
 title: "搭建 python 开发环境"
 date: 2013-09-02 14:16
 comments: true
-categories: [python,etc]
+categories: [python,etc,ubuntu,windows]
 ---
 
 开发环境主要包括：
