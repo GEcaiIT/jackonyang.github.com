@@ -36,7 +36,8 @@ h2 { font-size: 152% }
 h3, h4 { font-size: 122%; }
 h1, h2, h3, h4 { color: #333; }
 p { font-size: 100%; line-height: 18px; padding-right: 3em; }
-a { color: #990003 }
+a { color: #37a }
+a.highlight { color: #990003 }
 a:hover { text-decoration: none; }
 strong { font-weight: bold; }
 li { line-height: 24px; border-bottom: 1px solid #ccc; }
