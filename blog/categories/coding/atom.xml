@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: coding | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/coding/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[原生 javascript 概述]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/05/25/javascript-primer/"/>
+    <updated>2013-05-25T10:19:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/05/25/javascript-primer</id>
+    <content type="html"><![CDATA[<p>JAVAScript 可以分成 3 部分来看，分别是：core(EMCAScript), DOM, BOM.</p>
+
+<ul>
+<li>core 即原生 javascript，提供核心语言功能。多使用 EMCAScript 标准。</li>
+<li>DOM 即文档对象模型，访问和操作网页内容的方法和接口。如：事件</li>
+<li>BOM 浏览器对象模型，提供与浏览器交互的方法和接口，如：AJAX/cookies.</li>
+</ul>
+
+
+<!--more-->
+
+
+<p><img src="/images/JAVAScriptOverview.png" title="&lsquo;JAVAScript overview&rsquo;" ></p>
+
+<h2>原生 JAVAScript 的核心概念</h2>
+
+<p>Douglas Crockford 在下面的 2 部视频中非常精髓的讲解了原生 JAVAScript 的核心概念:</p>
+
+<ul>
+<li><a href="http://v.youku.com/v_show/id_XMzMzNzQ0MzY4.html">The JavaScript Programming Language</a></li>
+<li><a href="http://v.youku.com/v_show/id_XMzMzNzgxNzA4.html">Advanced JavaScript</a></li>
+</ul>
+
+
+<p>整理如下：</p>
+
+<ul>
+<li><p>Prototype 继承:</p>
+
+<p>  Crockford 说：这是 JAVAScript 完成 JAVA 想做但没做成的事情的主要原因。</p></li>
+<li>closure 闭包: 函数式编程。</li>
+<li><p>Objects as general containers:</p>
+
+<p>  使用 object 作为存储容器。object/array/function 等都使用这种结构存储。<br/>
+  <code>new Object()</code>创建了一个空的容器。</p></li>
+<li><p>linkage though global variables:</p>
+
+<p>  Prototype 继承的原因，导致对象之间存在 linkage。<br/>
+  global 变量之间也会有 linkage，表现为共享一个命名空间。<br/>
+  这是糟粕，导致的了很多问题。不得不理解，尽量规避。</p></li>
+</ul>
+
+
+<h2>JAVAScript 语法该要</h2>
+
+<p>大小写敏感，所有的关键字都是小写的，习惯上，构造函数首字母大写。</p>
+
+<h4>基本数据类型</h4>
+
+<ol>
+<li>number. 只有 float 类型，不精确, <code>0.1 + 0.2 = 0.30000000000000004</code></li>
+<li>boolean. false 值包括：0, &lsquo;&rsquo;, null, undefined</li>
+<li>string. 不可变。</li>
+<li>undefined. 变量的默认值,</li>
+<li>null. 空的对象引用，变量赋值为 null 以后，会自动被回收。</li>
+</ol>
+
+
+<h4>数据类型转换</h4>
+
+<p>number/boolean/string，数据类型的首字母大写即为构造函数，可以实现类型转换。</p>
+
+<p>``` javascript
+// 数据类型转换</p>
+
+<blockquote><p>Number(&lsquo;0001230&rsquo;) // 转为 number
+1230
++[] // 转为 number
+0
+Boolean(0) // 转为 boolean
+false
+!!&lsquo;0&rsquo; // 转为 boolean
+true
+String(123)  // 转为 string
+&ldquo;123&rdquo;
+String(0123)  // 0 开头的数字，八进制
+&ldquo;83&rdquo;
+```</p></blockquote>
+
+<h4>注意事项</h4>
+
+<p>``` javascript
+// undefined 与 false</p>
+
+<blockquote><p>!!undefined
+false
+undefined == false
+false
+undefined === false
+false
+// 特殊变量的数据类型
+typeof NaN
+&ldquo;number&rdquo;
+// NaN 不等于任何值，包括本身
+NaN === NaN
+false
+// undefined 的类型是 undefined
+typeof undefined
+&ldquo;undefined&rdquo;
+// null 的类型是 object
+typeof null
+&ldquo;object&rdquo;
+```</p></blockquote>
+
+<h4>操作符</h4>
+
+<ol>
+<li><code>a &amp;&amp; b</code>: 如果 a 为true，返回b，否则，返回a</li>
+<li><code>a || b</code>: 如果 a 为 false，返回b。可以用于取变量值的默认值。</li>
+<li><code>+</code>: 可以用于做加法运算，或连接string。加法运算时，自动类型转换。</li>
+</ol>
+
+
+<h4>Object</h4>
+
+<ol>
+<li>字面量</li>
+<li>constructor</li>
+<li>prototype, linkage</li>
+<li>container, key/value</li>
+<li><code>===</code> 比较的是reference，而不是value</li>
+</ol>
+
+
+<h4>Arrays</h4>
+
+<ol>
+<li>inherits from Object</li>
+<li>indexes are converted to strings and used as names for retrieving values.</li>
+<li>very efficient for sparse arrays.</li>
+<li>length 方法, 比最大的索引大1.</li>
+<li>建议使用传统的for循环，而不是 for in</li>
+<li>delete 一个value, value 的值变为 undefined，占位符不会消失。用 splice 删除。</li>
+<li>don&rsquo;t use arrays as protytypes, length 方法不会继承。</li>
+<li>Array.prototype 赋值来修改全部 array 的行为。</li>
+</ol>
+
+
+<h4>函数与闭包</h4>
+
+<p>在 JAVAScript 中，函数即对象。</p>
+
+<p>与 python 的一切皆对象的理念略有不同，JAVAScript 中，函数是第一位的。</p>
+
+<p>一般的编程语言中，包含 modules/class/function 等很多概念，
+Javascript 中只有 function，通过 function 实现了上述所有功能。<br/>
+通过 function 可以封装变量的命名空间，<br/>
+通过 function 可以创建对象，即 class 的实例，<br/>
+通过 Prototype 方式可以从一个对象继承出一个新的对象，不需要显式定义 class。</p>
+
+<h2>DOM 与 BOM</h2>
+
+<p>与浏览器配合，是 JAVAScript 的一大竞争力。</p>
+
+<p>可以直接访问操纵 HTML，方便的控制显示的样式和内容。无需涉及太深的技术细节。
+只要搞清显示的内容、用户操作等之间的关系即可。
+可以理解为一种快速 GUI 的方式，跨平台。</p>
+
+<p>事件监听让交互成为可能，极其方便的互动。</p>
+
+<p>AJAX 动态获取数据，大大丰富了网页的行为。</p>
+
+<h2>学习曲线与书籍</h2>
+
+<ol>
+<li><p><a href="http://book.douban.com/subject/3590768/">JavaScript语言精粹</a> 很关键。</p>
+
+<p> js 与其他语言不同，没有在实验室中经过长时间的打磨，
+ 其中很多不好的特性没有被修复。<br/>
+ 不管是学习还是写代码的过程中，都需要有所侧重点。<br/>
+ 学习 js 之前先读一下第一章，熟悉一下基本的概念和名词。<br/>
+ 对js 有了一定理解以后，再回来认真的再读这本书，或许是不错的选择。</p></li>
+<li><p><a href="http://book.douban.com/subject/10759600/">疯狂HTML 5/CSS 3/JavaScript讲义</a> 入门效率高。</p>
+
+<p> 首先，这书写的真不咋地，<br/>
+ 一没什么思想性，二没多少优秀的实践，还比较不严禁！<br/>
+ 但是，条例性还不错，非常适合入门，一天翻完了解概貌的那种！</p></li>
+<li><p><a href="http://book.douban.com/subject/10546125/">JavaScript高级程序设计（第3版）</a> 系统学习js的好书。</p>
+
+<p> 对 js 的语法介绍的很细，分析的很透彻。来龙去脉很清晰。</p></li>
+<li><p><a href="http://book.douban.com/subject/4881987/">编写高质量代码 : Web前端开发修炼之道</a> 学习编码规范。</p>
+
+<p> 这书读起来速度快，不耽误时间。<br/>
+ 从最烂的代码一点一点优化到最佳规范，触动很大，也加深的对规范的理解。</p></li>
+<li><p><a href="http://book.douban.com/subject/21792530/">编写可维护的JavaScript</a> 关于如何写出高质量的代码。</p>
+
+<p> 内容很赞，讲解了规范的来龙去脉和影响。</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python 学习计划与书目]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/04/17/python-learning-plan/"/>
+    <updated>2013-04-17T10:29:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/04/17/python-learning-plan</id>
+    <content type="html"><![CDATA[<p>已经有半年多 python 编程实践。现在是时候更加深入的理解 python 了。</p>
+
+<p>具体计划如下:</p>
+
+<!--more-->
+
+
+<ol>
+<li><p>再看入门书 《a byte of python》</p>
+
+<p> 最早是看这个学习 python 的，现在再看一遍。主要看目录，反思当时的理解程度，学习的误区。</p></li>
+<li><p>深入《dive into python》</p>
+
+<p> 看过一部分，但是没有深入 python，没有很好的理解 python 特有的编程特性。</p>
+
+<p> 深入学习 python 的特性，尤其是开包/闭包、生成器、迭代器、序列化等。</p></li>
+<li><p>设计理念《master mind of programming》python 开发者的采访</p>
+
+<p> 了解 python 的设计理念</p></li>
+<li><p>字符编码</p>
+
+<p> 中文的字符编码总是很头疼，需要专门的学习。</p></li>
+<li><p>编程实践，calibre series index page</p>
+
+<p> 从 calibre 的 metadata 中获取 tag/序列，生成单独的页面，并提供超链接。</p></li>
+<li><p>python 源码剖析</p>
+
+<p> 真正的深入理解 python</p></li>
+<li><p>python 软件工程《expert programming》</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ 使用 markdown 编写文档]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/04/15/writing-with-markdown/"/>
+    <updated>2013-04-15T01:52:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/04/15/writing-with-markdown</id>
+    <content type="html"><![CDATA[<p>Markdown 是一种轻量级标记语言，所想即所得，优势较多：</p>
+
+<ul>
+<li>比 latex/html/xml 等更加便捷，可读性更高。</li>
+<li>使用纯文本写作，可以方便的进行版本控制。</li>
+<li>通过 pandoc 等工具可以方便的转换为 docx/html/latex 等多种格式。</li>
+</ul>
+
+
+<p>使用 markdown 已经半年多，结合多年的 latex 排版经验，整理如下。</p>
+
+<!--more-->
+
+
+<h2>markdown 设计理念 <a id="design"></a></h2>
+
+<p>markdown 首先是一个所想即所得的语言。<br/>
+精髓在于：源码可读性高，书写方便。</p>
+
+<h4>高可读性的负面作用是逻辑和显示分离不彻底</h4>
+
+<p>即使是初学者写出的 markdown 源码，读起来也像阅读最终的页面一样方便。<br/>
+换一个角度思考就是，markdown 的源码与最终的显示样式还是有些关联的。<br/>
+latex 彻底分离显示与逻辑结构，书写时只需关心逻辑结构。<br/>
+一个典型的例子是：markdown 本没有标题的概念，只有字号，字号明显与逻辑无关，是一个显示样式。
+latex 则是标题，下一级标题，下下一级标题——纯粹的逻辑结构</p>
+
+<h4>首次书写方便，适合于快速迭代</h4>
+
+<p>markdown 的本质是书写语言，可以满足一般的书写任务。<br/>
+latex 则是排版语言，越追求完美的任务，latex 的优势越明显。<br/>
+对于需要反复修改的文章，markdown 就显得力不从心。
+比如：各种交叉引用、序号，都需要手动维护。</p>
+
+<h2>语法的学习资料</h2>
+
+<p><a href="http://daringfireball.net/projects/markdown/">markdown 首页</a> 提供了当不错的学习说明。<br/>
+一个高效的学习方法是：
+看 markdown 首页的介绍和源码、在 <a href="http://daringfireball.net/projects/markdown/dingus">dingus</a> 中测试一下效果。</p>
+
+<p>markdown 版本众多，不同版本的语法存在一些区别。</p>
+
+<h4>github wiki 语法</h4>
+
+<p><a href="https://github.com/JackonYang/book-repo/wiki/markdown-%E8%AF%AD%E6%B3%95-%E6%A1%88%E5%88%97">wiki 语法案例</a>
+包含了大部分常用的 markdown 语法。</p>
+
+<p>使用 wiki 时需要特别注意：</p>
+
+<ol>
+<li><p>wiki 编辑时的工具栏。</p>
+
+<p> 主要的功能是提示语法。如果能够记住语法，完全不需要工具栏。
+ word的工具栏，则是直接把文字变成需要的样子。</p></li>
+<li><p>第一个标题之前必须有正文文字，否则标题不会正常显示。</p></li>
+</ol>
+
+
+<h4>octopress blog</h4>
+
+<p>提供了大量了插件，对 markdown 进行了扩充。
+主要体现在插入代码源文件，插入图片等。</p>
+
+<h2>书写高质量的代码</h2>
+
+<p>关于高质量的 markdown 源码，个人理解如下：</p>
+
+<ol>
+<li>后续修改、维护方便。</li>
+<li>文章本身的逻辑结构更加专业。</li>
+</ol>
+
+
+<p>具体做法如下：</p>
+
+<ol>
+<li><p>超链接多使用 reference 格式，后续维护链接的有效性时较为方便。</p>
+
+<p> 即，正文中使用 <code>[显示内容][tag]</code>，
+ 用 <code>[tag]: url</code> 声明 tag 的指向，后续维护链接有效性时方便。</p></li>
+<li><p>title 最多分 3 级。</p>
+
+<p> 从 <code>#</code> 到 <code>######</code>，markdown 支持 6 层甚至更多的标题级别。<br/>
+ 但是，从写作实践来说，文章标题深度如果超过 3 层，通常是难以理解的。
+ 此时需要反思文章的内容结构是否合理。</p></li>
+<li><p>文章内的超链接</p>
+
+<p> 比如，本文在"设计理念"的标题处用 <code>&lt;a id="design"&gt;&lt;/a&gt;</code> 设置了一个 anchor，
+ <a href="#design">点击这里</a>
+ (语法<code>[点击这里](#desgin)</code> )
+ 可以直接跳到到那里。</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[matlab 做图的基本概念]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/04/09/matlab-plot/"/>
+    <updated>2013-04-09T22:47:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/04/09/matlab-plot</id>
+    <content type="html"><![CDATA[<p>matlab 做图，主要可以分成两种情况:</p>
+
+<ol>
+<li>根据函数做图，比如 y=x 的函数图像。</li>
+<li>根据散点拟合函数图像，这些散点往往是一组实验数据。</li>
+</ol>
+
+
+<p>我始终认为，若要快速而又牢固的掌握一门知识，最简洁的方法就是：</p>
+
+<pre><code>自己先思考怎么解决这个问题，然后再看当前的主流解决方案。
+</code></pre>
+
+<p>不管是算法，还是语法，都是有章可循的，无需背诵。</p>
+
+<!--more-->
+
+
+<h2>人的做图算法</h2>
+
+<p>中学时代，不懂电脑，我们是怎么作函数图像的？</p>
+
+<p>取点 &ndash;> 描点 &ndash;> 连点成线。</p>
+
+<p>其中，取点是比较有学问的，比如:
+直线取 2 点，抛物线要取到最低点。
+连点成线也很有技巧，直线直着连，曲线圆滑着连。</p>
+
+<p>如果是根据散点做图，那就省了取点的步骤，
+但是，连点成线的时候，往往不知道该用什么样的圆滑曲线。</p>
+
+<h2>matlab 作图算法的本质</h2>
+
+<p>这里详细介绍<a href="http://jackonyang.github.io/blog/2013/04/09/algrithm_basic/">人的算法与计算机算法的区别</a></p>
+
+<p>根据对人的做图算法的分析，我们可以发现：
+做图的本质就是连点成线，计算机完全可以胜任这个工作。
+而难点就在于连点成线时，使用什么样的圆滑曲线。</p>
+
+<p>根据微积分的思想，
+只要我们把点取的足够密集，点与点之间的连线都可以看作是直线。
+所以，只要能取足够密集的点，用直线连接即可。
+这种算法是非常适合于计算机来实现的。</p>
+
+<p>matlab 做图的本质就是：取点、描点、连点成线。
+任何复杂的做图都可以拆解为这三步来实现。</p>
+
+<ol>
+<li><p>取点</p>
+
+<p> 如果是根据散点做图，点已经取好。</p>
+
+<p> 如果是函数图像，取一组 x，根据函数图像计算出 y 值即可。
+ 当然，根据 y 计算 x 也一样。</p></li>
+<li><p>描点</p>
+
+<p> 把刚刚取好的一组 x 和 y 画上去即可。</p></li>
+<li><p>连点成线</p>
+
+<p> 一般用直线连接起来即可。</p></li>
+</ol>
+
+
+<h2>matlab 做图的具体方法与语法</h2>
+
+<h4>最简单的基础图 <code>plot(x,y)</code></h4>
+
+<p>取点的本质就是生成两个长度相同的向量。
+方法很多，也不是做图的重点。
+此处不详细说明。</p>
+
+<p>有了散点之后就是描点，用命令 <code>plot(x,y)</code>。
+其中，x 是横坐标，y 是纵坐标。
+如果是一组点，那么只要把 x,y 分别变成矩阵即可。</p>
+
+<p>连点成线时，通常用直线直接连就是了，
+所以也就没必要让大家手动执行，matlab 自动完成了。</p>
+
+<h4>控制线的形状和颜色 <code>plot(x,y,'r:')</code></h4>
+
+<p>如果我们在一个图中做了很多条线，那就需要控制一下线的形状和颜色了。</p>
+
+<p>鉴于连点成线是自动完成的，最好的办法是：
+plot 时明确指明线的形状和颜色，以取代默认设置。</p>
+
+<p>具体到语法层面，每一种颜色、形状都有一个代号，
+比如红色是 <code>r</code>，白色是 <code>w</code>，<code>-</code>是实线。
+更多的代号，找一本matlab教材或者自带的help文档查看一下即可。
+所以，最后的命令格式是 <code>plot(x,y,'r:')</code>(红色虚线)。
+注意，要加上单引号，否则，matlab会处理为名字为 r 的变量。</p>
+
+<h2>控制点的形状 <code>plot(x,y,'o')</code></h2>
+
+<p>一般，连点成线以后，只关心函数图像，而不关心具体的点。
+但也有例外，比如: 根据实验测得的散点做出函数图像，
+我们首先关心散点在图像上的具体位置。</p>
+
+<p>理论上，可以通过控制点的形状和颜色让点更加醒目，与控制线的形状和颜色一样。
+实际上，点的颜色是否醒目，受线的颜色影响很大，不适合采用。
+而且，只通过点的形状就足以让点变的醒目。
+所以，我们只需用代号控制点的形状即可，比如<code>x</code>是叉，<code>o</code>是圆圈。</p>
+
+<p><code>plot(x,y,'r:*')</code> 红色虚线，星状的点。</p>
+
+<p><img src="/images/matlab_plot_basic.png"></p>
+
+<h2>控制做图细节</h2>
+
+<p>这一部分东西，如果要细说起来，无穷无尽。
+一些人喜欢通过展示各种边边角角的细节证明自己精通 matlab。</p>
+
+<p>我想，重要的是：我们需要那些功能，如何实现这些功能。
+只要熟练掌握一种适合自己方法即可。</p>
+
+<p>以下几个命令较为实用：</p>
+
+<ol>
+<li><p>图形保持与关闭保持。</p>
+
+<p> 默认关闭，即做图时会覆盖以前的图。若不希望被覆盖，则 hold on.</p></li>
+<li><p>图形标注。</p>
+
+<p> 具体包括：标题、每一条图像的含义、横纵坐标轴的含义。
+ 对应的命令分别是 title, legend, xlabel/ylabel.</p></li>
+<li><p>给特殊点加注释。</p>
+
+<p><code>text(x,y,'desc')</code> 其中 x,y 是横纵坐标。</p></li>
+</ol>
+
+
+<p>源码与效果图如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>标注图形细节  (plot_detail.m)</span> <a href='/downloads/code/plot_detail.m'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='matlab'><span class='line'><span class="n">clear</span>
+</span><span class='line'><span class="n">clc</span>
+</span><span class='line'><span class="n">y</span><span class="p">=</span>1<span class="p">:</span>1<span class="p">:</span>10<span class="p">;</span>
+</span><span class='line'><span class="n">x</span><span class="p">=</span>10<span class="p">:</span><span class="o">-</span>1<span class="p">:</span>1<span class="p">;</span>
+</span><span class='line'><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c">% 第一图像</span>
+</span><span class='line'><span class="n">hold</span> <span class="n">on</span>  <span class="c">% 图形保持</span>
+</span><span class='line'><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>  <span class="c">% 第二图像</span>
+</span><span class='line'><span class="n">title</span><span class="p">(</span><span class="s">&#39;name of tilte&#39;</span><span class="p">)</span>  <span class="c">% 标题</span>
+</span><span class='line'><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;label x&#39;</span><span class="p">)</span>  <span class="c">% x 轴</span>
+</span><span class='line'><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;label y&#39;</span><span class="p">)</span>  <span class="c">% y 轴</span>
+</span><span class='line'><span class="n">legend</span><span class="p">(</span><span class="s">&#39;no x&#39;</span><span class="p">,</span><span class="s">&#39;has x&#39;</span><span class="p">)</span>  <span class="c">% 图像的标注，按照做图的顺序，依次标注，不能多或少，不能混淆顺序。</span>
+</span><span class='line'><span class="n">text</span><span class="p">(</span>2<span class="p">,</span>2<span class="p">,</span><span class="s">&#39;special spot&#39;</span><span class="p">)</span>  <span class="c">% 在 (2,2) 点加标注</span>
+</span><span class='line'><span class="n">text</span><span class="p">(</span>5<span class="p">.</span>5<span class="p">,</span>5<span class="p">.</span>5<span class="p">,</span><span class="s">&#39; \leftarrow VIP spot&#39;</span><span class="p">)</span>  <span class="c">% 在（5.5，5.5)点加标注。</span>
+</span><span class='line'>            <span class="c">% 其中，注释中的\leftarrow 是一个转义字符，类似 c 语言的 \n</span>
+</span><span class='line'><span class="n">print</span><span class="p">(</span><span class="n">gcf</span><span class="p">,</span><span class="s">&#39;-dpng&#39;</span><span class="p">,</span><span class="s">&#39;plot_detail.png&#39;</span><span class="p">)</span> <span class="c">% 保存当前图像， png 格式，名字是 plot_detail.png</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img src="/downloads/code/plot_detail.png"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[人的算法与计算机的算法]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/04/09/algrithm-basic/"/>
+    <updated>2013-04-09T00:07:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/04/09/algrithm-basic</id>
+    <content type="html"><![CDATA[<p>本文定位：让不懂算法的人理解计算机算法的基本概念。</p>
+
+<p>算法是一个比较宽泛的概念，不仅仅局限在计算机领域。</p>
+
+<p>所谓的算法，其实就是处理问题的套路与流程，比如排序算法、求最大公约数算法。
+广义来说，任何一种处理问题的套路与方法都是一个算法。</p>
+
+<p>我想，案例 + 深入分析是理解问题的最好方式。
+通过排序算法来深入理解这个概念。 即：给出一列数据，要求升序或降序排列。</p>
+
+<!--more-->
+
+
+<h2>人的排序算法</h2>
+
+<p>通常的做法可能是：选出最小的数，放在第一个。然后找次小的，放第二个。依次类推。</p>
+
+<p>但是，如果这组数据是基本排好顺序的，比如: 1, 2, 3, 6, 5, 9。 我们只把那些顺序不对的交换一下即可。 如果这组是部分有序的，比如: 4, 5, 6, 1, 2, 3。 我们只需要把两部分整体对调一下即可。</p>
+
+<p>后两种算法的运算量明显小于前者，排序速度更快。 人脑会优先选择后两种方法。</p>
+
+<h2>机器的排序算法</h2>
+
+<p>如果把第 1 种算法上升到编程课上学过的排序算法，这就是
+<a href="http://zh.wikipedia.org/wiki/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">选择排序法</a>
+的根本原理。
+与人脑的区别在于，人可以一眼扫过去快速找到最小的数，
+而计算机每次都要从头到尾逐个比较。</p>
+
+<p>更有名气的排序算法可能是<a href="http://zh.wikipedia.org/wiki/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F">冒泡法</a>，
+更能体现计算机排序的本质: 逐个比较。
+这里有一段<a href="http://v.youku.com/v_show/id_XMjU4MTg3MTU2.html">冒泡排序的舞蹈</a></p>
+
+<p>至于人脑的后两个排序算法，在计算机中并不常见。</p>
+
+<h2>机器算法与人的算法比较</h2>
+
+<p>计算机的优势在于运算速度快，而人脑则是逻辑思维强大。 从某种意义上说，逻辑思考也是一种运算，但计算机并不擅长这类运算。</p>
+
+<p>在处理实际问题时，人脑倾向于运算量小的算法，甚至不惜用大量复杂逻辑来降低运算量。 而计算机则恰恰相反，超强的计算能力不需要担心运算量问题。 比如选择排序算法，人脑手工做，很难在几秒内完成，计算机却可以瞬间完成。 所以，对于一些特殊情况，人脑会投机取巧减少运算量以提升解决问题的速度。 为此付出的代价是，逻辑更加复杂了。计算机则完全不需要。</p>
+
+<h2>计算机算法的执行效率与优化问题</h2>
+
+<p>通常，对于小规模的问题，即使用最慢的方法，计算机也能瞬间给出结果， 讨论计算机算法的执行效率显得很没有意义。 但是，问题规模较大时，比如给 1 亿个数字排序，计算机也不能瞬间给出结果， 此时就不得不跟人脑一样，选用逻辑复杂一些的算法来减少运算量。 这就是所谓的算法优化问题。</p>
+]]></content>
+  </entry>
+  
+</feed>

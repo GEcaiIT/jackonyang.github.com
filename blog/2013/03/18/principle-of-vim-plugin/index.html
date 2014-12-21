@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>vim plugin 原理 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="vim 个性化设置与功能扩展均通过 script 来实现，这种 script 又叫 plugin。
+plugin 是 vim 的核心与精髓。 最常用的配置文件 vimrc，也是一种 plugin。
+换句话说，所有的 plugin 都在配置 vim 的行为。 plugin 类型及其相互关系 常见的 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/03/18/principle-of-vim-plugin/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">vim plugin 原理</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-18T15:33:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>vim 个性化设置与功能扩展均通过 script 来实现，这种 script 又叫 plugin。
+plugin 是 vim 的核心与精髓。</p>
+
+<p>最常用的配置文件 vimrc，也是一种 plugin。
+换句话说，所有的 plugin 都在配置 vim 的行为。</p>
+
+<!--more-->
+
+
+<h2>plugin 类型及其相互关系</h2>
+
+<p>常见的 plugin 类型：</p>
+
+<ul>
+<li>vimrc</li>
+<li>global</li>
+<li>filetype</li>
+<li>syntax</li>
+<li>compiler</li>
+</ul>
+
+
+<p>vimrc 是核心 plugin (类似 <code>main</code> 函数)，所有的配置都可以在这一个文件中完成。
+所有其他配置都直接或间接由该文件调用以生效。</p>
+
+<p>与其他编程语言一样，为了提高源文件的可读性，增加代码的可重用性等，
+衍生出了 global/filetype/syntax/compile 等 4 中主要的 plugin。
+通过 <code>runtime</code>, <code>source</code> 等命令加载其他 plugin</p>
+
+<h2>vim 搜索路径</h2>
+
+<p>vim 通过路径区分 plugin 类型。
+由 <code>runtimepath</code> 控制搜索顺序，一旦找到立即停止。</p>
+
+<p>默认搜索顺序：</p>
+
+<ol>
+<li><code>$HOME/.vim</code>: linux home 目录下的用户个性化设置</li>
+<li>`$VIMRUNTIME: 系统自带的 plugin</li>
+</ol>
+
+
+<p>建议将个性化配置全部放在 <code>$HOME/.vim</code> 中，
+与 vim 自带的配置文件隔离，方便备份。
+vim 中执行 <code>:echo $variable</code> 查看变量取值.</p>
+
+<figure class='code'><figcaption><span>查看默认 plugin 搜索路径</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="p">:</span><span class="k">set</span> <span class="nb">runtimepath</span>?
+</span><span class='line'><span class="nb">runtimepath</span><span class="p">=~</span><span class="sr">/.vim,/</span>var<span class="sr">/lib/</span><span class="k">vim</span><span class="sr">/addons,/</span>usr<span class="sr">/share/</span><span class="k">vim</span><span class="sr">/vimfiles,/</span>usr<span class="sr">/share/</span><span class="k">vim</span>/
+</span><span class='line'>vim73<span class="p">,</span><span class="sr">/usr/</span>share<span class="sr">/vim/</span>vimfiles<span class="sr">/after,/</span>var<span class="sr">/lib/</span><span class="k">vim</span><span class="sr">/addons/</span>after<span class="p">,~</span><span class="sr">/.vim/</span>after
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>plugin 安装</h2>
+
+<p>拷贝到对应的 plugin 目录下即可。</p>
+
+<p>更新帮助文档，在 vim 中运行 <code>:helptags ~/vimfiles/doc</code></p>
+
+<h2>global plugin</h2>
+
+<p>global plugin 位于 <code>plugin</code> 目录下，对全局生效，所以默认自动加载。</p>
+
+<h2>filetype plugin</h2>
+
+<p>filetype plugin 只对特定类型的文件生效。</p>
+
+<p>根据文件类型动态决定行为，通过事件监听(autocmd)实现。
+基本原理如下：</p>
+
+<figure class='code'><figcaption><span>sample of autocmd/filetype plugin</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; required</span>
+</span><span class='line'><span class="k">filetype</span> plugin <span class="k">on</span>
+</span><span class='line'><span class="c">&quot; define behavior when filetype change to `tt`</span>
+</span><span class='line'><span class="c">&quot; here, the behavior is set to execute `echo &quot;hello&quot;`</span>
+</span><span class='line'>autocmd <span class="nb">FileType</span> tt echo <span class="s2">&quot;hello&quot;</span>
+</span><span class='line'><span class="c">&quot; execute cmd below, output &quot;hello&quot; at the bottom of vim window</span>
+</span><span class='line'><span class="p">:</span><span class="k">set</span> <span class="k">filetype</span><span class="p">=</span>tt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果没有用 autocmd 显式声明 xxx 文件对应的行为，
+则加载 ftplugin 目录下的 <code>xxx.vim</code></p>
+
+<figure class='code'><figcaption><span>sample of default filetype action.</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="p">:</span><span class="k">set</span> <span class="k">filetype</span><span class="p">=</span><span class="k">c</span>
+</span><span class='line'><span class="c">&quot;expt: load c.vim and change highlight in c syntax</span>
+</span><span class='line'><span class="c">&quot;required: c.vim in ftplugin, it is in $VIMRUNTIME/ftplugin by default</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：使用 ftplugin 时，需要开启 <code>filetype</code> 和 <code>filetype plugin</code></p>
+
+<figure class='code'><figcaption><span>watch status of filetype</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="p">:</span><span class="k">filetype</span> plugin <span class="k">on</span>
+</span><span class='line'><span class="p">:</span><span class="k">filetype</span>
+</span><span class='line'><span class="k">filetype</span> detection:ON  plugin:ON  indent:ON
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一个更深入 filetype plugin 的例子</p>
+
+<figure class='code'><figcaption><span>using filetype plugin with buffer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'>autocmd <span class="nb">BufNewFile</span><span class="p">,</span><span class="nb">BufRead</span> *.xml source <span class="p">~</span><span class="sr">/.vim/</span>ftplugin/xml.<span class="k">vim</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同样是事件监听机制，区别在于:</p>
+
+<ul>
+<li>监听的事件: 创建或打开 .xml文件(BufNewFile,BufRead)</li>
+<li>执行的行为: 加载 <code>ftplugin/xml.vim</code></li>
+</ul>
+
+
+<h2>syntax plugin</h2>
+
+<p>原理与 ftplugin 类似，监听 syntax 事件，加载 syntax 目录下的插件。
+触发 filetype 事件的同时，也会触发对应的 syntax 事件。</p>
+
+<figure class='code'><figcaption><span>sample of syntax</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="nb">syntax</span> <span class="k">on</span>
+</span><span class='line'><span class="p">:</span><span class="k">set</span> <span class="nb">syntax</span><span class="p">=</span><span class="k">c</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>compile plugin</h2>
+
+<p>同样是事件监听，插件位于 compiler 目录。</p>
+
+<figure class='code'><figcaption><span>sample of compiler plugin</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; add below to vimrc</span>
+</span><span class='line'>autocmd <span class="nb">BufNewFile</span><span class="p">,</span><span class="nb">BufRead</span> *.<span class="k">py</span> <span class="k">compiler</span> python`
+</span><span class='line'><span class="c">&quot; open a file ending with .py and run</span>
+</span><span class='line'><span class="p">:</span><span class="k">make</span>
+</span><span class='line'><span class="c">&quot; expt: errors printed</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>更多的一些细节</h2>
+
+<h4>与 vi 的兼容性。</h4>
+
+<p>vim 在 vi 的基础上进行了很多的功能扩展。
+若要使用 vim 的特性，vim 必须运行于与 vi 不兼容的模式。</p>
+
+<p>一般，把 <code>set noncompaible</code>放在配置文件开始处即可。<br/>
+ubuntu 12.04 默认的 vimrc 先加载 ubuntu.vim， 其中设置了该选项。</p>
+
+<h4>vim feature-list</h4>
+
+<p>vim 自身有很多 feature, plugin 都依赖于相应的 feature.</p>
+
+<p>为了使 vimrc 通用，使用 plugin 前先用<code>has()</code> 检测feature 是否存在。
+如下：</p>
+
+<figure class='code'><figcaption><span>check if feature exists first</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">if</span> has<span class="p">(</span><span class="s2">&quot;syntax&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">syntax</span> <span class="k">on</span>
+</span><span class='line'><span class="k">endif</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>:version</code> 查看 feature-list</p>
+
+<figure class='code'><figcaption><span>feature list  (feature_list_vim.txt)</span> <a href='/downloads/code/feature_list_vim.txt'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="p">:</span><span class="k">version</span>
+</span><span class='line'>VIM <span class="p">-</span> Vi IMproved <span class="m">7</span>.<span class="m">3</span> <span class="p">(</span><span class="m">2010</span> Aug <span class="m">15</span><span class="p">,</span> compiled May  <span class="m">4</span> <span class="m">2012</span> <span class="m">04</span>:<span class="m">25</span>:<span class="m">35</span><span class="p">)</span>
+</span><span class='line'>包含补丁: <span class="m">1-429</span>
+</span><span class='line'>修改者 pkg<span class="p">-</span><span class="k">vim</span><span class="p">-</span>maintainers@lists.alioth.debian.org
+</span><span class='line'>编译者 buildd@
+</span><span class='line'>巨型版本 无图形界面。  可使用<span class="p">(+)</span>与不可使用<span class="p">(-)</span>的功能:
+</span><span class='line'><span class="p">+</span><span class="nb">arabic</span> <span class="p">+</span>autocmd <span class="p">-</span>balloon_eval <span class="p">-</span><span class="k">browse</span> <span class="p">++</span>builtin_terms <span class="p">+</span>byte_offset <span class="p">+</span><span class="nb">cindent</span> <span class="p">-</span>clientserver <span class="p">-</span><span class="nb">clipboard</span> <span class="p">+</span>cmdline_compl <span class="p">+</span>cmdline_hist
+</span><span class='line'><span class="p">+</span>cmdline_info <span class="p">+</span><span class="nb">comments</span> <span class="p">+</span>conceal <span class="p">+</span>cryptv <span class="p">+</span><span class="k">cscope</span> <span class="p">+</span><span class="nb">cursorbind</span> <span class="p">+</span>cursorshape <span class="p">+</span>dialog_con <span class="p">+</span><span class="nb">diff</span> <span class="p">+</span><span class="k">digraphs</span> <span class="p">-</span>dnd <span class="p">-</span>ebcdic <span class="p">+</span>emacs_tags <span class="p">+</span>eval <span class="p">+</span>ex_extra
+</span><span class='line'> <span class="p">+</span>extra_search <span class="p">+</span>farsi <span class="p">+</span>file_in_path <span class="p">+</span>find_in_path <span class="p">+</span>float <span class="p">+</span>folding <span class="p">-</span>footer <span class="p">+</span>fork<span class="p">()</span> <span class="p">+</span>gettext <span class="p">-</span>hangul_input <span class="p">+</span>iconv <span class="p">+</span>insert_expand <span class="p">+</span>jumplist
+</span><span class='line'> <span class="p">+</span><span class="nb">keymap</span> <span class="p">+</span><span class="nb">langmap</span> <span class="p">+</span>libcall <span class="p">+</span><span class="nb">linebreak</span> <span class="p">+</span>lispindent <span class="p">+</span>listcmds <span class="p">+</span>localmap <span class="p">-</span><span class="k">lua</span> <span class="p">+</span>menu <span class="p">+</span><span class="k">mksession</span> <span class="p">+</span>modify_fname <span class="p">+</span><span class="nb">mouse</span> <span class="p">-</span><span class="nb">mouseshape</span> <span class="p">+</span>mouse_dec
+</span><span class='line'> <span class="p">+</span>mouse_gpm <span class="p">-</span>mouse_jsbterm <span class="p">+</span>mouse_netterm <span class="p">-</span>mouse_sysmouse <span class="p">+</span>mouse_xterm <span class="p">+</span>mouse_urxvt <span class="p">+</span>multi_byte <span class="p">+</span>multi_lang <span class="p">-</span>mzscheme <span class="p">+</span>netbeans_intg
+</span><span class='line'> <span class="p">+</span>path_extra <span class="p">-</span>perl <span class="p">+</span>persistent_undo <span class="p">+</span>postscript <span class="p">+</span>printer <span class="p">+</span>profile <span class="p">+</span>python <span class="p">-</span><span class="k">python3</span> <span class="p">+</span>quickfix <span class="p">+</span>reltime <span class="p">+</span><span class="nb">rightleft</span> <span class="p">-</span><span class="k">ruby</span> <span class="p">+</span><span class="nb">scrollbind</span> <span class="p">+</span>signs
+</span><span class='line'> <span class="p">+</span><span class="nb">smartindent</span> <span class="p">-</span><span class="k">sniff</span> <span class="p">+</span>startuptime <span class="p">+</span><span class="nb">statusline</span> <span class="p">-</span>sun_workshop <span class="p">+</span><span class="nb">syntax</span> <span class="p">+</span>tag_binary <span class="p">+</span>tag_old_static <span class="p">-</span>tag_any_white <span class="p">-</span><span class="k">tcl</span> <span class="p">+</span>terminfo <span class="p">+</span>termresponse
+</span><span class='line'> <span class="p">+</span>textobjects <span class="p">+</span><span class="nb">title</span> <span class="p">-</span><span class="nb">toolbar</span> <span class="p">+</span>user_commands <span class="p">+</span>vertsplit <span class="p">+</span><span class="nb">virtualedit</span> <span class="p">+</span>visual <span class="p">+</span>visualextra <span class="p">+</span><span class="nb">viminfo</span> <span class="p">+</span>vreplace <span class="p">+</span><span class="nb">wildignore</span> <span class="p">+</span><span class="nb">wildmenu</span> <span class="p">+</span>windows
+</span><span class='line'> <span class="p">+</span><span class="nb">writebackup</span> <span class="p">-</span>X11 <span class="p">-</span>xfontset <span class="p">-</span>xim <span class="p">-</span>xsmp <span class="p">-</span>xterm_clipboard <span class="p">-</span>xterm_save
+</span><span class='line'>  系统 vimrc 文件: <span class="s2">&quot;VIM/vimrc&quot;</span>
+</span><span class='line'>  用户 vimrc 文件: <span class="s2">&quot;HOME/.vimrc&quot;</span>
+</span><span class='line'>    用户 <span class="nb">exrc</span> 文件: <span class="s2">&quot;HOME/.exrc&quot;</span>
+</span><span class='line'>       VIM 预设值: <span class="s2">&quot;/usr/share/vim&quot;</span>
+</span><span class='line'>编译方式: gcc <span class="p">-</span><span class="k">c</span> <span class="p">-</span>I. <span class="p">-</span>Iproto <span class="p">-</span>DHAVE_CONFIG_H <span class="p">-</span><span class="k">g</span> <span class="p">-</span>O2 <span class="p">-</span>fstack<span class="p">-</span>protector <span class="p">--</span>param<span class="p">=</span>ssp<span class="p">-</span>buffer<span class="p">-</span>size<span class="p">=</span><span class="m">4</span> <span class="p">-</span>Wformat <span class="p">-</span>Wformat<span class="p">-</span>security <span class="p">-</span>Werror<span class="p">=</span>format<span class="p">-</span><span class="k">s</span>
+</span><span class='line'>ecurity <span class="p">-</span>U_FORTIFY_SOURCE <span class="p">-</span>D_FORTIFY_SOURCE<span class="p">=</span><span class="m">1</span>
+</span><span class='line'>链接方式: gcc   <span class="p">-</span>Wl<span class="p">,-</span>Bsymbolic<span class="p">-</span>functions <span class="p">-</span>Wl<span class="p">,-</span>z<span class="p">,</span>relro <span class="p">-</span>Wl<span class="p">,--</span><span class="k">as</span><span class="p">-</span>needed <span class="p">-</span><span class="k">o</span> <span class="k">vim</span>  <span class="p">-</span><span class="nb">lm</span> <span class="p">-</span>ltinfo <span class="p">-</span>lnsl  <span class="p">-</span>lselinux  <span class="p">-</span>lacl <span class="p">-</span>lattr <span class="p">-</span>lgpm <span class="p">-</span>ldl     <span class="p">-</span>L
+</span><span class='line'><span class="sr">/usr/</span>lib<span class="sr">/python2.7/</span>config <span class="p">-</span>lpython2.<span class="m">7</span> <span class="p">-</span>lpthread <span class="p">-</span>ldl <span class="p">-</span>lutil <span class="p">-</span><span class="nb">lm</span> <span class="p">-</span>Xlinker <span class="p">-</span>export<span class="p">-</span>dynamic <span class="p">-</span>Wl<span class="p">,-</span>O1 <span class="p">-</span>Wl<span class="p">,-</span>Bsymbolic<span class="p">-</span>functions
+</span><span class='line'>请按 ENTER 或其它命令继续
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-18T15:33:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/05/latex-encoding/" title="Previous Post: latex 字符编码与跨平台中文支持">&laquo; latex 字符编码与跨平台中文支持</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/19/more-efficient-by-vim/" title="Next Post: 用 vim 加速工作效率">用 vim 加速工作效率 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/03/18/principle-of-vim-plugin/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/03/18/principle-of-vim-plugin/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

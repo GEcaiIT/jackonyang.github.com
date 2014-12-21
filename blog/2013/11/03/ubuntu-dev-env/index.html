@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ubuntu 开发环境 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="主要包括: git/github, vim, mysql, markdown, octopress, rar/gtalk 等日常工具 apt-get 源更新 $ sudo apt-get update
+$ sudo apt-get upgrade apt-get 的 2 个重要参数， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/11/03/ubuntu-dev-env/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">ubuntu 开发环境</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-03T12:00:00+08:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>主要包括: git/github, vim, mysql, markdown, octopress, rar/gtalk 等日常工具</p>
+
+<!--more-->
+
+
+<h2>apt-get 源更新</h2>
+
+<pre> <code>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+</code> </pre>
+
+
+<p></p>
+
+<p>apt-get 的 2 个重要参数，封装为脚本时比较有帮助。</p>
+
+<ul>
+<li><code>-y</code> Assume Yes to all queries and do not prompt</li>
+<li><code>-qq</code> No output except for errors</li>
+</ul>
+
+
+<h2>git &amp; github</h2>
+
+<h4>安装 git 并配置 github 帐号信息</h4>
+
+<pre> <code>
+$ sudo apt-get install git-all xclip
+$ git config --global user.name "Jackon Yang" 
+$ git config --global user.email "jiekunyang@gmail.com"
+</code> </pre>
+
+
+<p></p>
+
+<h4>添加 ssh 密钥</h4>
+
+<p>详细说明: <a href="https://help.github.com/articles/generating-ssh-keys">https://help.github.com/articles/generating-ssh-keys</a></p>
+
+<pre> <code>
+$ mkdir -p ~/.ssh && cd ~/.ssh
+$ ssh-keygen -t rsa -C "jiekunyang@gmail.com"
+$ xclip -sel clip < ~/.ssh/id_rsa.pub  # id_rsa.pub 中的密钥保存到剪切板中
+$ ssh -T git@github.com  # test connection
+
+# output
+# Hi JackonYang! You've successfully authenticated, but GitHub does not provide shell access.
+</code> </pre>
+
+
+<p></p>
+
+<h2>mysql</h2>
+
+<h4>mysql server and GUI</h4>
+
+<pre> <code>
+$ sudo apt-get install mysql-server mysql-workbench  # mysql toolbox
+$ sudo service mysql restart
+</code> </pre>
+
+
+<p></p>
+
+<h4>字符编码配置：</h4>
+
+<p><code>etc/mysql/my.cnf</code> 中添加:</p>
+
+<pre> <code>
+[client]
+default-character-set = utf8
+
+[mysqld]
+character-set-server = utf8
+collation-server = utf8_general_ci
+</code> </pre>
+
+
+<p></p>
+
+<h4>完全删除 mysql 及其配置</h4>
+
+<p>有一些是多余的，建议还是按照顺序执行一遍</p>
+
+<pre> <code>
+$ sudo apt-get autoremove --purge mysql-server-5.0
+$ sudo apt-get remove mysql-server
+$ sudo apt-get autoremove mysql-server
+$ sudo apt-get remove mysql-common  # VIP
+$ dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P  # 清理残留数据
+</code> </pre>
+
+
+<p></p>
+
+<h2>vim and markdown</h2>
+
+<pre> <code>
+$ sudo apt-get install vim-gtk exuberant-ctags  # vim and ctags
+$ sudo apt-get install zathura vifm  # pdf and explorer with vim shortcut
+$ sudo apt-get install pandoc retext
+</code> </pre>
+
+
+<p></p>
+
+<h2>daily app</h2>
+
+<pre> <code>
+$ sudo apt-get install xchm unzip shutter
+$ sudo apt-get install calibre  # e-book management
+$ sudo apt-get install convmv p7zip-full
+# gtalk
+$ sudo add-apt-repository ppa:pidgin-developers/ppa
+$ sudo apt-get update
+$ sudo apt-get install -y --force-yes pidgin
+</code> </pre>
+
+
+<p></p>
+
+<h2>unrar</h2>
+
+<p><a href="http://www.rarsoft.com/download.htm">download rar</a>
+并执行如下安装命令:</p>
+
+<pre> <code>
+$ sudo make install
+$ sudo ln -s /usr/local/bin/rar /usr/bin
+</code> </pre>
+
+
+<p></p>
+
+<h2>blog with octopress</h2>
+
+<figure class='code'><figcaption><span>blog with octopress  (install_octopress.sh)</span> <a href='/downloads/code/install_octopress.sh'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'>sudo apt-get install -y curl rbenv
+</span><span class='line'>curl -L https://get.rvm.io | bash -s stable --ruby
+</span><span class='line'><span class="nb">source</span> ~/.rvm/scripts/rvm
+</span><span class='line'>rvm install 1.9.3
+</span><span class='line'>rvm use 1.9.3
+</span><span class='line'>rvm rubygems latest
+</span><span class='line'>
+</span><span class='line'>rm -rf ~/blog
+</span><span class='line'>git clone git@github.com:JackonYang/jackonyang.github.com.git ~/blog
+</span><span class='line'><span class="nb">cd</span> ~/blog
+</span><span class='line'>
+</span><span class='line'>gem install bundler
+</span><span class='line'>gem install RedCloth
+</span><span class='line'><span class="c"># If you use rbenv, rehash to be able to run the bundle command</span>
+</span><span class='line'>rbenv rehash
+</span><span class='line'>bundle install
+</span><span class='line'>rvm rvmrc warning ignore /home/jackonyang/blog/.rvmrc
+</span><span class='line'>
+</span><span class='line'>rake setup_github_pages<span class="o">[</span>git@github.com:JackonYang/jackonyang.github.com.git<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># error shooting</span>
+</span><span class='line'><span class="c"># https://rvm.io/integration/gnome-terminal/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>dropped</h2>
+
+<p>曾经需要，正常情况下，现在不再需要</p>
+
+<h4>pdf for chinese</h4>
+
+<p>upgrade 后已不需要</p>
+
+<pre> <code>
+$ sudo apt-get install poppler-data poppler-utils
+</code> </pre>
+
+
+<p></p>
+
+<p>用如下内容替换 <code>/etc/fonts/conf.d/49-sansserif.conf</code></p>
+
+<figure class='code'><figcaption><span>font conf  (font_conf.conf)</span> <a href='/downloads/code/font_conf.conf'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span class='line'><span class="cp">&lt;!DOCTYPE fontconfig SYSTEM &quot;fonts.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;fontconfig&gt;</span>
+</span><span class='line'><span class="c">&lt;!--</span>
+</span><span class='line'><span class="c">  If the font still has no generic name, add sans-serif</span>
+</span><span class='line'><span class="c"> --&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">&quot;pattern&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">mode=</span><span class="s">&quot;append_last&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;string&gt;</span>Garuda<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/edit&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/match&gt;</span>
+</span><span class='line'><span class="nt">&lt;/fontconfig&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>解压中文目录乱码</h4>
+
+<pre> <code>
+$ LANG=C 7z X zipFileName
+$ convmv -f gbk -t utf8 -r --notest *  # convert directory
+</code> </pre>
+
+
+<p></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-03T12:00:00+08:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/etc/'>etc</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/21/reading-process-management/" title="Previous Post: 科技图书的阅读过程管理工具">&laquo; 科技图书的阅读过程管理工具</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/02/10/weixin_msg/" title="Next Post: 微信公众号历史信息">微信公众号历史信息 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/11/03/ubuntu-dev-env/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/11/03/ubuntu-dev-env/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

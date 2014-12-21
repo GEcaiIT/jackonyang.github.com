@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ubuntu | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/ubuntu/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ubuntu 开发环境]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/11/03/ubuntu-dev-env/"/>
+    <updated>2013-11-03T12:00:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/11/03/ubuntu-dev-env</id>
+    <content type="html"><![CDATA[<p>主要包括: git/github, vim, mysql, markdown, octopress, rar/gtalk 等日常工具</p>
+
+<!--more-->
+
+
+<h2>apt-get 源更新</h2>
+
+<pre> <code>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+</code> </pre>
+
+
+<p></p>
+
+<p>apt-get 的 2 个重要参数，封装为脚本时比较有帮助。</p>
+
+<ul>
+<li><code>-y</code> Assume Yes to all queries and do not prompt</li>
+<li><code>-qq</code> No output except for errors</li>
+</ul>
+
+
+<h2>git &amp; github</h2>
+
+<h4>安装 git 并配置 github 帐号信息</h4>
+
+<pre> <code>
+$ sudo apt-get install git-all xclip
+$ git config --global user.name "Jackon Yang" 
+$ git config --global user.email "jiekunyang@gmail.com"
+</code> </pre>
+
+
+<p></p>
+
+<h4>添加 ssh 密钥</h4>
+
+<p>详细说明: <a href="https://help.github.com/articles/generating-ssh-keys">https://help.github.com/articles/generating-ssh-keys</a></p>
+
+<pre> <code>
+$ mkdir -p ~/.ssh && cd ~/.ssh
+$ ssh-keygen -t rsa -C "jiekunyang@gmail.com"
+$ xclip -sel clip < ~/.ssh/id_rsa.pub  # id_rsa.pub 中的密钥保存到剪切板中
+$ ssh -T git@github.com  # test connection
+
+# output
+# Hi JackonYang! You've successfully authenticated, but GitHub does not provide shell access.
+</code> </pre>
+
+
+<p></p>
+
+<h2>mysql</h2>
+
+<h4>mysql server and GUI</h4>
+
+<pre> <code>
+$ sudo apt-get install mysql-server mysql-workbench  # mysql toolbox
+$ sudo service mysql restart
+</code> </pre>
+
+
+<p></p>
+
+<h4>字符编码配置：</h4>
+
+<p><code>etc/mysql/my.cnf</code> 中添加:</p>
+
+<pre> <code>
+[client]
+default-character-set = utf8
+
+[mysqld]
+character-set-server = utf8
+collation-server = utf8_general_ci
+</code> </pre>
+
+
+<p></p>
+
+<h4>完全删除 mysql 及其配置</h4>
+
+<p>有一些是多余的，建议还是按照顺序执行一遍</p>
+
+<pre> <code>
+$ sudo apt-get autoremove --purge mysql-server-5.0
+$ sudo apt-get remove mysql-server
+$ sudo apt-get autoremove mysql-server
+$ sudo apt-get remove mysql-common  # VIP
+$ dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P  # 清理残留数据
+</code> </pre>
+
+
+<p></p>
+
+<h2>vim and markdown</h2>
+
+<pre> <code>
+$ sudo apt-get install vim-gtk exuberant-ctags  # vim and ctags
+$ sudo apt-get install zathura vifm  # pdf and explorer with vim shortcut
+$ sudo apt-get install pandoc retext
+</code> </pre>
+
+
+<p></p>
+
+<h2>daily app</h2>
+
+<pre> <code>
+$ sudo apt-get install xchm unzip shutter
+$ sudo apt-get install calibre  # e-book management
+$ sudo apt-get install convmv p7zip-full
+# gtalk
+$ sudo add-apt-repository ppa:pidgin-developers/ppa
+$ sudo apt-get update
+$ sudo apt-get install -y --force-yes pidgin
+</code> </pre>
+
+
+<p></p>
+
+<h2>unrar</h2>
+
+<p><a href="http://www.rarsoft.com/download.htm">download rar</a>
+并执行如下安装命令:</p>
+
+<pre> <code>
+$ sudo make install
+$ sudo ln -s /usr/local/bin/rar /usr/bin
+</code> </pre>
+
+
+<p></p>
+
+<h2>blog with octopress</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>blog with octopress  (install_octopress.sh)</span> <a href='/downloads/code/install_octopress.sh'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'>sudo apt-get install -y curl rbenv
+</span><span class='line'>curl -L https://get.rvm.io | bash -s stable --ruby
+</span><span class='line'><span class="nb">source</span> ~/.rvm/scripts/rvm
+</span><span class='line'>rvm install 1.9.3
+</span><span class='line'>rvm use 1.9.3
+</span><span class='line'>rvm rubygems latest
+</span><span class='line'>
+</span><span class='line'>rm -rf ~/blog
+</span><span class='line'>git clone git@github.com:JackonYang/jackonyang.github.com.git ~/blog
+</span><span class='line'><span class="nb">cd</span> ~/blog
+</span><span class='line'>
+</span><span class='line'>gem install bundler
+</span><span class='line'>gem install RedCloth
+</span><span class='line'><span class="c"># If you use rbenv, rehash to be able to run the bundle command</span>
+</span><span class='line'>rbenv rehash
+</span><span class='line'>bundle install
+</span><span class='line'>rvm rvmrc warning ignore /home/jackonyang/blog/.rvmrc
+</span><span class='line'>
+</span><span class='line'>rake setup_github_pages<span class="o">[</span>git@github.com:JackonYang/jackonyang.github.com.git<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># error shooting</span>
+</span><span class='line'><span class="c"># https://rvm.io/integration/gnome-terminal/</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>dropped</h2>
+
+<p>曾经需要，正常情况下，现在不再需要</p>
+
+<h4>pdf for chinese</h4>
+
+<p>upgrade 后已不需要</p>
+
+<pre> <code>
+$ sudo apt-get install poppler-data poppler-utils
+</code> </pre>
+
+
+<p></p>
+
+<p>用如下内容替换 <code>/etc/fonts/conf.d/49-sansserif.conf</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>font conf  (font_conf.conf)</span> <a href='/downloads/code/font_conf.conf'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span class='line'><span class="cp">&lt;!DOCTYPE fontconfig SYSTEM &quot;fonts.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;fontconfig&gt;</span>
+</span><span class='line'><span class="c">&lt;!--</span>
+</span><span class='line'><span class="c">  If the font still has no generic name, add sans-serif</span>
+</span><span class='line'><span class="c"> --&gt;</span>
+</span><span class='line'>	<span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">&quot;pattern&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">mode=</span><span class="s">&quot;append_last&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>Garuda<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/edit&gt;</span>
+</span><span class='line'>	<span class="nt">&lt;/match&gt;</span>
+</span><span class='line'><span class="nt">&lt;/fontconfig&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4>解压中文目录乱码</h4>
+
+<pre> <code>
+$ LANG=C 7z X zipFileName
+$ convmv -f gbk -t utf8 -r --notest *  # convert directory
+</code> </pre>
+
+
+<p></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[搭建 python 开发环境]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/09/02/python-dev-env/"/>
+    <updated>2013-09-02T14:16:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/09/02/python-dev-env</id>
+    <content type="html"><![CDATA[<p>开发环境主要包括：</p>
+
+<ul>
+<li>运行环境: python2.7</li>
+<li>类库管理工具: pip</li>
+<li>ubuntu 下常用类库</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>windows</h2>
+
+<h4>安装 python2.7</h4>
+
+<p>python 主要包括 2.x 和 3.x 两个大版本，代码之间不兼容。
+推荐使用 Python2.7，类库较为丰富，安装相对简单。</p>
+
+<ol>
+<li><a href="http://www.python.org/getit/">下载 python</a> 并安装。</li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a> PATH 中添加 python 安装路径，默认为 <code>C:\python27</code></li>
+</ol>
+
+
+<h4>setuptools</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/setuptools/1.1">下载 setuptools</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+</ol>
+
+
+<h4>pip</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/pip">下载 pip</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a>，PATH 中添加 pip 的路径，默认为 `c:\python27\Scripts'</li>
+</ol>
+
+
+<h2>ubuntu</h2>
+
+<h4>python and pip tools</h4>
+
+<pre><code>
+$ sudo apt-get install -y python python-setuptools python-dev
+$ sudo easy_install -U distribute
+$ sudo apt-get install python-pip
+</code></pre>
+
+
+<p>如果 python-dev 未安装,
+使用 easy_install or setup.py 时报错:
+<code>command 'gcc' failed with exit status 1</code></p>
+
+<h4>lib for apache2/mysql</h4>
+
+<pre><code>
+$ apt-get install libapache2-mod-python, libmysqlclient-dev
+</code></pre>
+
+
+<p>如果 libmysqlclient-dev 未安装，安装 mysql-python 时报错：
+<code>EnvironmentError: mysql_config not found</code></p>
+
+<h4>flake8</h4>
+
+<pre><code>
+$ sudo pip install flake8
+</code></pre>
+
+]]></content>
+  </entry>
+  
+</feed>

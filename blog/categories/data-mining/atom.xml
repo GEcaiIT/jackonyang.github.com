@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: data-mining | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/data-mining/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[支持半自动化自定义词库的背单词软件]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/08/13/personalization-vocabulary/"/>
+    <updated>2013-08-13T11:15:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/08/13/personalization-vocabulary</id>
+    <content type="html"><![CDATA[<p>背单词总是很痛苦的一件事情。</p>
+
+<p>我尝试过很多种背单词的方法和软件，主要可以分为 2 类。</p>
+
+<ol>
+<li>教材模式。基于某一教材或者考试的标准词库，背一段时间以后，越来越多不需要的单词，影响效率。</li>
+<li>生词本模式。纯手工维护一个生词本，维护成本偏高一些。</li>
+</ol>
+
+
+<p>基于这些不好的背单词经历，我试图做一个半自动的自定义词库。</p>
+
+<p>项目地址：<a href="https://github.com/JackonYang/personalization-vocabulary">https://github.com/JackonYang/personalization-vocabulary</a></p>
+
+<!--more-->
+
+
+<h4>功能概述</h4>
+
+<p>根据个人的英语水平、兴趣和经常阅读的文章，
+自动创建一个自定义的生词库，供背单词使用。</p>
+
+<p>自定义生词库的关键是找出一个人可能感兴趣的生词，供反复背诵。
+从而避免按照四六级词库背单词，背了一堆没用的单词。</p>
+
+<p>当然，用户也可以手动添加和删除生词库中的单词，精调自己的生词库。</p>
+
+<h4>基本的原理</h4>
+
+<ol>
+<li>记录用户查询单词的历史记录，由此获取用户需要记忆的单词，本质就是词汇量测试。</li>
+<li>用户指定 n 篇自己感兴趣的文章，从中找出出现频率偏高的单词、话题，</li>
+<li>感兴趣的单词与不认识的单词取交集，即为初始的自定义词库。</li>
+</ol>
+
+
+<h4>应用</h4>
+
+<ol>
+<li>研究生，写论文。前期针对物理 + 计算机</li>
+<li>学渣。学渣不求满分，只求过线，不需要背完四六级词库的所有单词。指定一个目标分数，个性化一下，少背一点单词。</li>
+</ol>
+
+
+<h4>用户数据获取与分析</h4>
+
+<p>没有用户数据的个性化，都是耍流氓。</p>
+
+<p>用户的词汇量，是比较关键的数据之一。一般采用抽样测试 + 估算的方法。</p>
+
+<p>大多数人的词汇量在 5k 左右，本科低年级的词汇量在 3k 左右。
+平均每 3 秒钟识别一个单词，识别 5k 个单词需要 4h， 3k 个单词只要 2.5h。
+如果软件界面设计的人性化一点，
+比如每次同时识别 3 个单词，另有 300 个绝对安全的单词。
+最终可以把时间控制在 30min-1h。用户的接受度会比较高一些。</p>
+
+<p>这么做，不仅仅是评估词汇量，更重要的是形成了一个真实的个人标志。
+可以更准确的分析出自己下一步需要背的单词，以及需要背多少单词。</p>
+
+<h4>记忆曲线</h4>
+
+<p>艾宾浩斯曲线等各种经典的记忆曲线，都只能是一个参考曲线。</p>
+
+<p>效率最高的记忆曲线，
+必然是针对个人英语水平、记忆能力、一般记忆难度计算出的曲线。</p>
+
+<p>所谓一般记忆难度，值得是背过这个单词的人，平均需要多长时间可以记住。
+记忆能力，则是根据自己背过的单词，计算出的个人记忆能力。
+这二者的关系，恰如经济理论中的一般劳动和特殊劳动。</p>
+
+<h4>熟词记忆</h4>
+
+<p>我们要背的真的是生词么？</p>
+
+<p>据说美国农夫的词汇量是 2000。我大中国高中生的词汇量都是3k了。
+考过六级的，五千左右不算夸张吧？</p>
+
+<p>但是，有几个过了六级的能像美国农夫那样说英语，更不用说高中生了。</p>
+
+<p>我们的短板，不是生词，而是熟词掌握的不熟练。
+对熟词的掌握程度，是影响大多数人英语水平的关键。</p>
+
+<p>对于一篇（几篇）感兴趣的文章，统计词频，评估单词的重要程度。
+推荐用户先掌握重要的熟词。</p>
+
+<p>这里的重要程度，参考 TF-INF 算法。
+出现的频率是关键因素，但不是唯一因素，
+比如 the/a/an 等冠词出现频率通常最高，但无需背诵。</p>
+
+<p>熟词，除了读和写以外，听和发音也很关键。</p>
+
+<h4>听与说</h4>
+
+<p>这是大多数人的短版，需要从单词入手彻底解决。</p>
+
+<p>另外，外出时，零碎时间最多，可以利用起来背单词。
+走路、坐车时盯着屏幕很不方便，所以，需要语音式的。</p>
+
+<h4>社交</h4>
+
+<p>推荐阅读、相互修改作文。</p>
+
+<p>付费请高手修改自己的作文。</p>
+
+<h4>UI 设计</h4>
+
+<p>为了防止用户背单词时，不知道进度的时间恐慌症，需要有一个进度条提示进度。</p>
+
+<h4>词库</h4>
+
+<p>巴朗 3500 词，SAT 考生。单词太多，需要优化精选。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[design of local pkm system]]></title>
+    <link href="http://JackonYang.github.io/blog/2012/09/04/design-of-local-pkm-system/"/>
+    <updated>2012-09-04T02:25:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2012/09/04/design-of-local-pkm-system</id>
+    <content type="html"><![CDATA[<p>我相信，个人知识管理(pkm)终将会成为一个时代的宠儿，尤其是随着大数据时代的到来。</p>
+
+<p>速度决定成败，加速是亘古不变的话题。
+机械工业时代加速的是交通工具，信息时代加速的是知识流通。</p>
+
+<!--more-->
+
+
+<p>从pc机时代到互联网时代，从 web1.0 到 web2.0，
+每一次变革，都是知识流通速度的突变。
+所以，以微软为代表的 pc 机时代取代了以 IBM 为代表的企业级应用时代，
+随后又进入了以 google 为代表的互联网搜索时代，知识大爆炸。
+社交圈可以提供更有针对性的有效信息，所以，facebook 赢了。
+智能终端的灵活性远远超过 PC 机，所以大家削尖了脑袋挤进手机市场。</p>
+
+<p>有效的知识管理，可以将人的大脑从琐碎的记忆中解放出来。
+提升效率，加速个人知识流动。
+同时，高质量的个人知识仓库，可以帮助建立较高的个人品牌价值。</p>
+
+<h2>系统设计</h2>
+
+<p>基于 web server 的本地化个人知识管理系统。
+即：在个人电脑上搭建一个服务器，集成一系列知识管理应用。
+最大的挑战和风险在于：数据安全。
+暂时，通过频繁的的备份来规避风险。</p>
+
+<p>只要电脑开机，任何地点任何时间，都能用手机或者其他电脑接入自己电脑。
+查询、更新项目进展，获取重要文档资料。</p>
+
+<h4>应用：</h4>
+
+<ol>
+<li><p>项目管理与时间管理——redmine</p>
+
+<p> 跟踪项目进展和时间进度，记录个人时间花费情况。</p>
+
+<p> 现在，我们往往需要同时做几件大的事情。
+ 及时制定计划并录入 redmine，后续只要跟着 redmine 依次执行即可。
+ 化多线程为单线程，单线程，我们总是可以把事情做的更棒更快。</p></li>
+<li><p>笔记系统——基于 wordpress 的 blog。</p>
+
+<p> 有效的总结可以避免车轮式的前进，个人进步与提升的基础。</p>
+
+<p> 选择独立的blog:</p>
+
+<ul>
+<li>数据安全，天朝最不能相信的就是互联网，说封就封，说墙就墙。重要的东西必须本地存储。</li>
+<li>当前，没有一个稳定的blog，既支持tex语法，又支持代码高亮显示。</li>
+<li>干净整洁无广告，可扩展性高，可定制。
+  与本地的文件系统、项目管理系统等可以集成。</li>
+</ul>
+</li>
+<li><p>文档代码等电子文件——svn</p></li>
+<li>人际关系管理——代码开发中。。。</li>
+<li>图片服务器——piwigo</li>
+</ol>
+
+
+<h4>底层服务：</h4>
+
+<ul>
+<li>server——apache2</li>
+<li>database——mysql</li>
+<li>server script——php，python</li>
+<li>os——windows/ubuntu7</li>
+</ul>
+
+
+<h2>环境搭建</h2>
+
+<p>以 ubuntu 12.04 为例。</p>
+
+<h4>磁盘分区与安装规划</h4>
+
+<p>划分2个单独的磁盘分区:</p>
+
+<ol>
+<li>apache2 的 <code>document_root</code>。 即网站文档的根目录。</li>
+<li>存储备份文件，保证数据安全。</li>
+</ol>
+
+
+<h4>磁盘挂载与文件权限</h4>
+
+<p>www开机自动挂载，文件所有者为 apache2 用户 www-data。
+权限策略 umask = 022.
+uid是 www-data 的id，安装apache2后自动创建。</p>
+
+<p>``` bash auto mount www
+$ sudo vim /etc/fstab</p>
+
+<h1>insert Entry for /dev/sda6 : www</h1>
+
+<p>/dev/sda6 /media/www ntfs uid=33,gid=1001,umask=002,dmask=022,utf8</p>
+
+<h1>get uuid of the partition</h1>
+
+<p>$ sudo blkid</p>
+
+<h1>get uid</h1>
+
+<p>$ id www-data</p>
+
+<h1>bash watch group id and group members</h1>
+
+<p>$ cat /etc/group|grep subversion
+subversion:x:1001:www-data,jackonyang</p>
+
+<h1>mount</h1>
+
+<p>mount -a
+```</p>
+
+<p>备份区，备份时挂载，备份后卸载。禁止自动挂载。
+防止误操作。</p>
+
+<h4>apache2</h4>
+
+<p>``` bash install apache2 and config
+$ sudo apt-get install apache2</p>
+
+<h1>edit serverName:</h1>
+
+<p>$ sudo vim /etc/apache2/httpd.conf</p>
+
+<h1>insert</h1>
+
+<p>ServerName localhost</p>
+
+<h1>edit document_root</h1>
+
+<p>$ sudo vim /etc/apache2/sites-enabled/000-default</p>
+
+<h1>by default in ubuntu: /var/www</h1>
+
+<p>DocumentRoot /media/server_root/www
+<Directory /media/server_root/www/>
+```</p>
+
+<h4>svn 与 http 访问方式</h4>
+
+<p>预置条件：apache2已安装。</p>
+
+<p>``` bash install svn and access by http
+$ sudo apt-get install subversion
+$ sudo apt-get install libapache2-svn</p>
+
+<h1>create user group and add user</h1>
+
+<p>$ sudo addgroup subversion
+$ sudo usermod -G subversion -a www-data
+$ sudo usermod -G subversion -a jackonyang</p>
+
+<h1>修改http访问svn模块配置参数：</h1>
+
+<p>$ sudo a2enmod dav_svn
+$ sudo vim /etc/apache2/mods-enabled/dav_svn.conf
+<Location /svn></p>
+
+<pre><code>DAV svn
+SVNPath /media/svn/src_svn
+AuthType Basic
+AuthName "JackonYang Subversion Repository"
+AuthUserFile /etc/apache2/dav_svn.passwd
+</code></pre>
+
+<p></Location></p>
+
+<h1>create svn repo and user</h1>
+
+<p>$ sudo mkdir /media/svn/src_svn
+$ sudo svnadmin create /media/svn/src_svn
+$ sudo chown -R www-data /media/svn/src_svn
+$ sudo htpasswd -cm /etc/apache2/dav_svn.passwd jackonyang</p>
+
+<h1>restart apache2</h1>
+
+<p>$ sudo service apache2 restart
+```</p>
+
+<h4>mysql 安装配置</h4>
+
+<p>``` bash install mysql and config
+$ sudo apt-get install mysql-server</p>
+
+<h1>charset</h1>
+
+<p>$ sudo vim /etc/mysql/my.cnf</p>
+
+<h1>add or edit</h1>
+
+<p>[client]
+default-character-set = utf8
+[mysqld]
+character-set-server = utf8
+collation-server = utf8_general_ci
+$ sudo service mysql restart</p>
+
+<h1>login and check</h1>
+
+<p>$ mysql -uroot -p
+mysql> show variables like &lsquo;character_set<em>%&rsquo;;
+mysql> show variables like &lsquo;collation</em>%&rsquo;;</p>
+
+<h1>security grant</h1>
+
+<p>mysql> use mysql;
+mysql> delete from user where user = &lsquo;&rsquo;;
+Query OK, 2 rows affected (0.00 sec)
+```</p>
+
+<h4>redmine</h4>
+
+<p>预置条件：apache2，mysql已安装
+``` bash install redmine and config
+$ sudo apt-get install libapache2-mod-passenger redmine redmine-mysql</p>
+
+<h1>input mysql root password and default passwd for redmine to login mysql</h1>
+
+<h1>config apache2</h1>
+
+<p>$ sudo vim /etc/apache2/conf.d/redmine.conf
+RailsEnv production
+RailsBaseURI /redmine
+$ sudo ln -s /usr/share/redmine/public /media/server_root/www/redmine
+$ sudo service apache2 restart
+```</p>
+
+<p>访问 redmine
+浏览器访问: <code>localhost/redmine</code>
+默认用户密码：admin/admin</p>
+
+<h4>wordpress</h4>
+
+<p>依赖于 php，phpmyadmin，mysql</p>
+
+<p>安装 php5，phpmyadmin</p>
+
+<p>``` bash install php5 and phpmyadmin
+$ sudo apt-get install php5
+$ sudo apt-get install phpmyadmin
+$ sudo ln -s /usr/share/phpmyadmin/ /media/server_root/www/</p>
+
+<h1>restart apache2, or report error: 缺少 mysqli 扩展。请检查 PHP 配置。</h1>
+
+<p>$ sudo service apache2 restart
+```</p>
+
+<p>测试:</p>
+
+<p><code>bash testphp
+$ sudo vim /media/server_root/www/testphp.php
+&lt;?php phpinfo(); ?&gt;
+</code></p>
+
+<p>wordpress安装包复制到 apache2 document_root 目录下解压
+进入目录，根据sample文件创建wp-config.php
+<code>cp wp-config-sample.php wp-config.php</code> 然后修改wp-config.php中的数据库链接信息。
+浏览器打开，完成安装即可。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[privacy under data bang]]></title>
+    <link href="http://JackonYang.github.io/blog/2011/11/02/privacy-under-data-bang/"/>
+    <updated>2011-11-02T14:38:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2011/11/02/privacy-under-data-bang</id>
+    <content type="html"><![CDATA[<p>数据挖掘环境下的个人信息安全</p>
+
+<p>通常，我们会关心自己的密码安全，
+一个较为通用的方法是密码分等级，安全级别最高的密码会使用字符数字等的混合组合。
+相比于密码安全，我想，网络上的隐私安全更为重要，尤其是在即将普及的数据挖掘时代。</p>
+
+<h2>基于数据挖掘获取隐私的简单场景</h2>
+
+<!--more-->
+
+
+<h4>非实名社交网站 &mdash;> 人人网</h4>
+
+<ol>
+<li>在社交网站中找到找到此人的学校、家乡和星座信息，以及年龄和年级区间。</li>
+<li>在人人网的高级搜索中输出上述信息，检索出的条目通常少于10.</li>
+<li>查看搜索结果的头像、ID、邮箱、最近的状态/日志等，通常可以找到与已知社交网站中相似度极高的信息。</li>
+</ol>
+
+
+<h4>实名网站 &mdash;> 非实名社交网站</h4>
+
+<p>根据一个社交网站的账号找其他非实名的网站，更简单，直接搜账号或邮箱就可以了。
+因为，大多数人都使用相同的ID和邮箱，毫无隐私可言。
+甚至在此基础上挖掘出亚马逊、当当、淘宝等网购账号，csdn等论坛账号也不是难事。</p>
+
+<h4>软件产品/服务本身技术和道德问题</h4>
+
+<p>曾经，我连续半年没有在电脑、手机等任何地方以任何方式登录飞信，密码也是字母+数字+特殊字符组合的高强度密码。
+某天下午突然账号被盗，所有好友都收到了借钱短信。
+至今没想通是怎么被盗的账号。</p>
+
+<p>csdn明文存储密码，然后数据库被破解的新闻已经不再火了。</p>
+
+<p>即使以各种加密方式存储，也只是骗一下外行。网上随便下个加密解密工具，就能根据密文获得原文。
+而常用的加密方式也就那么不到5种，根据密文得到明文，全遍历不过2分钟的事。</p>
+
+<h4>危害</h4>
+
+<p>根据一个网站帐号挖掘出其他网站的帐号，
+若其中密码有交集，通过破解低等级网站账号来破解重要密码就变得非常容易。
+甚至，可以分析个人行为习惯，跟网购账号一起打包卖给第三方。
+对于大多数人的安全措施来说，只有别人搞你与不搞的区别，不存在能不能搞死的问题。</p>
+
+<h2>信息安全策略</h2>
+
+<h4>原则</h4>
+
+<ol>
+<li>加强安全的同时不能以影响虚拟财产的价值为代价，比如减少使用。</li>
+<li>适度加强安全，保持使用的方便性，安全措施具有较强的可操作性。</li>
+<li>宁可相信母猪能上树，也不能相信天朝商业公司的职业道德。
+ 凡是调整行为习惯能解决的问题，就不依赖第三方软件。</li>
+<li>宁可以相信天朝商业公司的职业道德，也不能相信天朝的网络环境。
+ GWF 的 G 点不是我等凡夫俗子所能找全的。更何况这货不仅多，还一直在变。
+ 凡是可以本地脱机搞定的，就不依赖互联网。</li>
+<li>最大的威胁不是密码被盗，而是隐私被挖掘。</li>
+<li>一个账号被盗，可以不用调整安全策略就把负面影响降低到最小。需要修改的密码尽量少。</li>
+</ol>
+
+
+<h4>原理与方法</h4>
+
+<ol>
+<li><p>账号分组管理，借鉴linux用户管理模型的思路。</p>
+
+<p> 组内账号之间可以信息互通。组间账号关系分为：绝对不可挖掘，单向看见。例：
+ 微博、人人使用频繁，且信息相对真实，用户群体相对安全。故可以使用相同ID、密码，信息互通。
+ qq盗号者较多，且欺诈行为多，切忌与人人微博等实名社区账号互通。
+ 为了防止电商的数据挖掘行为，社交账号与网购账号之间绝对不可见。
+ 若出于结识志同道合朋友的需要，技术论坛的账号可以找到社交网站的账号（单向可见），但密码必须相互独立。</p></li>
+<li><p>组间账号绝对不可见的具体方法：</p>
+
+<p> 使用不同的ID、邮箱、密码、头像、选择性填写资料。
+ 除真实社交网络，其他地方建议尽量不填写个人资料，或者填写虚假资料。</p></li>
+<li><p>密码找回问题使用虚假答案。</p>
+
+<p> 切忌使用自己的真实生日作为问题和答案，任何不常见的问题，不如自己虚拟一个问题和答案。
+ 比如自己的生日，答案：20121212</p></li>
+<li><p>登录不同组群的网络使用不同的浏览器。</p>
+
+<p> 网购与社交网站，尽量不要使用同一个浏览器。cookies一跟踪，毫无隐私可言。只要技术可行，就有可能发生，跟明文规定没关系。
+ 网银使用单独的浏览器登录。</p>
+
+<p> 所谓单独浏览器，只要把一个浏览器装两次，两次使用不用的文件夹，则可以认为是两个独立的浏览器。
+ 但，最好使用不同的浏览器，并养成习惯。
+ 因为，同一个浏览器容易混淆，而且无法培养出习惯。</p></li>
+</ol>
+
+
+<h2>账号组群划分</h2>
+
+<ul>
+<li><p>QQ：盗号者太多，而且QQ的价值仅在于已经认识的人交换qq号，然后qq聊天。没有人关心qq资料中的信息。</p>
+
+<p>  所以，qq的全部不填写任何信息，必填信息全部使用假信息，不填写邮箱，使用极为普通的大众ID。
+  注销朋友网，朋友网中个人真实信息较多，且无法修改。
+  而且即使自己不填写，根据好友也能分析出自己的真实信息。所以，注销。</p></li>
+<li>飞信：太不安全。策略同qq。</li>
+<li><p>社交类：微博、人人、豆瓣、facebook、linkedIn，博客。</p>
+
+<p>  从心理学来分析，人通常有发泄的需要，而且不希望周围人看到。
+  甚至很多人会塑造一个与自己性格完全不同的虚拟人。
+  该账号不易太多，1-2个足矣，与其他账号之间绝对不可见。</p></li>
+<li>网购：亚马逊、当当网、淘宝网。</li>
+<li>网银：</li>
+<li>技术论坛：latex，csdn，ubuntu等</li>
+<li>电脑开机密码：</li>
+<li>游戏：11对战平台，三国杀等。</li>
+<li>个人知识管理与笔记类：evernote，xmind，dropbox等。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

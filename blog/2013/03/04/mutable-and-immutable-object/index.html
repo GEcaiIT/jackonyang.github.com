@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python mutable and immutable object - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="there are two types in python: mutable and immutable.
+tuple, number, string are all immutable.
+dictionary and list are mutable. passing parameters &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/03/04/mutable-and-immutable-object/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">python mutable and immutable object</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T12:41:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>there are two types in python: mutable and immutable.
+tuple, number, string are all immutable.
+dictionary and list are mutable.</p>
+
+<h2>passing parameters</h2>
+
+<p>coders can not decide whether to pass by value or pass by reference.
+for mutable object, passing by value.
+for immutable object, pass by reference.</p>
+
+<!--more-->
+
+
+<p>call<code>id objName</code> to watch memory address</p>
+
+<figure class='code'><figcaption><span>nested_list  (list_nesting.py)</span> <a href='/downloads/code/list_nesting.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">a</span><span class="o">=</span><span class="p">[]</span>
+</span><span class='line'><span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;num&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s">&#39;sqrt&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">b</span><span class="p">[</span><span class="s">&#39;num&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">i</span>
+</span><span class='line'>  <span class="n">b</span><span class="p">[</span><span class="s">&#39;sqrt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="o">*</span><span class="n">i</span>
+</span><span class='line'>  <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># output</span>
+</span><span class='line'><span class="c"># [{&#39;num&#39;: 2, &#39;sqrt&#39;: 4}, {&#39;num&#39;: 2, &#39;sqrt&#39;: 4}, {&#39;num&#39;: 2, &#39;sqrt&#39;: 4}]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>default value of function parameter  (default_func_val.py)</span> <a href='/downloads/code/default_func_val.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">[]):</span>
+</span><span class='line'>  <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">a</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">())</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># output:</span>
+</span><span class='line'><span class="c"># [0]</span>
+</span><span class='line'><span class="c"># [0, 0]</span>
+</span><span class='line'><span class="c"># [0, 0, 0]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Default parameter values are evaluated
+when the function definition is executed.
+This means that the expression is evaluated once, when the function is defined,
+and that the same “pre-computed” value is used for each call.
+This is especially important to understand when a default parameter is mutable,
+such as a list or a dictionary:
+if the function modifies the object(e.g. by appending an item to a list),
+the default value is in effect modified.
+This is generally not what was intended.
+A way around this is to use None as the default,
+and explicitly test for it in the body of the function.</p>
+
+<h2>generate new id when list created</h2>
+
+<figure class='code'><figcaption><span>generate new ID when list created  (newlist.py)</span> <a href='/downloads/code/newlist.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">a</span><span class="o">=</span><span class="p">[]</span>
+</span><span class='line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;num&#39;</span><span class="p">:</span><span class="n">i</span><span class="p">,</span><span class="s">&#39;sqrt&#39;</span><span class="p">:</span><span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">}</span>
+</span><span class='line'>  <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># output:</span>
+</span><span class='line'><span class="c"># [{&#39;num&#39;: 0, &#39;sqrt&#39;: 0}, {&#39;num&#39;: 1, &#39;sqrt&#39;: 1}, {&#39;num&#39;: 2, &#39;sqrt&#39;: 4}]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>global var in local: immutable is read-only，mutable is writable</h2>
+
+<p>declear as <code>global var_name</code> in functions to make global variables writable</p>
+
+<p>nonlocal is the same as glocal except that nonlocal is used for upper level without global scope.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T12:41:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coding/'>coding</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/04/python-namespace-and-scope/" title="Previous Post: python namespace and scope">&laquo; python namespace and scope</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/05/latex-encoding/" title="Next Post: latex 字符编码与跨平台中文支持">latex 字符编码与跨平台中文支持 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/03/04/mutable-and-immutable-object/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/03/04/mutable-and-immutable-object/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python namespace and scope - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="the fact of variable scope in python is that:
+while a script is running, there are some namespaces.
+when we call a name,
+we search it from the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/03/04/python-namespace-and-scope/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">python namespace and scope</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T11:05:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>the fact of variable scope in python is that:
+while a script is running, there are some namespaces.
+when we call a name,
+we search it from the existing namespaces under certain rules.
+once found, stop searching.</p>
+
+<!--more-->
+
+
+<h2>name</h2>
+
+<p>everything in python is an object.
+a name is the name of objects, not just variables or constants.
+Numbers, strings, functions, classes are all objects.
+we can apply name to any of them.</p>
+
+<p>e.g. apply name to a function:</p>
+
+<p><img src="/images/name_to_func.png" title="'name applied to a function'" ></p>
+
+<h2>namesapce</h2>
+
+<p>A namespace is a mapping from names to objects
+In a sense, the set of attributes of an object also form a namespace.</p>
+
+<p>each module has its own namespace.
+Whenever we run a simple Python script,
+the interpreter treats it as module called <code>__main__</code>,
+which gets its own namespace.
+The builtin functions also live in a module called <code>__builtin__</code>
+and have their own namespace.</p>
+
+<p>The local namespace for a function is created when the function is called,
+and deleted when the function returns or raises an exception that
+is not handled within the function.</p>
+
+<p>avoid using <code>from ... import ...</code> to avoid name clashes.</p>
+
+<h2>scope</h2>
+
+<p>A scope is a textual region of a Python program where
+a namespace is directly accessible, created by <code>def</code>, <code>class</code>, <code>lambda</code>.
+call <code>locals()</code> and <code>globals()</code> to see variables list.
+at least three nested scopes whose namespaces are directly accessible.</p>
+
+<ul>
+<li>the innermost scope, which is searched first, contains the local names</li>
+<li>the scopes of any enclosing functions, which are searched starting with the nearest enclosing scope, contains <code>non-local</code>, but also <code>non-global</code> names</li>
+<li>the next-to-last scope contains the current module’s global names</li>
+<li>the outermost scope(searched last) is the namespace containing built-in names.</li>
+</ul>
+
+
+<h2>reference</h2>
+
+<ol>
+<li><a href="http://docs.python.org/3.2/tutorial/classes.htm">http://docs.python.org/3.2/tutorial/classes.html</a></li>
+<li><a href="http://bytebaker.com/2008/07/30/python-namespaces/">http://bytebaker.com/2008/07/30/python-namespaces/</a></li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T11:05:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coding/'>coding</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/02/python-tutorial-basic-grammar/" title="Previous Post: python 基础语法">&laquo; python 基础语法</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/04/mutable-and-immutable-object/" title="Next Post: python mutable and immutable object">python mutable and immutable object &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/03/04/python-namespace-and-scope/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/03/04/python-namespace-and-scope/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

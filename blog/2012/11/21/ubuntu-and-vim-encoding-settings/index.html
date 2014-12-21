@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ubuntu and vim encoding settings - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="ubuntu 与 windows 默认字符编码不一致，导致跨平台时常常出现乱码问题。 一般攻略的处理方式 通常攻略的解决方法是修改 ubuntu 的默认字符编码为 gbk 或者 gb2312。
+个人认为，为了兼容部分 windows 文件，修改 linux 系统默认字符编码，并不是最优解决方案。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2012/11/21/ubuntu-and-vim-encoding-settings/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">ubuntu and vim encoding settings</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-21T12:40:00+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2012</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>ubuntu 与 windows 默认字符编码不一致，导致跨平台时常常出现乱码问题。</p>
+
+<!--more-->
+
+
+<h2>一般攻略的处理方式</h2>
+
+<p>通常攻略的解决方法是修改 ubuntu 的默认字符编码为 gbk 或者 gb2312。
+个人认为，为了兼容部分 windows 文件，修改 linux 系统默认字符编码，并不是最优解决方案。</p>
+
+<ol>
+<li>ubuntu下，处理 utf-8 编码的情况远多于 gbk 或 gb2312.
+ 尤其是代码源文件，比如 python, mysql.</li>
+<li><p>gb系编码，目前相对混乱。</p>
+
+<p> 使用最多的是gb2312，但支持字符太少，难以满足日常应用。很多攻略都建议修改为gb2312。
+ GBK 是 gb2312 的替代者，扩展了支持的字符，但亦有一些不支持的生僻字。
+ GB18030，支持的字符较多，但与一些程序可能存在不兼容的问题。</p></li>
+</ol>
+
+
+<h2>Solution</h2>
+
+<h4>keep ubuntu default encoding unchanged, add gb18030 and gbk support.</h4>
+
+<figure class='code'><figcaption><span>add support of gb* encoding</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo vim /var/lib/locales/supported.d/local
+</span><span class='line'>zh_CN.UTF-8 UTF-8
+</span><span class='line'>en_US.UTF-8 UTF-8
+</span><span class='line'>zh_CN.GB18030 GB18030
+</span><span class='line'>zh_CN.GBK GBK
+</span><span class='line'><span class="c"># make it effect</span>
+</span><span class='line'><span class="nv">$ </span>sudo locale-gen
+</span><span class='line'><span class="c"># make sure that all the encodings are utf-8</span>
+</span><span class='line'><span class="nv">$ </span>locale
+</span><span class='line'><span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
+</span><span class='line'><span class="nv">LANGUAGE</span><span class="o">=</span>zh_CN:zh
+</span><span class='line'><span class="nv">LC_CTYPE</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_NUMERIC</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_TIME</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_COLLATE</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_MONETARY</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_MESSAGES</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_PAPER</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_NAME</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_ADDRESS</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_TELEPHONE</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_MEASUREMENT</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_IDENTIFICATION</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+</span><span class='line'><span class="nv">LC_ALL</span><span class="o">=</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>encoding settings of vim</h4>
+
+<figure class='code'><figcaption><span>setting of vim in vimrc</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="err">&quot;</span>encoding
+</span><span class='line'>:set <span class="nv">encoding</span><span class="o">=</span>utf-8
+</span><span class='line'>:set <span class="nv">fileencodings</span><span class="o">=</span>utf-8,gb18030,gbk
+</span><span class='line'>:set <span class="nv">fileencoding</span><span class="o">=</span>utf-8
+</span><span class='line'>:set <span class="nv">termencoding</span><span class="o">=</span>utf-8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>vim 字符编码工作原理</h2>
+
+<h4>vim 字符编码说明</h4>
+
+<p>Vim 有四个跟字符编码方式有关的选项，encoding、fileencoding、fileencodings、termencoding</p>
+
+<ul>
+<li><p>encoding: Vim 内部使用的字符编码方式，包括 Vim 的 buffer (缓冲区)、菜单文本、消息文本等。</p>
+
+<p>  如果vim的encoding为utf-8,所编辑的文件采用GBK编码,
+  vim会自动将读入的文件转成utf-8，而写入文件时,自动转回成GBK（文件的保存编码).</p></li>
+<li>fileencoding: Vim 中当前编辑的文件的字符编码方式，保存文件时也会将文件保存为这种字符编码方式。</li>
+<li><p>fileencodings: Vim 自动探测 fileencodings 的顺序列表， 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。</p>
+
+<p>  最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p></li>
+<li><p>termencoding: Vim 所工作的终端 terminal 的字符编码方式。</p>
+
+<p>  如果 vim 所在的 terminal 与 vim 编码相同，则无需设置。如其不然，你可以用 vim 的 termencoding 选项将自动转换成 terminal 的编码.这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是 Windows 控制台的代码页，并且通常我们不需要改变它。</p></li>
+</ul>
+
+
+<h4>Vim 的多字符编码方式支持的工作方式</h4>
+
+<ol>
+<li>Vim 启动，根据 <code>.vimrc</code> 中设置的 encoding 的值来设置 buffer、菜单文本、消息文的字符编码方式。</li>
+<li>读取需要编辑的文件，根据 fileencodings 中列出的字符编码方式逐一探测该文件编码方式。并设置 fileencoding 为探测到的，看起来是正确的字符编码方式。</li>
+<li><p>对比 fileencoding 和 encoding 的值，若不同则调用 iconv 将文件内容转换为 encoding 所描述的字符编码方式，并且把转换后的内容放到为此文件开辟的 buffer 里，此时我们就可以开始编辑这个文件了。</p>
+
+<p> 注意，完成这一步动作需要调用外部的 iconv.dll(windows)，你需要保证这个文件存在于 $VIMRUNTIME 或者其他列在 PATH 环境变量中的目录里。</p></li>
+<li>编辑完成后保存文件时，再次对比 fileencoding 和 encoding 的值。若不同，再次调用 iconv 将即将保存的 buffer 中的文本转换为 fileencoding 所描述的字符编码方式，并保存到指定的文件中。</li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-21T12:40:00+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/encoding/'>encoding</a>, <a class='category' href='/blog/categories/etc/'>etc</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/19/introduction-to-common-encoding/" title="Previous Post: 字符编码简介">&laquo; 字符编码简介</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/02/python-tutorial-basic-grammar/" title="Next Post: python 基础语法">python 基础语法 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2012/11/21/ubuntu-and-vim-encoding-settings/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2012/11/21/ubuntu-and-vim-encoding-settings/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

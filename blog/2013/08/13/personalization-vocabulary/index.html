@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>支持半自动化自定义词库的背单词软件 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="背单词总是很痛苦的一件事情。 我尝试过很多种背单词的方法和软件，主要可以分为 2 类。 教材模式。基于某一教材或者考试的标准词库，背一段时间以后，越来越多不需要的单词，影响效率。
+生词本模式。纯手工维护一个生词本，维护成本偏高一些。 基于这些不好的背单词经历，我试图做一个半自动的自定义词库。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/08/13/personalization-vocabulary/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">支持半自动化自定义词库的背单词软件</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-13T11:15:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>背单词总是很痛苦的一件事情。</p>
+
+<p>我尝试过很多种背单词的方法和软件，主要可以分为 2 类。</p>
+
+<ol>
+<li>教材模式。基于某一教材或者考试的标准词库，背一段时间以后，越来越多不需要的单词，影响效率。</li>
+<li>生词本模式。纯手工维护一个生词本，维护成本偏高一些。</li>
+</ol>
+
+
+<p>基于这些不好的背单词经历，我试图做一个半自动的自定义词库。</p>
+
+<p>项目地址：<a href="https://github.com/JackonYang/personalization-vocabulary">https://github.com/JackonYang/personalization-vocabulary</a></p>
+
+<!--more-->
+
+
+<h4>功能概述</h4>
+
+<p>根据个人的英语水平、兴趣和经常阅读的文章，
+自动创建一个自定义的生词库，供背单词使用。</p>
+
+<p>自定义生词库的关键是找出一个人可能感兴趣的生词，供反复背诵。
+从而避免按照四六级词库背单词，背了一堆没用的单词。</p>
+
+<p>当然，用户也可以手动添加和删除生词库中的单词，精调自己的生词库。</p>
+
+<h4>基本的原理</h4>
+
+<ol>
+<li>记录用户查询单词的历史记录，由此获取用户需要记忆的单词，本质就是词汇量测试。</li>
+<li>用户指定 n 篇自己感兴趣的文章，从中找出出现频率偏高的单词、话题，</li>
+<li>感兴趣的单词与不认识的单词取交集，即为初始的自定义词库。</li>
+</ol>
+
+
+<h4>应用</h4>
+
+<ol>
+<li>研究生，写论文。前期针对物理 + 计算机</li>
+<li>学渣。学渣不求满分，只求过线，不需要背完四六级词库的所有单词。指定一个目标分数，个性化一下，少背一点单词。</li>
+</ol>
+
+
+<h4>用户数据获取与分析</h4>
+
+<p>没有用户数据的个性化，都是耍流氓。</p>
+
+<p>用户的词汇量，是比较关键的数据之一。一般采用抽样测试 + 估算的方法。</p>
+
+<p>大多数人的词汇量在 5k 左右，本科低年级的词汇量在 3k 左右。
+平均每 3 秒钟识别一个单词，识别 5k 个单词需要 4h， 3k 个单词只要 2.5h。
+如果软件界面设计的人性化一点，
+比如每次同时识别 3 个单词，另有 300 个绝对安全的单词。
+最终可以把时间控制在 30min-1h。用户的接受度会比较高一些。</p>
+
+<p>这么做，不仅仅是评估词汇量，更重要的是形成了一个真实的个人标志。
+可以更准确的分析出自己下一步需要背的单词，以及需要背多少单词。</p>
+
+<h4>记忆曲线</h4>
+
+<p>艾宾浩斯曲线等各种经典的记忆曲线，都只能是一个参考曲线。</p>
+
+<p>效率最高的记忆曲线，
+必然是针对个人英语水平、记忆能力、一般记忆难度计算出的曲线。</p>
+
+<p>所谓一般记忆难度，值得是背过这个单词的人，平均需要多长时间可以记住。
+记忆能力，则是根据自己背过的单词，计算出的个人记忆能力。
+这二者的关系，恰如经济理论中的一般劳动和特殊劳动。</p>
+
+<h4>熟词记忆</h4>
+
+<p>我们要背的真的是生词么？</p>
+
+<p>据说美国农夫的词汇量是 2000。我大中国高中生的词汇量都是3k了。
+考过六级的，五千左右不算夸张吧？</p>
+
+<p>但是，有几个过了六级的能像美国农夫那样说英语，更不用说高中生了。</p>
+
+<p>我们的短板，不是生词，而是熟词掌握的不熟练。
+对熟词的掌握程度，是影响大多数人英语水平的关键。</p>
+
+<p>对于一篇（几篇）感兴趣的文章，统计词频，评估单词的重要程度。
+推荐用户先掌握重要的熟词。</p>
+
+<p>这里的重要程度，参考 TF-INF 算法。
+出现的频率是关键因素，但不是唯一因素，
+比如 the/a/an 等冠词出现频率通常最高，但无需背诵。</p>
+
+<p>熟词，除了读和写以外，听和发音也很关键。</p>
+
+<h4>听与说</h4>
+
+<p>这是大多数人的短版，需要从单词入手彻底解决。</p>
+
+<p>另外，外出时，零碎时间最多，可以利用起来背单词。
+走路、坐车时盯着屏幕很不方便，所以，需要语音式的。</p>
+
+<h4>社交</h4>
+
+<p>推荐阅读、相互修改作文。</p>
+
+<p>付费请高手修改自己的作文。</p>
+
+<h4>UI 设计</h4>
+
+<p>为了防止用户背单词时，不知道进度的时间恐慌症，需要有一个进度条提示进度。</p>
+
+<h4>词库</h4>
+
+<p>巴朗 3500 词，SAT 考生。单词太多，需要优化精选。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-13T11:15:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/data-mining/'>data-mining</a>, <a class='category' href='/blog/categories/project/'>project</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/13/blog-page-design/" title="Previous Post: 博客页面原型设计">&laquo; 博客页面原型设计</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/26/liang-dan-jiang-jin/" title="Next Post: 两弹奖金">两弹奖金 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/08/13/personalization-vocabulary/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/08/13/personalization-vocabulary/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

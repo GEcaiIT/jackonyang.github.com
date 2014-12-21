@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>字符编码简介 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="涉及中文的编程时，经常遇到字符编码的问题。
+这些问题，大多源自于概念之间的混淆。
+理顺字符编码概念之间的关系，即可避免大多数问题。 经常提到的几个概念如下： ASCII
+Unicode
+UTF-8
+GBK
+GB2312
+GB18030
+charset
+encoding Charset and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2012/11/19/introduction-to-common-encoding/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">字符编码简介</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-19T09:59:00+08:00" pubdate data-updated="true">Nov 19<span>th</span>, 2012</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>涉及中文的编程时，经常遇到字符编码的问题。
+这些问题，大多源自于概念之间的混淆。
+理顺字符编码概念之间的关系，即可避免大多数问题。</p>
+
+<p>经常提到的几个概念如下：</p>
+
+<ul>
+<li>ASCII</li>
+<li>Unicode</li>
+<li>UTF-8</li>
+<li>GBK</li>
+<li>GB2312</li>
+<li>GB18030</li>
+<li>charset</li>
+<li>encoding</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>Charset and encoding</h2>
+
+<ul>
+<li>charset(字符集): set 字符的集合。</li>
+<li>encoding(字符编码): map 2 个字符集合之间的映射关系。<br/>
+  主要用于字符集合之间的相互转换。</li>
+</ul>
+
+
+<h2>charset 字符集合</h2>
+
+<ul>
+<li><p>ASCII: 主要用于表示英语等单字节的语言。</p>
+
+<ul>
+<li>standard ASCII: 取值范围是0~127，可以用7个bit表示。</li>
+<li>Extended ASCII: 一般机器一字节 8 位，取值范围是 0-255。<br/>
+  因此各厂商制定了很多种 ASCII 码的扩展规范。<br/>
+  Latin-1 是图形界面中广泛使用的 扩展 ASCII 码。</li>
+</ul>
+</li>
+<li>GB系: 主要用于表示汉字，中国的国家标准。双字节编码。<br/>
+  按推出时间的先后顺序：GB2312 &ndash;> GBK &ndash;> GB18030</li>
+<li>Unicode: 为了统一表示各国语言，18位二进制数表示。</li>
+</ul>
+
+
+<h2>encoding 字符集之间的映射关系</h2>
+
+<p>字符编码与字符集的名字通常是一样的，unicode 例外。<br/>
+unicode 存在多种实现方式，所以，字符编码名字较多，如 utf8/utf16/utf32 等。</p>
+
+<p>编程中，建议主要使用如下 2 种编码。</p>
+
+<ul>
+<li>ASCII 字符编码: 纯英文时使用。ASCII 字符集的编码方式。</li>
+<li>UTF-8: 涉及汉字等非英文字符时使用。Unicode 字符集的实现方式之一。</li>
+</ul>
+
+
+<h4>standard ASCII</h4>
+
+<p><img src="/images/std_ascii.png"></p>
+
+<h4>IBM expanded ASCII</h4>
+
+<p><img src="/images/ibm_ascii.png"></p>
+
+<h4>Latin-1</h4>
+
+<p>编号为128~159的是一些控制字符，表中没有列出。
+<img src="/images/latin1.png"></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-19T09:59:00+08:00" pubdate data-updated="true">Nov 19<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/encoding/'>encoding</a>, <a class='category' href='/blog/categories/vivian/'>vivian</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/04/design-of-local-pkm-system/" title="Previous Post: design of local pkm system">&laquo; design of local pkm system</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/11/21/ubuntu-and-vim-encoding-settings/" title="Next Post: ubuntu and vim encoding settings">ubuntu and vim encoding settings &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2012/11/19/introduction-to-common-encoding/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2012/11/19/introduction-to-common-encoding/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python 基础语法 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="一门语言的基础语法，主要涉及 基本变量类型
+常用数据结构
+循环语句
+判断语句
+函数 基本数据类型 弱数据类型 在 c 语言中，如果要使用一个变量，
+必须先声明一个变量并指明变量的类型（int/char/float)。
+python 中不需要，使用变量时，直接赋值即可。
+不需要提前声明， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/03/02/python-tutorial-basic-grammar/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">python 基础语法</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-02T21:50:00+08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>一门语言的基础语法，主要涉及</p>
+
+<ul>
+<li>基本变量类型</li>
+<li>常用数据结构</li>
+<li>循环语句</li>
+<li>判断语句</li>
+<li>函数</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>基本数据类型</h2>
+
+<h4>弱数据类型</h4>
+
+<p>在 c 语言中，如果要使用一个变量，
+必须先声明一个变量并指明变量的类型（int/char/float)。<br/>
+python 中不需要，使用变量时，直接赋值即可。
+不需要提前声明，更不需要指定变量类型。赋值的时候，系统会自动判断变量类型。</p>
+
+<p>弱数据类型，仅仅是用户在很多情况下不需要关注数据类型，可以节省编程的时间。
+程序内部根据 c 语言一样，有着明确的数据类型的概念。</p>
+
+<h4>strings</h4>
+
+<p>python 2.7 的 str 默认是 ASCII 编码。
+<code>u'中文'</code> 用 ASCII 编码存储中文。</p>
+
+<p>多行字符串：行尾用 &ldquo;\ &rdquo; 可以将字符串写成多行，每行的末尾不会包含回车符 &lsquo;\n&rsquo;</p>
+
+<h2>数据结构</h2>
+
+<p>python 三大数据结构：</p>
+
+<ul>
+<li>list: 类似 c 语言的动态数组。</li>
+<li>set: 集合。与 list 类似，元素无序且不能重复。</li>
+<li>dict: 字典。key 不能重复。list 可以看作是键值为 1 且连续的特殊 dict。</li>
+</ul>
+
+
+<h2>流程控制&mdash;for/if</h2>
+
+<p>python 中没有 <code>switch</code> 语句，用<code>if-elif-else</code> 或 <code>dictionary</code> 替代。</p>
+
+<p>python 中可以用 <code>for...in...</code> 方便的遍历一个数组/集合/字典等的元素。</p>
+
+<p>File /home/jackon/blog/source/downloads/code/sum10.py could not be found</p>
+
+<p>while 和 for 循环后可以用 else，正常退出循环时，执行该 else 语句。</p>
+
+<p>案例代码如下:</p>
+
+<figure class='code'><figcaption><span>control flows  (control_flows.py)</span> <a href='/downloads/code/control_flows.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">a</span><span class="o">=</span><span class="p">[]</span>
+</span><span class='line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;all added&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="s">&#39;a:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">k</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">k</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;gt&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">elif</span> <span class="n">k</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;lt&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;all checked&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Function</h2>
+
+<ol>
+<li>you can use variables defined outside the function, but not encouraged,
+ for it is unclear to readers.</li>
+<li>default argument must be immutable</li>
+<li>keyword-only parameters: declared after a starred parameter.</li>
+</ol>
+
+
+<figure class='code'><figcaption><span>functions  (functions.py)</span> <a href='/downloads/code/functions.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">var</span><span class="o">=</span><span class="s">&#39;available in funcitons&#39;</span>
+</span><span class='line'><span class="n">var_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="o">*</span><span class="n">var_one</span><span class="p">,</span> <span class="o">**</span><span class="n">var_two</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot; example of stars&quot;&quot;&quot;</span>
+</span><span class='line'>  <span class="c"># * for tuple</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;type of var_one:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_one</span><span class="p">)))</span>
+</span><span class='line'>  <span class="c"># ** for dictionary</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;type of var_two:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_two</span><span class="p">)))</span>
+</span><span class='line'>  <span class="c"># global variable is readable </span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;var: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">default_arg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">mems</span><span class="o">=</span><span class="n">var_list</span><span class="p">,</span><span class="n">gender</span><span class="o">=</span><span class="s">&#39;male&#39;</span><span class="p">):</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;gender={}(default:male)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gender</span><span class="p">))</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="n">mems</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">hello</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">default_arg</span><span class="p">(</span><span class="s">&#39;yang&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">default_arg</span><span class="p">(</span><span class="s">&#39;yang&#39;</span><span class="p">,</span><span class="s">&#39;11&#39;</span><span class="p">,</span><span class="s">&#39;female&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__doc__</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Module and Package</h2>
+
+<ol>
+<li><strong>avoid</strong> using<code>from ... import ...</code> to avoid name clashes.</li>
+<li>module search path: <code>sys.path</code></li>
+<li>a module&rsquo;s <code>__name__</code> is <code>__main__</code> implies that
+ the module is being run standalone.</li>
+<li><code>dir(module_name)</code> list the identifiers of the module.</li>
+<li>packages are just folders of modules with a special <code>__init__.py</code> file.</li>
+</ol>
+
+
+<h2>Object Oriented and Classes</h2>
+
+<figure class='code'><figcaption><span>class and inheritance  (obj_oriented.py)</span> <a href='/downloads/code/obj_oriented.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">SchoolMember</span><span class="p">:</span>
+</span><span class='line'>  <span class="sd">&#39;&#39;&#39;Represents any school member.&#39;&#39;&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">population</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="c"># special method</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+</span><span class='line'>      <span class="sd">&#39;&#39;&#39;Initializes the data.&#39;&#39;&#39;</span>
+</span><span class='line'>      <span class="c"># call instance variable by self.name</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+</span><span class='line'>      <span class="c"># call class variable by class_name.name</span>
+</span><span class='line'>      <span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># special method</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="sd">&#39;&#39;&#39;I am going.&#39;&#39;&#39;</span>
+</span><span class='line'>      <span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">def</span> <span class="nf">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="sd">&#39;&#39;&#39;Greeting.&#39;&#39;&#39;</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;name:{}, age:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># static method</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">howMany</span><span class="p">():</span>
+</span><span class='line'>      <span class="sd">&#39;&#39;&#39;Prints the current population.&#39;&#39;&#39;</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;We have {0:d} members.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span><span class="p">))</span>
+</span><span class='line'>  <span class="n">howMany</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">howMany</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># another way of defining static method</span>
+</span><span class='line'>  <span class="nd">@staticmethod</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">howMuch</span><span class="p">():</span>
+</span><span class='line'>      <span class="sd">&#39;&#39;&#39;Prints the current population.&#39;&#39;&#39;</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;We have {0:d} members.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__myseq</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">pass</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Teacher</span><span class="p">(</span><span class="n">SchoolMember</span><span class="p">):</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">salary</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">SchoolMember</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">salary</span> <span class="o">=</span> <span class="n">salary</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">SchoolMember</span><span class="o">.</span><span class="n">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;Salary: &quot;{0:d}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">salary</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">SchoolMember</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&#39;&#39;&#39;Represents a student.&#39;&#39;&#39;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">marks</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">SchoolMember</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">marks</span> <span class="o">=</span> <span class="n">marks</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">SchoolMember</span><span class="o">.</span><span class="n">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&#39;Marks: &quot;{0:d}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">marks</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">t</span> <span class="o">=</span> <span class="n">Teacher</span><span class="p">(</span><span class="s">&#39;Shrividya&#39;</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span> <span class="mi">30000</span><span class="p">)</span>
+</span><span class='line'><span class="n">s</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">&#39;Swaroop&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">members</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span>
+</span><span class='line'>  <span class="c"># polymorphism</span>
+</span><span class='line'>  <span class="n">member</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="c"># works for both Teachers and Students</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">SchoolMember</span><span class="o">.</span><span class="n">howMuch</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">try</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">__myseq</span><span class="p">()</span>
+</span><span class='line'><span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;attribute start with __ is private&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">SchoolMember</span><span class="o">.</span><span class="n">howMany</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Input and Output</h2>
+
+<ol>
+<li><code>input(info_text)</code>, <code>print(text)</code></li>
+<li>file. <code>open</code>,<code>read</code>, <code>write</code>, <code>close</code></li>
+<li>pickle.
+ <code>pickle.dump(obj_name, f)</code>
+ <code>obj_name=pickle.load(f)</code></li>
+</ol>
+
+
+<h2>Exceptions and with-statement</h2>
+
+<figure class='code'><figcaption><span>Exception and Raising Exceptions  (except.py)</span> <a href='/downloads/code/except.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">ShortInputException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&#39;&#39;&#39;A user-defined exception class.&#39;&#39;&#39;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">atleast</span><span class="p">):</span>
+</span><span class='line'>      <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">atleast</span> <span class="o">=</span> <span class="n">atleast</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">try</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">text</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&#39;Enter something --&gt; &#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">raise</span> <span class="n">ShortInputException</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>  <span class="c"># Other work can continue as usual here</span>
+</span><span class='line'><span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;Why did you do an EOF on me?&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;You cancelled the operation.&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">except</span> <span class="n">ShortInputException</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;ShortInputException: The input was {0} long, expected at least {1}&#39;</span>\
+</span><span class='line'>      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">ex</span><span class="o">.</span><span class="n">atleast</span><span class="p">))</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">print</span><span class="p">(</span><span class="s">&#39;No exception was raised.&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>with statement  (with_example.py)</span> <a href='/downloads/code/with_example.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">filename</span><span class="o">=</span><span class="s">&#39;test.txt&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># open a file, read some datas and close file.</span>
+</span><span class='line'><span class="c"># __init__ and __enter__(assign returned value to content)</span>
+</span><span class='line'><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">content</span><span class="p">:</span>
+</span><span class='line'>  <span class="c"># do something</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span class='line'><span class="c"># __exit__</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-02T21:50:00+08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coding/'>coding</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/vivian/'>vivian</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/21/ubuntu-and-vim-encoding-settings/" title="Previous Post: ubuntu and vim encoding settings">&laquo; ubuntu and vim encoding settings</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/04/python-namespace-and-scope/" title="Next Post: python namespace and scope">python namespace and scope &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/03/02/python-tutorial-basic-grammar/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/03/02/python-tutorial-basic-grammar/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

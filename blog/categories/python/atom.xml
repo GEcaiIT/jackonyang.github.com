@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[搭建 python 开发环境]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/09/02/python-dev-env/"/>
+    <updated>2013-09-02T14:16:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/09/02/python-dev-env</id>
+    <content type="html"><![CDATA[<p>开发环境主要包括：</p>
+
+<ul>
+<li>运行环境: python2.7</li>
+<li>类库管理工具: pip</li>
+<li>ubuntu 下常用类库</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>windows</h2>
+
+<h4>安装 python2.7</h4>
+
+<p>python 主要包括 2.x 和 3.x 两个大版本，代码之间不兼容。
+推荐使用 Python2.7，类库较为丰富，安装相对简单。</p>
+
+<ol>
+<li><a href="http://www.python.org/getit/">下载 python</a> 并安装。</li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a> PATH 中添加 python 安装路径，默认为 <code>C:\python27</code></li>
+</ol>
+
+
+<h4>setuptools</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/setuptools/1.1">下载 setuptools</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+</ol>
+
+
+<h4>pip</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/pip">下载 pip</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a>，PATH 中添加 pip 的路径，默认为 `c:\python27\Scripts'</li>
+</ol>
+
+
+<h2>ubuntu</h2>
+
+<h4>python and pip tools</h4>
+
+<pre><code>
+$ sudo apt-get install -y python python-setuptools python-dev
+$ sudo easy_install -U distribute
+$ sudo apt-get install python-pip
+</code></pre>
+
+
+<p>如果 python-dev 未安装,
+使用 easy_install or setup.py 时报错:
+<code>command 'gcc' failed with exit status 1</code></p>
+
+<h4>lib for apache2/mysql</h4>
+
+<pre><code>
+$ apt-get install libapache2-mod-python, libmysqlclient-dev
+</code></pre>
+
+
+<p>如果 libmysqlclient-dev 未安装，安装 mysql-python 时报错：
+<code>EnvironmentError: mysql_config not found</code></p>
+
+<h4>flake8</h4>
+
+<pre><code>
+$ sudo pip install flake8
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python 入门的小任务]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/09/02/learning-python-by-issues/"/>
+    <updated>2013-09-02T09:16:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/09/02/learning-python-by-issues</id>
+    <content type="html"><![CDATA[<p>python 入门，假定已经掌握如下内容：</p>
+
+<ul>
+<li>简单的 c 语言基础（二级 c）</li>
+<li>知道 c++ 或 JAVA 中 class 的概念</li>
+</ul>
+
+
+<p>个人比较习惯任务式的学习。
+所以，本文按顺序列举学习任务和目的，并做简要介绍。</p>
+
+<!--more-->
+
+
+<h2>搭建 python 开发环境 </h2>
+
+<p>python 版本建议使用 2.7</p>
+
+<p>详细步骤参考<a href="/blog/2013/09/02/python-dev-env/">搭建 python 开发环境</a></p>
+
+<h2>参考资料</h2>
+
+<p>入门推荐使用 <a href="http://files.swaroopch.com/python/byte_of_python.pdf">a byte of python</a>(有中文版本).</p>
+
+<h2>打印中文"你好" &mdash; 理解字符编码</h2>
+
+<p>最常见的入门程序是打印 hello world，
+考虑到实际代码中经常设计中文，需要一点基础的<a href="/blog/2012/11/19/introduction-to-common-encoding/">字符编码</a>知识。
+我们把入门任务升级为：打印中文 &ldquo;你好&rdquo;</p>
+
+<p>python 代码文件的第一行声明使用 utf-8 编码，即可处理中文。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>deal with non_ASCII characters  (hello_world_cn.py)</span> <a href='/downloads/code/hello_world_cn.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># encoding=utf8</span>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="s">u&#39;你好 vivian!&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>简单的单词数统计 &mdash; 流程控制与常用数据结构</h2>
+
+<p>掌握一点最基本的 python 语法，我们就可以用代码干点有意义的事情了。</p>
+
+<h4>关键语法如下：</h4>
+
+<ul>
+<li>str 数据类型</li>
+<li>数据结构: list/set/dict</li>
+<li>流程控制语句：for/if</li>
+</ul>
+
+
+<h4>任务：统计一句话中各英文单词的出现频率</h4>
+
+<p>text 变量中存储的是一句话，
+这句话中可能包含多个子句，子句之间用 &lsquo;,&rsquo; 分割开。
+单词与单词之间用空格隔开。
+比如：
+&ldquo;here is a string, this is a text, this is a sentence&rdquo;</p>
+
+<p>请统计这句话中各英文单词出现的频率，将结果存储为字典。
+字典的 key 是单词，value 是出现频率。</p>
+
+<h4>案例代码：</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>calculate word frequency  (word_freq.py)</span> <a href='/downloads/code/word_freq.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;here is a string, this is a text, this is a sentence&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">sents</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">freqs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">sents</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">words</span> <span class="o">=</span> <span class="n">sent</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">freqs</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">freqs</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">freqs</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">freqs</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">freqs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;{} -- {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">freq</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python 基础语法]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/03/02/python-tutorial-basic-grammar/"/>
+    <updated>2013-03-02T21:50:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/03/02/python-tutorial-basic-grammar</id>
+    <content type="html"><![CDATA[<p>一门语言的基础语法，主要涉及</p>
+
+<ul>
+<li>基本变量类型</li>
+<li>常用数据结构</li>
+<li>循环语句</li>
+<li>判断语句</li>
+<li>函数</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>基本数据类型</h2>
+
+<h4>弱数据类型</h4>
+
+<p>在 c 语言中，如果要使用一个变量，
+必须先声明一个变量并指明变量的类型（int/char/float)。<br/>
+python 中不需要，使用变量时，直接赋值即可。
+不需要提前声明，更不需要指定变量类型。赋值的时候，系统会自动判断变量类型。</p>
+
+<p>弱数据类型，仅仅是用户在很多情况下不需要关注数据类型，可以节省编程的时间。
+程序内部根据 c 语言一样，有着明确的数据类型的概念。</p>
+
+<h4>strings</h4>
+
+<p>python 2.7 的 str 默认是 ASCII 编码。
+<code>u'中文'</code> 用 ASCII 编码存储中文。</p>
+
+<p>多行字符串：行尾用 &ldquo;\ &rdquo; 可以将字符串写成多行，每行的末尾不会包含回车符 &lsquo;\n&rsquo;</p>
+
+<h2>数据结构</h2>
+
+<p>python 三大数据结构：</p>
+
+<ul>
+<li>list: 类似 c 语言的动态数组。</li>
+<li>set: 集合。与 list 类似，元素无序且不能重复。</li>
+<li>dict: 字典。key 不能重复。list 可以看作是键值为 1 且连续的特殊 dict。</li>
+</ul>
+
+
+<h2>流程控制&mdash;for/if</h2>
+
+<p>python 中没有 <code>switch</code> 语句，用<code>if-elif-else</code> 或 <code>dictionary</code> 替代。</p>
+
+<p>python 中可以用 <code>for...in...</code> 方便的遍历一个数组/集合/字典等的元素。</p>
+
+<p>File /home/jackon/blog/source/downloads/code/sum10.py could not be found</p>
+
+<p>while 和 for 循环后可以用 else，正常退出循环时，执行该 else 语句。</p>
+
+<p>案例代码如下:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>control flows  (control_flows.py)</span> <a href='/downloads/code/control_flows.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">a</span><span class="o">=</span><span class="p">[]</span>
+</span><span class='line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span class='line'>	<span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;all added&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="s">&#39;a:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>	<span class="n">k</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>	<span class="k">if</span> <span class="n">k</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">:</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;gt&#39;</span><span class="p">)</span>
+</span><span class='line'>	<span class="k">elif</span> <span class="n">k</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">:</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;lt&#39;</span><span class="p">)</span>
+</span><span class='line'>	<span class="k">else</span><span class="p">:</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;all checked&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Function</h2>
+
+<ol>
+<li>you can use variables defined outside the function, but not encouraged,
+ for it is unclear to readers.</li>
+<li>default argument must be immutable</li>
+<li>keyword-only parameters: declared after a starred parameter.</li>
+</ol>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>functions  (functions.py)</span> <a href='/downloads/code/functions.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">var</span><span class="o">=</span><span class="s">&#39;available in funcitons&#39;</span>
+</span><span class='line'><span class="n">var_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="o">*</span><span class="n">var_one</span><span class="p">,</span> <span class="o">**</span><span class="n">var_two</span><span class="p">):</span>
+</span><span class='line'>	<span class="sd">&quot;&quot;&quot; example of stars&quot;&quot;&quot;</span>
+</span><span class='line'>	<span class="c"># * for tuple</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;type of var_one:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_one</span><span class="p">)))</span>
+</span><span class='line'>	<span class="c"># ** for dictionary</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;type of var_two:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">var_two</span><span class="p">)))</span>
+</span><span class='line'>	<span class="c"># global variable is readable </span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;var: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">default_arg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">mems</span><span class="o">=</span><span class="n">var_list</span><span class="p">,</span><span class="n">gender</span><span class="o">=</span><span class="s">&#39;male&#39;</span><span class="p">):</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;gender={}(default:male)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gender</span><span class="p">))</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="n">mems</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">hello</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">default_arg</span><span class="p">(</span><span class="s">&#39;yang&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">default_arg</span><span class="p">(</span><span class="s">&#39;yang&#39;</span><span class="p">,</span><span class="s">&#39;11&#39;</span><span class="p">,</span><span class="s">&#39;female&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__doc__</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Module and Package</h2>
+
+<ol>
+<li><strong>avoid</strong> using<code>from ... import ...</code> to avoid name clashes.</li>
+<li>module search path: <code>sys.path</code></li>
+<li>a module&rsquo;s <code>__name__</code> is <code>__main__</code> implies that
+ the module is being run standalone.</li>
+<li><code>dir(module_name)</code> list the identifiers of the module.</li>
+<li>packages are just folders of modules with a special <code>__init__.py</code> file.</li>
+</ol>
+
+
+<h2>Object Oriented and Classes</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>class and inheritance  (obj_oriented.py)</span> <a href='/downloads/code/obj_oriented.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">SchoolMember</span><span class="p">:</span>
+</span><span class='line'>	<span class="sd">&#39;&#39;&#39;Represents any school member.&#39;&#39;&#39;</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">population</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>	<span class="c"># special method</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+</span><span class='line'>		<span class="sd">&#39;&#39;&#39;Initializes the data.&#39;&#39;&#39;</span>
+</span><span class='line'>		<span class="c"># call instance variable by self.name</span>
+</span><span class='line'>		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span class='line'>		<span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+</span><span class='line'>		<span class="c"># call class variable by class_name.name</span>
+</span><span class='line'>		<span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="c"># special method</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>		<span class="sd">&#39;&#39;&#39;I am going.&#39;&#39;&#39;</span>
+</span><span class='line'>		<span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span class='line'>	
+</span><span class='line'>	<span class="k">def</span> <span class="nf">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>		<span class="sd">&#39;&#39;&#39;Greeting.&#39;&#39;&#39;</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;name:{}, age:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="c"># static method</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">howMany</span><span class="p">():</span>
+</span><span class='line'>		<span class="sd">&#39;&#39;&#39;Prints the current population.&#39;&#39;&#39;</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;We have {0:d} members.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span><span class="p">))</span>
+</span><span class='line'>	<span class="n">howMany</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">howMany</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="c"># another way of defining static method</span>
+</span><span class='line'>	<span class="nd">@staticmethod</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">howMuch</span><span class="p">():</span>
+</span><span class='line'>		<span class="sd">&#39;&#39;&#39;Prints the current population.&#39;&#39;&#39;</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;We have {0:d} members.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SchoolMember</span><span class="o">.</span><span class="n">population</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">__myseq</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>		<span class="k">pass</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Teacher</span><span class="p">(</span><span class="n">SchoolMember</span><span class="p">):</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">salary</span><span class="p">):</span>
+</span><span class='line'>		<span class="n">SchoolMember</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+</span><span class='line'>		<span class="bp">self</span><span class="o">.</span><span class="n">salary</span> <span class="o">=</span> <span class="n">salary</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>		<span class="n">SchoolMember</span><span class="o">.</span><span class="n">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;Salary: &quot;{0:d}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">salary</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">SchoolMember</span><span class="p">):</span>
+</span><span class='line'>	<span class="sd">&#39;&#39;&#39;Represents a student.&#39;&#39;&#39;</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">marks</span><span class="p">):</span>
+</span><span class='line'>		<span class="n">SchoolMember</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+</span><span class='line'>		<span class="bp">self</span><span class="o">.</span><span class="n">marks</span> <span class="o">=</span> <span class="n">marks</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>		<span class="n">SchoolMember</span><span class="o">.</span><span class="n">tell</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="s">&#39;Marks: &quot;{0:d}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">marks</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">t</span> <span class="o">=</span> <span class="n">Teacher</span><span class="p">(</span><span class="s">&#39;Shrividya&#39;</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span> <span class="mi">30000</span><span class="p">)</span>
+</span><span class='line'><span class="n">s</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">&#39;Swaroop&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">members</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span>
+</span><span class='line'>	<span class="c"># polymorphism</span>
+</span><span class='line'>	<span class="n">member</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="c"># works for both Teachers and Students</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">SchoolMember</span><span class="o">.</span><span class="n">howMuch</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">try</span><span class="p">:</span>
+</span><span class='line'>	<span class="n">t</span><span class="o">.</span><span class="n">__myseq</span><span class="p">()</span>
+</span><span class='line'><span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;attribute start with __ is private&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">SchoolMember</span><span class="o">.</span><span class="n">howMany</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Input and Output</h2>
+
+<ol>
+<li><code>input(info_text)</code>, <code>print(text)</code></li>
+<li>file. <code>open</code>,<code>read</code>, <code>write</code>, <code>close</code></li>
+<li>pickle.
+ <code>pickle.dump(obj_name, f)</code>
+ <code>obj_name=pickle.load(f)</code></li>
+</ol>
+
+
+<h2>Exceptions and with-statement</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Exception and Raising Exceptions  (except.py)</span> <a href='/downloads/code/except.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">ShortInputException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span><span class='line'>	<span class="sd">&#39;&#39;&#39;A user-defined exception class.&#39;&#39;&#39;</span>
+</span><span class='line'>	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">atleast</span><span class="p">):</span>
+</span><span class='line'>		<span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class='line'>		<span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+</span><span class='line'>		<span class="bp">self</span><span class="o">.</span><span class="n">atleast</span> <span class="o">=</span> <span class="n">atleast</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">try</span><span class="p">:</span>
+</span><span class='line'>	<span class="n">text</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&#39;Enter something --&gt; &#39;</span><span class="p">)</span>
+</span><span class='line'>	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+</span><span class='line'>		<span class="k">raise</span> <span class="n">ShortInputException</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>	<span class="c"># Other work can continue as usual here</span>
+</span><span class='line'><span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;Why did you do an EOF on me?&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;You cancelled the operation.&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">except</span> <span class="n">ShortInputException</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;ShortInputException: The input was {0} long, expected at least {1}&#39;</span>\
+</span><span class='line'>		<span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">ex</span><span class="o">.</span><span class="n">atleast</span><span class="p">))</span>
+</span><span class='line'><span class="k">else</span><span class="p">:</span>
+</span><span class='line'>	<span class="k">print</span><span class="p">(</span><span class="s">&#39;No exception was raised.&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>with statement  (with_example.py)</span> <a href='/downloads/code/with_example.py'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">filename</span><span class="o">=</span><span class="s">&#39;test.txt&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># open a file, read some datas and close file.</span>
+</span><span class='line'><span class="c"># __init__ and __enter__(assign returned value to content)</span>
+</span><span class='line'><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">content</span><span class="p">:</span>
+</span><span class='line'>	<span class="c"># do something</span>
+</span><span class='line'>	<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+</span><span class='line'>		<span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span class='line'><span class="c"># __exit__</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

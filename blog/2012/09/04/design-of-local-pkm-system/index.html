@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>design of local pkm system - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="我相信，个人知识管理(pkm)终将会成为一个时代的宠儿，尤其是随着大数据时代的到来。 速度决定成败，加速是亘古不变的话题。
+机械工业时代加速的是交通工具，信息时代加速的是知识流通。 从pc机时代到互联网时代，从 web1.0 到 web2.0，
+每一次变革，都是知识流通速度的突变。
+所以， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2012/09/04/design-of-local-pkm-system/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">design of local pkm system</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-04T02:25:00+08:00" pubdate data-updated="true">Sep 4<span>th</span>, 2012</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>我相信，个人知识管理(pkm)终将会成为一个时代的宠儿，尤其是随着大数据时代的到来。</p>
+
+<p>速度决定成败，加速是亘古不变的话题。
+机械工业时代加速的是交通工具，信息时代加速的是知识流通。</p>
+
+<!--more-->
+
+
+<p>从pc机时代到互联网时代，从 web1.0 到 web2.0，
+每一次变革，都是知识流通速度的突变。
+所以，以微软为代表的 pc 机时代取代了以 IBM 为代表的企业级应用时代，
+随后又进入了以 google 为代表的互联网搜索时代，知识大爆炸。
+社交圈可以提供更有针对性的有效信息，所以，facebook 赢了。
+智能终端的灵活性远远超过 PC 机，所以大家削尖了脑袋挤进手机市场。</p>
+
+<p>有效的知识管理，可以将人的大脑从琐碎的记忆中解放出来。
+提升效率，加速个人知识流动。
+同时，高质量的个人知识仓库，可以帮助建立较高的个人品牌价值。</p>
+
+<h2>系统设计</h2>
+
+<p>基于 web server 的本地化个人知识管理系统。
+即：在个人电脑上搭建一个服务器，集成一系列知识管理应用。
+最大的挑战和风险在于：数据安全。
+暂时，通过频繁的的备份来规避风险。</p>
+
+<p>只要电脑开机，任何地点任何时间，都能用手机或者其他电脑接入自己电脑。
+查询、更新项目进展，获取重要文档资料。</p>
+
+<h4>应用：</h4>
+
+<ol>
+<li><p>项目管理与时间管理——redmine</p>
+
+<p> 跟踪项目进展和时间进度，记录个人时间花费情况。</p>
+
+<p> 现在，我们往往需要同时做几件大的事情。
+ 及时制定计划并录入 redmine，后续只要跟着 redmine 依次执行即可。
+ 化多线程为单线程，单线程，我们总是可以把事情做的更棒更快。</p></li>
+<li><p>笔记系统——基于 wordpress 的 blog。</p>
+
+<p> 有效的总结可以避免车轮式的前进，个人进步与提升的基础。</p>
+
+<p> 选择独立的blog:</p>
+
+<ul>
+<li>数据安全，天朝最不能相信的就是互联网，说封就封，说墙就墙。重要的东西必须本地存储。</li>
+<li>当前，没有一个稳定的blog，既支持tex语法，又支持代码高亮显示。</li>
+<li>干净整洁无广告，可扩展性高，可定制。
+  与本地的文件系统、项目管理系统等可以集成。</li>
+</ul>
+</li>
+<li><p>文档代码等电子文件——svn</p></li>
+<li>人际关系管理——代码开发中。。。</li>
+<li>图片服务器——piwigo</li>
+</ol>
+
+
+<h4>底层服务：</h4>
+
+<ul>
+<li>server——apache2</li>
+<li>database——mysql</li>
+<li>server script——php，python</li>
+<li>os——windows/ubuntu7</li>
+</ul>
+
+
+<h2>环境搭建</h2>
+
+<p>以 ubuntu 12.04 为例。</p>
+
+<h4>磁盘分区与安装规划</h4>
+
+<p>划分2个单独的磁盘分区:</p>
+
+<ol>
+<li>apache2 的 <code>document_root</code>。 即网站文档的根目录。</li>
+<li>存储备份文件，保证数据安全。</li>
+</ol>
+
+
+<h4>磁盘挂载与文件权限</h4>
+
+<p>www开机自动挂载，文件所有者为 apache2 用户 www-data。
+权限策略 umask = 022.
+uid是 www-data 的id，安装apache2后自动创建。</p>
+
+<figure class='code'><figcaption><span>auto mount www</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo vim /etc/fstab
+</span><span class='line'><span class="c"># insert Entry for /dev/sda6 : www</span>
+</span><span class='line'>/dev/sda6 /media/www ntfs <span class="nv">uid</span><span class="o">=</span>33,gid<span class="o">=</span>1001,umask<span class="o">=</span>002,dmask<span class="o">=</span>022,utf8
+</span><span class='line'><span class="c"># get uuid of the partition</span>
+</span><span class='line'><span class="nv">$ </span>sudo blkid
+</span><span class='line'><span class="c"># get uid</span>
+</span><span class='line'><span class="nv">$ </span>id www-data
+</span><span class='line'><span class="c"># bash watch group id and group members </span>
+</span><span class='line'><span class="nv">$ </span>cat /etc/group|grep subversion
+</span><span class='line'>subversion:x:1001:www-data,jackonyang
+</span><span class='line'><span class="c"># mount</span>
+</span><span class='line'>mount -a
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>备份区，备份时挂载，备份后卸载。禁止自动挂载。
+防止误操作。</p>
+
+<h4>apache2</h4>
+
+<figure class='code'><figcaption><span>install apache2 and config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install apache2
+</span><span class='line'><span class="c"># edit serverName:</span>
+</span><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/httpd.conf
+</span><span class='line'><span class="c"># insert</span>
+</span><span class='line'>ServerName localhost
+</span><span class='line'><span class="c"># edit document_root</span>
+</span><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/sites-enabled/000-default
+</span><span class='line'><span class="c"># by default in ubuntu: /var/www</span>
+</span><span class='line'>DocumentRoot /media/server_root/www
+</span><span class='line'>&lt;Directory /media/server_root/www/&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>svn 与 http 访问方式</h4>
+
+<p>预置条件：apache2已安装。</p>
+
+<figure class='code'><figcaption><span>install svn and access by http</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install subversion
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install libapache2-svn
+</span><span class='line'><span class="c"># create user group and add user</span>
+</span><span class='line'><span class="nv">$ </span>sudo addgroup subversion
+</span><span class='line'><span class="nv">$ </span>sudo usermod -G subversion -a www-data
+</span><span class='line'><span class="nv">$ </span>sudo usermod -G subversion -a jackonyang
+</span><span class='line'><span class="c"># 修改http访问svn模块配置参数：</span>
+</span><span class='line'><span class="nv">$ </span>sudo a2enmod dav_svn
+</span><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/mods-enabled/dav_svn.conf
+</span><span class='line'>&lt;Location /svn&gt;
+</span><span class='line'>  DAV svn
+</span><span class='line'>  SVNPath /media/svn/src_svn
+</span><span class='line'>  AuthType Basic
+</span><span class='line'>  AuthName <span class="s2">&quot;JackonYang Subversion Repository&quot;</span>
+</span><span class='line'>  AuthUserFile /etc/apache2/dav_svn.passwd
+</span><span class='line'>&lt;/Location&gt;
+</span><span class='line'><span class="c"># create svn repo and user </span>
+</span><span class='line'><span class="nv">$ </span>sudo mkdir /media/svn/src_svn
+</span><span class='line'><span class="nv">$ </span>sudo svnadmin create /media/svn/src_svn
+</span><span class='line'><span class="nv">$ </span>sudo chown -R www-data /media/svn/src_svn
+</span><span class='line'><span class="nv">$ </span>sudo htpasswd -cm /etc/apache2/dav_svn.passwd jackonyang
+</span><span class='line'><span class="c"># restart apache2</span>
+</span><span class='line'><span class="nv">$ </span>sudo service apache2 restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>mysql 安装配置</h4>
+
+<figure class='code'><figcaption><span>install mysql and config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install mysql-server
+</span><span class='line'><span class="c"># charset</span>
+</span><span class='line'><span class="nv">$ </span>sudo vim /etc/mysql/my.cnf
+</span><span class='line'><span class="c"># add or edit</span>
+</span><span class='line'><span class="o">[</span>client<span class="o">]</span>
+</span><span class='line'>default-character-set <span class="o">=</span> utf8
+</span><span class='line'><span class="o">[</span>mysqld<span class="o">]</span>
+</span><span class='line'>character-set-server <span class="o">=</span> utf8
+</span><span class='line'>collation-server <span class="o">=</span> utf8_general_ci
+</span><span class='line'><span class="nv">$ </span>sudo service mysql restart
+</span><span class='line'><span class="c"># login and check</span>
+</span><span class='line'><span class="nv">$ </span>mysql -uroot -p
+</span><span class='line'>mysql&gt; show variables like <span class="s1">&#39;character_set_%&#39;</span>;
+</span><span class='line'>mysql&gt; show variables like <span class="s1">&#39;collation_%&#39;</span>;
+</span><span class='line'><span class="c"># security grant </span>
+</span><span class='line'>mysql&gt; use mysql;
+</span><span class='line'>mysql&gt; delete from user where <span class="nv">user</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>;
+</span><span class='line'>Query OK, 2 rows affected <span class="o">(</span>0.00 sec<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>redmine</h4>
+
+<p>预置条件：apache2，mysql已安装</p>
+
+<figure class='code'><figcaption><span>install redmine and config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install libapache2-mod-passenger redmine redmine-mysql
+</span><span class='line'><span class="c"># input mysql root password and default passwd for redmine to login mysql</span>
+</span><span class='line'><span class="c"># config apache2</span>
+</span><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/conf.d/redmine.conf
+</span><span class='line'>RailsEnv production
+</span><span class='line'>RailsBaseURI /redmine
+</span><span class='line'><span class="nv">$ </span>sudo ln -s /usr/share/redmine/public /media/server_root/www/redmine
+</span><span class='line'><span class="nv">$ </span>sudo service apache2 restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>访问 redmine
+浏览器访问: <code>localhost/redmine</code>
+默认用户密码：admin/admin</p>
+
+<h4>wordpress</h4>
+
+<p>依赖于 php，phpmyadmin，mysql</p>
+
+<p>安装 php5，phpmyadmin</p>
+
+<figure class='code'><figcaption><span>install php5 and phpmyadmin</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install php5
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install phpmyadmin
+</span><span class='line'><span class="nv">$ </span>sudo ln -s /usr/share/phpmyadmin/ /media/server_root/www/
+</span><span class='line'><span class="c"># restart apache2, or report error: 缺少 mysqli 扩展。请检查 PHP 配置。</span>
+</span><span class='line'><span class="nv">$ </span>sudo service apache2 restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>测试:</p>
+
+<figure class='code'><figcaption><span>testphp</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo vim /media/server_root/www/testphp.php
+</span><span class='line'>&lt;?php phpinfo<span class="o">()</span>; ?&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>wordpress安装包复制到 apache2 document_root 目录下解压
+进入目录，根据sample文件创建wp-config.php
+<code>cp wp-config-sample.php wp-config.php</code> 然后修改wp-config.php中的数据库链接信息。
+浏览器打开，完成安装即可。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-04T02:25:00+08:00" pubdate data-updated="true">Sep 4<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/data-mining/'>data-mining</a>, <a class='category' href='/blog/categories/project/'>project</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/08/26/ubuntu-detect-and-convert-file-encoding/" title="Previous Post: detect and convert file encoding">&laquo; detect and convert file encoding</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/11/19/introduction-to-common-encoding/" title="Next Post: 字符编码简介">字符编码简介 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2012/09/04/design-of-local-pkm-system/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2012/09/04/design-of-local-pkm-system/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

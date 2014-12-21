@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: encoding | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/encoding/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[latex 字符编码与跨平台中文支持]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/03/05/latex-encoding/"/>
+    <updated>2013-03-05T02:49:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/03/05/latex-encoding</id>
+    <content type="html"><![CDATA[<p>大多数 windows 用户从来没有考虑过 latex 字符编码的问题。
+通用都是用 CJK 包中的 GBK 字符编码。
+如此写成的源码放到 ubuntu 下往往不能直接编译成功。
+因为，ubuntu 默认安装包中缺少这种字体。</p>
+
+<p>跨平台、多语言支持，utf8 编码是最好的解决方案。
+关于字符编码的基本概念，点击 <a href="/blog/2012/11/19/introduction-to-common-encoding/">这里</a></p>
+
+<!--more-->
+
+
+<h2>utf8 编码块平台中文支持</h2>
+
+<ol>
+<li><p>声明字符编码时使用：<code>\begin{CJK}{UTF8}{gbsn}</code></p>
+
+<p> windows 下一般使用 <code>\begin{CJK}{GBK}{song}</code>。</p></li>
+<li><p>每一个 <code>.tex</code> 的源码文件第一行声明字符编码格式：<code>% !Mode:: "TeX:UTF-8"</code></p>
+
+<p> winedit 默认使用 GBK 打开源文件，不会自动检测字符编码，打开以后显示乱码。
+ 源码文件第一行声明字符编码即可。</p></li>
+</ol>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>latex Chinese with utf8  (test.tex)</span> <a href='/downloads/code/test.tex'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='latex'><span class='line'><span class="c">% !Mode:: &quot;TeX:UTF-8&quot;</span>
+</span><span class='line'><span class="c">% 注意：</span>
+</span><span class='line'><span class="c">% 1. 第一行的字符声明</span>
+</span><span class='line'><span class="c">% 2. CJK 使用的字符编码和字体</span>
+</span><span class='line'><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
+</span><span class='line'><span class="k">\usepackage</span><span class="nb">{</span>CJKutf8<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+</span><span class='line'><span class="k">\begin</span><span class="nb">{</span>CJK<span class="nb">}{</span>UTF8<span class="nb">}{</span>gbsn<span class="nb">}</span>
+</span><span class='line'>hello,
+</span><span class='line'>这是中文
+</span><span class='line'><span class="k">\end</span><span class="nb">{</span>CJK<span class="nb">}</span>
+</span><span class='line'><span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ubuntu and vim encoding settings]]></title>
+    <link href="http://JackonYang.github.io/blog/2012/11/21/ubuntu-and-vim-encoding-settings/"/>
+    <updated>2012-11-21T12:40:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2012/11/21/ubuntu-and-vim-encoding-settings</id>
+    <content type="html"><![CDATA[<p>ubuntu 与 windows 默认字符编码不一致，导致跨平台时常常出现乱码问题。</p>
+
+<!--more-->
+
+
+<h2>一般攻略的处理方式</h2>
+
+<p>通常攻略的解决方法是修改 ubuntu 的默认字符编码为 gbk 或者 gb2312。
+个人认为，为了兼容部分 windows 文件，修改 linux 系统默认字符编码，并不是最优解决方案。</p>
+
+<ol>
+<li>ubuntu下，处理 utf-8 编码的情况远多于 gbk 或 gb2312.
+ 尤其是代码源文件，比如 python, mysql.</li>
+<li><p>gb系编码，目前相对混乱。</p>
+
+<p> 使用最多的是gb2312，但支持字符太少，难以满足日常应用。很多攻略都建议修改为gb2312。
+ GBK 是 gb2312 的替代者，扩展了支持的字符，但亦有一些不支持的生僻字。
+ GB18030，支持的字符较多，但与一些程序可能存在不兼容的问题。</p></li>
+</ol>
+
+
+<h2>Solution</h2>
+
+<h4>keep ubuntu default encoding unchanged, add gb18030 and gbk support.</h4>
+
+<p>``` bash add support of gb* encoding
+$ sudo vim /var/lib/locales/supported.d/local
+zh_CN.UTF-8 UTF-8
+en_US.UTF-8 UTF-8
+zh_CN.GB18030 GB18030
+zh_CN.GBK GBK</p>
+
+<h1>make it effect</h1>
+
+<p>$ sudo locale-gen</p>
+
+<h1>make sure that all the encodings are utf-8</h1>
+
+<p>$ locale
+LANG=zh_CN.UTF-8
+LANGUAGE=zh_CN:zh
+LC_CTYPE=&ldquo;zh_CN.UTF-8&rdquo;
+LC_NUMERIC=&ldquo;zh_CN.UTF-8&rdquo;
+LC_TIME=&ldquo;zh_CN.UTF-8&rdquo;
+LC_COLLATE=&ldquo;zh_CN.UTF-8&rdquo;
+LC_MONETARY=&ldquo;zh_CN.UTF-8&rdquo;
+LC_MESSAGES=&ldquo;zh_CN.UTF-8&rdquo;
+LC_PAPER=&ldquo;zh_CN.UTF-8&rdquo;
+LC_NAME=&ldquo;zh_CN.UTF-8&rdquo;
+LC_ADDRESS=&ldquo;zh_CN.UTF-8&rdquo;
+LC_TELEPHONE=&ldquo;zh_CN.UTF-8&rdquo;
+LC_MEASUREMENT=&ldquo;zh_CN.UTF-8&rdquo;
+LC_IDENTIFICATION=&ldquo;zh_CN.UTF-8&rdquo;
+LC_ALL=
+```</p>
+
+<h4>encoding settings of vim</h4>
+
+<p><code>bash setting of vim in vimrc
+"encoding
+:set encoding=utf-8
+:set fileencodings=utf-8,gb18030,gbk
+:set fileencoding=utf-8
+:set termencoding=utf-8
+</code></p>
+
+<h2>vim 字符编码工作原理</h2>
+
+<h4>vim 字符编码说明</h4>
+
+<p>Vim 有四个跟字符编码方式有关的选项，encoding、fileencoding、fileencodings、termencoding</p>
+
+<ul>
+<li><p>encoding: Vim 内部使用的字符编码方式，包括 Vim 的 buffer (缓冲区)、菜单文本、消息文本等。</p>
+
+<p>  如果vim的encoding为utf-8,所编辑的文件采用GBK编码,
+  vim会自动将读入的文件转成utf-8，而写入文件时,自动转回成GBK（文件的保存编码).</p></li>
+<li>fileencoding: Vim 中当前编辑的文件的字符编码方式，保存文件时也会将文件保存为这种字符编码方式。</li>
+<li><p>fileencodings: Vim 自动探测 fileencodings 的顺序列表， 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。</p>
+
+<p>  最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p></li>
+<li><p>termencoding: Vim 所工作的终端 terminal 的字符编码方式。</p>
+
+<p>  如果 vim 所在的 terminal 与 vim 编码相同，则无需设置。如其不然，你可以用 vim 的 termencoding 选项将自动转换成 terminal 的编码.这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是 Windows 控制台的代码页，并且通常我们不需要改变它。</p></li>
+</ul>
+
+
+<h4>Vim 的多字符编码方式支持的工作方式</h4>
+
+<ol>
+<li>Vim 启动，根据 <code>.vimrc</code> 中设置的 encoding 的值来设置 buffer、菜单文本、消息文的字符编码方式。</li>
+<li>读取需要编辑的文件，根据 fileencodings 中列出的字符编码方式逐一探测该文件编码方式。并设置 fileencoding 为探测到的，看起来是正确的字符编码方式。</li>
+<li><p>对比 fileencoding 和 encoding 的值，若不同则调用 iconv 将文件内容转换为 encoding 所描述的字符编码方式，并且把转换后的内容放到为此文件开辟的 buffer 里，此时我们就可以开始编辑这个文件了。</p>
+
+<p> 注意，完成这一步动作需要调用外部的 iconv.dll(windows)，你需要保证这个文件存在于 $VIMRUNTIME 或者其他列在 PATH 环境变量中的目录里。</p></li>
+<li>编辑完成后保存文件时，再次对比 fileencoding 和 encoding 的值。若不同，再次调用 iconv 将即将保存的 buffer 中的文本转换为 fileencoding 所描述的字符编码方式，并保存到指定的文件中。</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[字符编码简介]]></title>
+    <link href="http://JackonYang.github.io/blog/2012/11/19/introduction-to-common-encoding/"/>
+    <updated>2012-11-19T09:59:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2012/11/19/introduction-to-common-encoding</id>
+    <content type="html"><![CDATA[<p>涉及中文的编程时，经常遇到字符编码的问题。
+这些问题，大多源自于概念之间的混淆。
+理顺字符编码概念之间的关系，即可避免大多数问题。</p>
+
+<p>经常提到的几个概念如下：</p>
+
+<ul>
+<li>ASCII</li>
+<li>Unicode</li>
+<li>UTF-8</li>
+<li>GBK</li>
+<li>GB2312</li>
+<li>GB18030</li>
+<li>charset</li>
+<li>encoding</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>Charset and encoding</h2>
+
+<ul>
+<li>charset(字符集): set 字符的集合。</li>
+<li>encoding(字符编码): map 2 个字符集合之间的映射关系。<br/>
+  主要用于字符集合之间的相互转换。</li>
+</ul>
+
+
+<h2>charset 字符集合</h2>
+
+<ul>
+<li><p>ASCII: 主要用于表示英语等单字节的语言。</p>
+
+<ul>
+<li>standard ASCII: 取值范围是0~127，可以用7个bit表示。</li>
+<li>Extended ASCII: 一般机器一字节 8 位，取值范围是 0-255。<br/>
+  因此各厂商制定了很多种 ASCII 码的扩展规范。<br/>
+  Latin-1 是图形界面中广泛使用的 扩展 ASCII 码。</li>
+</ul>
+</li>
+<li>GB系: 主要用于表示汉字，中国的国家标准。双字节编码。<br/>
+  按推出时间的先后顺序：GB2312 &ndash;> GBK &ndash;> GB18030</li>
+<li>Unicode: 为了统一表示各国语言，18位二进制数表示。</li>
+</ul>
+
+
+<h2>encoding 字符集之间的映射关系</h2>
+
+<p>字符编码与字符集的名字通常是一样的，unicode 例外。<br/>
+unicode 存在多种实现方式，所以，字符编码名字较多，如 utf8/utf16/utf32 等。</p>
+
+<p>编程中，建议主要使用如下 2 种编码。</p>
+
+<ul>
+<li>ASCII 字符编码: 纯英文时使用。ASCII 字符集的编码方式。</li>
+<li>UTF-8: 涉及汉字等非英文字符时使用。Unicode 字符集的实现方式之一。</li>
+</ul>
+
+
+<h4>standard ASCII</h4>
+
+<p><img src="/images/std_ascii.png"></p>
+
+<h4>IBM expanded ASCII</h4>
+
+<p><img src="/images/ibm_ascii.png"></p>
+
+<h4>Latin-1</h4>
+
+<p>编号为128~159的是一些控制字符，表中没有列出。
+<img src="/images/latin1.png"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[detect and convert file encoding]]></title>
+    <link href="http://JackonYang.github.io/blog/2012/08/26/ubuntu-detect-and-convert-file-encoding/"/>
+    <updated>2012-08-26T01:38:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2012/08/26/ubuntu-detect-and-convert-file-encoding</id>
+    <content type="html"><![CDATA[<h2>detect and convert file encoding with enca</h2>
+
+<p>by default, ubuntu provide <code>iconv</code> to detect and convert file encodings.
+there are some shortcomings of it:</p>
+
+<!--more-->
+
+
+<ul>
+<li>origion encoding should be given when converting, which can be detected by <code>file</code>.</li>
+<li>it will not return when error occurs, which is a little complicated when scripting.</li>
+</ul>
+
+
+<p><code>enca</code> is suggested, install:</p>
+
+<p><code>bash intall enca
+$ sudo apt-get install enca
+</code></p>
+
+<p>usage:
+<code>bash enca usage
+$ enca filename
+7bit ASCII character
+$ enca -x target_encoding filename
+</code></p>
+
+<h2>convert encoding of filename with convmv</h2>
+
+<p>``` bash convert encoding of filenames in /home</p>
+
+<h1>install</h1>
+
+<p>$ sudo apt-get install convmv</p>
+
+<h1>convert filename encoding</h1>
+
+<p>$ convmv -f gbk -t utf8 -r –notest /home</p>
+
+<h1>-notest: do it now, no test</h1>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

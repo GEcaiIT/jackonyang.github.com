@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>vim 全局插件的配置 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="前段时间发现自己的 vimrc 问题很大，一些关键配置无法兼容多个编程语言。 深入研究了一下 vim，重写了一套干净的配置文件，备份在 github 上。我的配置文件 新的配置文件，严格区分全局插件和文件类型插件。
+更详细的关于 vim plugin 原理的解释在这里 本文只涉及全局插件的配置( &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/04/19/vim-general-settings/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">vim 全局插件的配置</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-19T16:46:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>前段时间发现自己的 vimrc 问题很大，一些关键配置无法兼容多个编程语言。</p>
+
+<p>深入研究了一下 vim，重写了一套干净的配置文件，备份在 github 上。<a href="https://github.com/JackonYang/vimplugin">我的配置文件</a></p>
+
+<!--more-->
+
+
+<p>新的配置文件，严格区分全局插件和文件类型插件。
+更详细的关于 vim plugin 原理的解释在<a href="/blog/2013/04/19/vim-general-settings/">这里</a></p>
+
+<p>本文只涉及全局插件的配置(global plugin)。</p>
+
+<h2>系统配置</h2>
+
+<p>vim normal 模式下禁用中文输入法，否则输入中文时很烦。
+ibus 配置如下：</p>
+
+<p><img src="/images/escapeIbus.png"></p>
+
+<p>这是一个初步的方案，原理就是 <code>Esc</code> 时顺便把输入法也禁用了。
+后面可以继续正常切换，所以，并不是 vim normal 模式下完全不能用。</p>
+
+<h2>必要设置</h2>
+
+<p>通常要放在 vimrc 文件头，因为其他插件会依赖这几条设置。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">set</span> <span class="nb">nocompatible</span>  <span class="c">&quot; Use Vim defaults instead of 100% vi compatibility</span>
+</span><span class='line'><span class="k">filetype</span> plugin indent <span class="k">on</span>
+</span><span class='line'><span class="nb">syntax</span> <span class="k">on</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解释：</p>
+
+<ol>
+<li>不兼容 vi。vim 可以兼容 vi，但一些新特性是 vi 不支持的。所以要用 noncompatiable</li>
+<li><p>打开了三个特性：自动检测文件类型，基于文件类型的插件生效，智能缩进。</p>
+
+<p> 跟文件类型/编程语言有关的设置，基本都依赖于前两个。<br/>
+ indent 的作用没这么基础，但也是要设置的，放在这里，整齐。</p></li>
+<li>如果通篇的文字不是一个颜色，那就就需要打开这个特性。</li>
+</ol>
+
+
+<h2>字符编码 encoding</h2>
+
+<p>涉及中文的，总要是先处理好字符编码问题。
+关于 vim 字符编码工作原理的详细解释在 <a href="/blog/2012/11/21/ubuntu-and-vim-encoding-settings/">这里</a></p>
+
+<p>我的具体设置及原因如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; encoding</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">encoding</span><span class="p">=</span>utf<span class="m">-8</span>  <span class="c">&quot; vim cache encoding</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">fileencodings</span><span class="p">=</span>utf<span class="m">-8</span><span class="p">,</span>gb18030<span class="p">,</span>gbk <span class="c">&quot; open file with</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">fileencoding</span><span class="p">=</span>utf<span class="m">-8</span> <span class="c">&quot; save file with</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>tab</h2>
+
+<p>关于使用 tab 还是用空格代替，争论很多。</p>
+
+<p>我采用 4 空格替代一个 tab。
+一方面是喜欢，另一方面是为了 python 的 pep8 规范</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; tabs</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">4</span> <span class="c">&quot; tab width </span>
+</span><span class='line'><span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">4</span> <span class="c">&quot; width of nested tabs</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">expandtab</span> <span class="c">&quot; input spaces instead of tab when typing a tab</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">softtabstop</span><span class="p">=</span><span class="m">4</span> <span class="c">&quot; 1. space deleted when typing &lt;BackSpace&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>高亮显示当前行 </h2>
+
+<p>两个作用：</p>
+
+<ol>
+<li>清楚的看到空行/行尾是否有空格，有几个;</li>
+<li>定位光标位置方便。</li>
+</ol>
+
+
+<p>使用<code>highlight_current_line.vim</code>插件，修改为当前行 darkgray 背景色。</p>
+
+<p>默认是加粗字体，但编辑 markdown 时总有当前行设置了加粗的错觉。
+没找到简单的配置方法，直接改了插件里面的颜色值</p>
+
+<h2>自动补全</h2>
+
+<p>自动补全包括两个:</p>
+
+<ul>
+<li>autocomplet:  &lt;tab>补一个单词或者文件名</li>
+<li>snipmate: &lt;tab>补全一个模式，比如输入 def 后补全 python 的函数定义模板。</li>
+</ul>
+
+
+<p>装一下插件，默认配置即可。</p>
+
+<h2>增强鼠标和 BACKSPACE</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; 如果当前 vim 支持鼠标，那么，启用鼠标。a 可以理解为所有模式(all)</span>
+</span><span class='line'><span class="c">&quot; 严格说来，不是 all，以为不包括几个一般用户不关心的模式。</span>
+</span><span class='line'><span class="k">if</span> has<span class="p">(</span><span class="s1">&#39;mouse&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">set</span> <span class="nb">mouse</span><span class="p">=</span><span class="k">a</span>
+</span><span class='line'><span class="k">endif</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; &lt;BACKSPACE&gt;</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">backspace</span><span class="p">=</span>indent<span class="p">,</span><span class="nb">eol</span><span class="p">,</span><span class="k">start</span>  <span class="c">&quot; more powerful backspacing</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>增强提示行</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; status line</span>
+</span><span class='line'><span class="c">&quot; always shown, shown as the second last line in the editor window</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">laststatus</span><span class="p">=</span><span class="m">2</span> <span class="c">&quot; </span>
+</span><span class='line'><span class="c">&quot; format, by default, vim does not show the status line at all.</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">statusline</span><span class="p">=</span>%F%<span class="k">m</span>%<span class="k">r</span>%<span class="k">h</span>%<span class="k">w</span>\[FORMAT<span class="p">=</span>%{&amp;<span class="nb">ff</span>}]\[TYPE<span class="p">=</span>%Y]\[POS<span class="p">=</span>%<span class="m">04</span>l<span class="p">,</span>%<span class="m">04</span>v][%<span class="k">p</span>%%]\[LEN<span class="p">=</span>%L]
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>搜索</h2>
+
+<p>!!! 待补充</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; search as you type</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">incsearch</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ctrl-s 保存</h2>
+
+<p>!!! 未完成</p>
+
+<p>下面的设置，理论是应该是可以的。但执行无效。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot; TODO: make it available</span>
+</span><span class='line'><span class="c">&quot; to save, press ctrl-s</span>
+</span><span class='line'><span class="c">&quot; nmap &lt;F3&gt; :w&lt;CR&gt;</span>
+</span><span class='line'><span class="c">&quot; imap &lt;c-s&gt; &lt;Esc&gt;:w&lt;CR&gt;a</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ctags/cscope + taglist</h2>
+
+<p>没研究清楚到底用哪个。两个都用稍微乱了一点的感觉。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-19T16:46:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/17/python-learning-plan/" title="Previous Post: python 学习计划与书目">&laquo; python 学习计划与书目</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/25/javascript-primer/" title="Next Post: 原生 javascript 概述">原生 javascript 概述 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/04/19/vim-general-settings/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/04/19/vim-general-settings/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

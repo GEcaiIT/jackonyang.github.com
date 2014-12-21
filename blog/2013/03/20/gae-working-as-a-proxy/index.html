@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>goagent 翻墙的核心配置流程 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="用 goagent 做代理，应该是当前最稳定的选择之一，而且免费。 目前已经有很多配置攻略，各种复杂、高端的感觉，看的很晕。
+本文试图阐述其中的核心流程，保证参考其他有详细截图的攻略时不会被绕晕。
+同时，为了提高配置效率，分步配置，每一步给出验证方法，检查该步配置是否正确。 访问 google &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/03/20/gae-working-as-a-proxy/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">goagent 翻墙的核心配置流程</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-20T19:11:00+08:00" pubdate data-updated="true">Mar 20<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>用 goagent 做代理，应该是当前最稳定的选择之一，而且免费。</p>
+
+<p>目前已经有很多配置攻略，各种复杂、高端的感觉，看的很晕。
+本文试图阐述其中的核心流程，保证参考其他有详细截图的攻略时不会被绕晕。
+同时，为了提高配置效率，分步配置，每一步给出验证方法，检查该步配置是否正确。</p>
+
+<!--more-->
+
+
+<p>访问 google 旗下的网站时，建议全部使用 https 协议。
+否则被 GFW 封掉的概率很高。</p>
+
+<h3>goagent proxy 配置过程: 3 个必选，1 个可选</h3>
+
+<ol>
+<li>获取一个 google 帐号，在 appengine 中 create application,</li>
+<li>上传 goagent server 至 application,</li>
+<li>本机运行 goagent local/proxy.py,</li>
+<li>[可选] 安装浏览器插件。让 proxy 更智能，只对被 GFW 墙掉的网站使用代理。</li>
+</ol>
+
+
+<h5>google account 2-step verification</h5>
+
+<p>通常 create application 时需要把 google 帐号的安全机制升级为 2-step verification。
+即: 绑定手机，每次登录都会收到验证码短信，正确输入才可登录成功。</p>
+
+<p>大部分应用(手机/桌面)都无法获取验证码，所以不支持 2-step 验证。为了使用这些应用，google 提供了 application-specific password 来替代帐号密码。</p>
+
+<p><a href="https://accounts.google.com/IssuedAuthSubTokens?hide_authsub=1">点击这里</a> 创建 application-specific password 供 application 使用，替代正常密码，无需短信验证，每个密码仅能使用一次，可以创建很多个密码供不同 app 使用。</p>
+
+<p><a href="https://accounts.google.com/SmsAuthConfig">点击这里</a> 配置 2-step 验证方式</p>
+
+<h3>google appengine application</h3>
+
+<p>点击 <a href="https://appengine.google.com/">https://appengine.google.com/</a>  create application</p>
+
+<p>每一个 application 有一个唯一的标识( Application Identifier) 即 appid，其他 application 信息都可以随便填写。</p>
+
+<h3>上传 goagent server</h3>
+
+<p>推荐使用 appengine 而非 goagent 自带的 uploader。
+<a href="https://code.google.com/appengine/downloads.html">download Google App Engine SDK for Python</a> 这个页面打开速度各自慢，喝杯茶的功夫。</p>
+
+<p>{path-to-goagent}/server/python/app.yaml 中修改 appid. 然后用 <code>python google_appengine/appcfg.py update goagent/server/python/</code> 命令上传</p>
+
+<p>上传过程中要求输入 email/password, password 要用 application-specific password。
+上传成功后，在 <a href="https://appengine.google.com/">google appengine</a> 可以看到自己的 application，status 是 running</p>
+
+<h3>本地运行 local/proxy.py</h3>
+
+<p>修改 local/proxy.ini, appid 是刚刚上传的 appid。
+因为目前 <code>google_cn</code> 已经不稳定，所以 profile 需要换一个稳定的，比如 <code>google_hk</code></p>
+
+<p>切换到 local 目录下执行 <code>python proxy.py</code> 否则启动 proxy 不会报错，但访问页面失败。</p>
+
+<p>检查 proxy 启动是否成功的最简单方法是：
+proxy 启动后会在命令行打印一串信息，其中一个是 listen address. 默认 <code>Listen Address: 127.0.0.1:8087</code>
+在浏览器中输入这个地址，如果不是错误信息页面，则表示启动成功。</p>
+
+<h3>安装并配置浏览器插件 AutoProxy</h3>
+
+<ol>
+<li>代理服务器: 添加新代理作为默认代理服务器，ip/port 与 <code>Listen Address: 127.0.0.1:8087</code> 一致。</li>
+<li>订阅代理规则：用于自动代理，即只对被墙的网站用代理。此处的代理规则是 gfwlist, 该文件是一个被 GFW 墙掉的网站列表，自动更新。</li>
+<li>可能还需要手动导入证书。</li>
+</ol>
+
+
+<p>插件配置成功以后，可以正常访问被墙的网站。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-20T19:11:00+08:00" pubdate data-updated="true">Mar 20<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/etc/'>etc</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/19/vim-auto-complete/" title="Previous Post: vim auto complete">&laquo; vim auto complete</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/22/thoughtworks-interview/" title="Next Post: thoughtworks 面试总结">thoughtworks 面试总结 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/03/20/gae-working-as-a-proxy/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/03/20/gae-working-as-a-proxy/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

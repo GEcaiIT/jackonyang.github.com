@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vim | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[vim 入门]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/09/03/learning-vim/"/>
+    <updated>2013-09-03T09:17:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/09/03/learning-vim</id>
+    <content type="html"><![CDATA[<p>vim 是一款高效的编辑器，可以快速完成各种复杂的编辑任务。
+尤其适合于写代码。证据如下图:</p>
+
+<!--more-->
+
+
+<p><img src="/images/coding_with_vim.gif"></p>
+
+<h2>mode</h2>
+
+<h4>为什么要有 mode</h4>
+
+<p>vim 速度快的根本原因在于，
+键盘输入的不仅仅是纯文本，还可以是一个命令。
+比如:</p>
+
+<ul>
+<li><code>G</code> 可以快速移动到文件末尾。</li>
+<li><code>yy</code> 可以复制当前行。</li>
+<li><code>dw</code>删除光标所在的单词。</li>
+</ul>
+
+
+<p>由此产生一个问题，如何判断用户要输入文件内容还是执行命令。
+比如：用户按下 <code>G</code> 的时候，要输入字母 G 还是快速移动到文件末尾。</p>
+
+<p>解决这个问题的关键是： mode(模式)。</p>
+
+<h4>mode 类型与快速切换</h4>
+
+<p>vim 有很多 mode，常见的有 3 个:</p>
+
+<ol>
+<li>Normal/Command mode: 快速移动、修改文档，切换到其他模式。<br/>
+ 打开 vim 时，默认是 Normal mode.</li>
+<li>Insert mode: 键盘输入的所有东西都会插入到文本内容中.<br/>
+ Normal 下 <code>i</code> 进入 Insert mode, <code>Esc</code> 回到 Normal mode.</li>
+<li>Command-line mode: 打开/保存文件, 查找/替换，执行外部命令等。<br/>
+ Normal 下 <code>:</code> 进入 Command mode, <code>Esc</code> 回到 Normal mode</li>
+</ol>
+
+
+<h2>常见命令</h2>
+
+<h4>快速插入：Normal &mdash;> Insert mode 的更多方法</h4>
+
+<p>Normal &mdash;> Insert 的方法很多。<code>i</code> 只是最简单，最常见的一种。
+不同命令的区别仅仅在于插入的位置不同</p>
+
+<ul>
+<li>i 当前光标处</li>
+<li>a 在光标后</li>
+<li>I 当前行首</li>
+<li>A 当前行尾</li>
+<li>o 下一行（插入一行）</li>
+<li>o 上一行（插入一行）</li>
+</ul>
+
+
+<h4>剪切/复制/粘贴</h4>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[vim plugin 管理--使用 vundle]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/08/27/vim-plugin-management/"/>
+    <updated>2013-08-27T03:10:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/08/27/vim-plugin-management</id>
+    <content type="html"><![CDATA[<p>使用 vundle 管理 vim 插件，只需维护 vimrc 文件即可。</p>
+
+<p>vundle 的优势主要在于可以自动安装/卸载，清晰的插件列表。</p>
+
+<!--more-->
+
+
+<h4>需求分析</h4>
+
+<p>vim 的每一个插件相互独立，类似 git submodule 的概念。<br/>
+所以，把所有的插件放在一个 project 中进行管理，是非常不合适的。</p>
+
+<p>vim 通过目录区分插件的类型，改变插件目录会导致功能失效。<br/>
+submodule 也是按目录管理插件，但与 vim 对目录结构的要求不同。<br/>
+所以，无法直接使用 submodule 管理 vim 插件。</p>
+
+<p>vim 插件很多，随时都有可能更新插件，我们对插件的需求也在不断改变。<br/>
+所以，不可能把 vim 的插件配置好以后不再改动。</p>
+
+<p>vundle 很好的解决了这些问题：
+每个插件一个独立目录，方便管理又能直接在 vim 中生效，
+配置文件中维护一个插件列表，自动安装/卸载。</p>
+
+<h4>vundle 安装</h4>
+
+<ol>
+<li><code>$ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</code></li>
+<li><p>配置 <code>vimrc</code>，最简模板如下：</p>
+
+<p> <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>sample vimrc  (vimrc)</span> <a href='/downloads/code/vimrc'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">set</span> <span class="nb">nocompatible</span>               <span class="c">&quot; be iMproved</span>
+</span><span class='line'><span class="k">filetype</span> off                   <span class="c">&quot; vundle required!</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; use git instead default https when building absolute repo URIs</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:vundle_default_git_proto <span class="p">=</span> <span class="s1">&#39;git&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">set</span> <span class="nb">rtp</span><span class="p">+=~</span><span class="sr">/.vim/</span>bundle<span class="sr">/vundle/</span>
+</span><span class='line'><span class="k">call</span> vundle#rc<span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; let Vundle manage Vundle</span>
+</span><span class='line'><span class="c">&quot; required! </span>
+</span><span class='line'>Bundle <span class="s1">&#39;gmarik/vundle&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; My Bundles here:</span>
+</span><span class='line'><span class="c">&quot;</span>
+</span><span class='line'><span class="c">&quot; original repos on github</span>
+</span><span class='line'><span class="c">&quot; Bundle &#39;tpope/vim-rails.git&#39;</span>
+</span><span class='line'><span class="c">&quot; vim-scripts repos</span>
+</span><span class='line'>Bundle <span class="s1">&#39;Emmet.vim&#39;</span>
+</span><span class='line'>Bundle <span class="s1">&#39;highlight_current_line.vim&#39;</span>
+</span><span class='line'><span class="c">&quot; non github repos</span>
+</span><span class='line'><span class="c">&quot; Bundle &#39;git://git.wincent.com/command-t.git&#39;</span>
+</span><span class='line'><span class="c">&quot; git repos on your local machine (ie. when working on your own plugin)</span>
+</span><span class='line'><span class="c">&quot; Bundle &#39;file:///Users/gmarik/path/to/plugin&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">filetype</span> plugin indent <span class="k">on</span>     <span class="c">&quot;vundle required!</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p></li>
+<li>启动 <code>vim</code>，执行 <code>:BundleInstall</code></li>
+</ol>
+
+
+<h4>vundle 用法</h4>
+
+<p>详细的用法，安装完成后用 <code>:h vundle</code> 查看帮助文档。
+其他资料的准确度不高。</p>
+
+<p>常用命令：</p>
+
+<ul>
+<li>:BundleList          &ndash; list configured bundles</li>
+<li>:BundleInstall(!)    &ndash; <a href="update">install</a> bundles</li>
+<li>:BundleSearch(!) foo &ndash; <a href="or%20refresh%20cache%20first">search</a> for foo</li>
+<li>:BundleClean(!)      &ndash; <a href="https://github.com/gmarik/vundle/blob/master/doc/vundle.txt#L168-180">clean</a> unused scripts</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[vim 全局插件的配置]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/04/19/vim-general-settings/"/>
+    <updated>2013-04-19T16:46:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/04/19/vim-general-settings</id>
+    <content type="html"><![CDATA[<p>前段时间发现自己的 vimrc 问题很大，一些关键配置无法兼容多个编程语言。</p>
+
+<p>深入研究了一下 vim，重写了一套干净的配置文件，备份在 github 上。<a href="https://github.com/JackonYang/vimplugin">我的配置文件</a></p>
+
+<!--more-->
+
+
+<p>新的配置文件，严格区分全局插件和文件类型插件。
+更详细的关于 vim plugin 原理的解释在<a href="/blog/2013/04/19/vim-general-settings/">这里</a></p>
+
+<p>本文只涉及全局插件的配置(global plugin)。</p>
+
+<h2>系统配置</h2>
+
+<p>vim normal 模式下禁用中文输入法，否则输入中文时很烦。
+ibus 配置如下：</p>
+
+<p><img src="/images/escapeIbus.png"></p>
+
+<p>这是一个初步的方案，原理就是 <code>Esc</code> 时顺便把输入法也禁用了。
+后面可以继续正常切换，所以，并不是 vim normal 模式下完全不能用。</p>
+
+<h2>必要设置</h2>
+
+<p>通常要放在 vimrc 文件头，因为其他插件会依赖这几条设置。</p>
+
+<p><code>vim
+set nocompatible  " Use Vim defaults instead of 100% vi compatibility
+filetype plugin indent on
+syntax on
+</code></p>
+
+<p>解释：</p>
+
+<ol>
+<li>不兼容 vi。vim 可以兼容 vi，但一些新特性是 vi 不支持的。所以要用 noncompatiable</li>
+<li><p>打开了三个特性：自动检测文件类型，基于文件类型的插件生效，智能缩进。</p>
+
+<p> 跟文件类型/编程语言有关的设置，基本都依赖于前两个。<br/>
+ indent 的作用没这么基础，但也是要设置的，放在这里，整齐。</p></li>
+<li>如果通篇的文字不是一个颜色，那就就需要打开这个特性。</li>
+</ol>
+
+
+<h2>字符编码 encoding</h2>
+
+<p>涉及中文的，总要是先处理好字符编码问题。
+关于 vim 字符编码工作原理的详细解释在 <a href="/blog/2012/11/21/ubuntu-and-vim-encoding-settings/">这里</a></p>
+
+<p>我的具体设置及原因如下：</p>
+
+<p><code>vim
+" encoding
+set encoding=utf-8  " vim cache encoding
+set fileencodings=utf-8,gb18030,gbk " open file with
+set fileencoding=utf-8 " save file with
+</code></p>
+
+<h2>tab</h2>
+
+<p>关于使用 tab 还是用空格代替，争论很多。</p>
+
+<p>我采用 4 空格替代一个 tab。
+一方面是喜欢，另一方面是为了 python 的 pep8 规范</p>
+
+<p><code>vim
+" tabs
+set tabstop=4 " tab width
+set shiftwidth=4 " width of nested tabs
+set expandtab " input spaces instead of tab when typing a tab
+set softtabstop=4 " 1. space deleted when typing &lt;BackSpace&gt;
+</code></p>
+
+<h2>高亮显示当前行 </h2>
+
+<p>两个作用：</p>
+
+<ol>
+<li>清楚的看到空行/行尾是否有空格，有几个;</li>
+<li>定位光标位置方便。</li>
+</ol>
+
+
+<p>使用<code>highlight_current_line.vim</code>插件，修改为当前行 darkgray 背景色。</p>
+
+<p>默认是加粗字体，但编辑 markdown 时总有当前行设置了加粗的错觉。
+没找到简单的配置方法，直接改了插件里面的颜色值</p>
+
+<h2>自动补全</h2>
+
+<p>自动补全包括两个:</p>
+
+<ul>
+<li>autocomplet:  &lt;tab>补一个单词或者文件名</li>
+<li>snipmate: &lt;tab>补全一个模式，比如输入 def 后补全 python 的函数定义模板。</li>
+</ul>
+
+
+<p>装一下插件，默认配置即可。</p>
+
+<h2>增强鼠标和 BACKSPACE</h2>
+
+<p>``` vim
+&ldquo; 如果当前 vim 支持鼠标，那么，启用鼠标。a 可以理解为所有模式(all)
+&rdquo; 严格说来，不是 all，以为不包括几个一般用户不关心的模式。
+if has(&lsquo;mouse&rsquo;)</p>
+
+<pre><code>set mouse=a
+</code></pre>
+
+<p>endif</p>
+
+<p>&ldquo; <BACKSPACE>
+set backspace=indent,eol,start  &rdquo; more powerful backspacing
+```</p>
+
+<h2>增强提示行</h2>
+
+<p><code>vim
+" status line
+" always shown, shown as the second last line in the editor window
+set laststatus=2 "
+" format, by default, vim does not show the status line at all.
+set statusline=%F%m%r%h%w\[FORMAT=%{&amp;ff}]\[TYPE=%Y]\[POS=%04l,%04v][%p%%]\[LEN=%L]
+</code></p>
+
+<h2>搜索</h2>
+
+<p>!!! 待补充</p>
+
+<p><code>vim
+" search as you type
+set incsearch
+</code></p>
+
+<h2>ctrl-s 保存</h2>
+
+<p>!!! 未完成</p>
+
+<p>下面的设置，理论是应该是可以的。但执行无效。</p>
+
+<p><code>
+" TODO: make it available
+" to save, press ctrl-s
+" nmap &lt;F3&gt; :w&lt;CR&gt;
+" imap &lt;c-s&gt; &lt;Esc&gt;:w&lt;CR&gt;a
+</code></p>
+
+<h2>ctags/cscope + taglist</h2>
+
+<p>没研究清楚到底用哪个。两个都用稍微乱了一点的感觉。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[vim 快速移动]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/03/22/vim-better-navigation/"/>
+    <updated>2013-03-22T18:23:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/03/22/vim-better-navigation</id>
+    <content type="html"><![CDATA[<p>vim 支持众多快速跳转命令，以至于，只有想不到的，没有做不到的。</p>
+
+<p>我所需要的快速移动命令，分类如下：</p>
+
+<ol>
+<li>通用移动命令: 在行列、单词、句子间快速移动，查找, marker等;</li>
+<li>代码相关移动: 变量/函数/类定义之间跳动，文件间跳动。</li>
+</ol>
+
+
+<p>详细说明如下：</p>
+
+<!--more-->
+
+
+<h3>通用移动命令</h3>
+
+<h5>行列位置移动</h5>
+
+<ol>
+<li>上下左右移动: hjkl</li>
+<li>跳转至特定行：nG. n为跳转的行数。</li>
+<li>文件头尾：gg/G</li>
+</ol>
+
+
+<h5>语义移动</h5>
+
+<p>语义移动，即: 以单词、句子、段落等为单位的移动。</p>
+
+<ol>
+<li>单词。下一个单词开头 w, 下一个结尾 e, 上一个开头 b。若不在当前单词的结尾/开头，e/b 则是跳至当前单词的尾/头，否则是下一单词的尾/头。</li>
+<li>句子间跳转 ()，</li>
+<li>段落间跳转 {}</li>
+</ol>
+
+
+<h5>查找移动</h5>
+
+<p>即：移动到特定字符处。</p>
+
+<ol>
+<li>nfa: f 是关键词。找到之后的第 n 个 a。</li>
+<li><code>n*</code>: 找到之后的第 n 个当前单词。# 向前查找。</li>
+<li>/xxx: 一个强大的搜索引擎搜索 xxx。支持正则。n/N 向下/上继续搜索。</li>
+</ol>
+
+
+<h5>特殊重要位置</h5>
+
+<p>ma 标记当前位置为 a，'a 调至 a 处。</p>
+
+<h5>屏幕位置操作</h5>
+
+<p>查看大量 log 时比较常用。</p>
+
+<ol>
+<li>ctrl+f: 下一屏。</li>
+<li>ctrl+b: 上一屏。</li>
+<li>H, L, M: 屏幕的最上/最下/中间</li>
+</ol>
+
+
+<h3>代码相关移动</h3>
+
+<p>代码与普通文件主要区别是: 1. 增加了变量/函数/类等的定义，2. 涉及多文件相互导入。</p>
+
+<h5>变量的定义与使用之间移动。</h5>
+
+<p>ctags 可以很好的实现跳转至变量定义处。若要跳转至使用处，则需要 cscope。
+从个人实践来看，ctags 是最佳选择。
+因为，cscope 使用相对复杂一些，而增加的功能，并不怎么重要。
+甚至，我们在编码的过程中，不应该关心谁调用了自己，甚至让他们影响了模块的设计。
+重构阶段，修改函数/变量的定义会对第三方造成影响，那也要用重构工具，而不是跳来跳去手动改。</p>
+
+<p><code>ctags -R</code> 会在当前目录下迭代创建一个 tags 文件。</p>
+
+<ol>
+<li>tags 定义处 &lt;c-]>。若多处定义，g&lt;c-]> 给出列表。</li>
+<li>&lt;c-t> 回到前一个 tag。</li>
+<li>tags show tags history</li>
+<li>tags tagsname tagsname 的一个匹配处。</li>
+</ol>
+
+
+<h5>文件之间跳动</h5>
+
+<p>gf 跳到光标所在文件名的文件。适合于 inclue/import 行。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[vim auto complete]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/03/19/vim-auto-complete/"/>
+    <updated>2013-03-19T14:34:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/03/19/vim-auto-complete</id>
+    <content type="html"><![CDATA[<p>linux shell 下重度依赖自动补全命令和文件名，
+vim 下一直用的很少，主要因为补全的模式很多，命令又比较复杂。</p>
+
+<p>本文试图分析各种补全模式及其应用场景，将适合自己的几种模式进行封装并设置快捷键(<code>&lt;tab&gt;</code>)</p>
+
+<!--more-->
+
+
+<h4>vim auto-complete 模式概述</h4>
+
+<p>三种核心模式：</p>
+
+<ul>
+<li>Auto-completion with known words: 当前打开的文件/窗口中已出现过的 words</li>
+<li>Auto-completion using a dictionary file: 在固定 dictionary 中检索.
+  <code>set dictionary+=/path/to/dictionary/file/with/words</code></li>
+<li>Context-aware auto-completion with Omni-completion: 灵活的自定义补全方式，一般根据编程语言使用对应模板。模板位置：
+  <code>ftplugin/&lt;language&gt;complete.vim</code> or <code>$VIMRUNTIME/autoload/&lt;language&gt;complete.vim</code></li>
+</ul>
+
+
+<p>当然，模式可以分的更精细，而且每种模式都有对应的一些快捷键。
+vim 手册给出的模式与快捷键列表：</p>
+
+<ol>
+<li>Whole lines                                          <code>i_CTRL-X_CTRL-L</code></li>
+<li>keywords in the current file                         <code>i_CTRL-X_CTRL-N</code></li>
+<li>keywords in &lsquo;dictionary&rsquo;                             <code>i_CTRL-X_CTRL-K</code></li>
+<li>keywords in &lsquo;thesaurus&rsquo;, thesaurus-style             <code>i_CTRL-X_CTRL-T</code></li>
+<li>keywords in the current and included files           <code>i_CTRL-X_CTRL-I</code></li>
+<li>tags                                                 <code>i_CTRL-X_CTRL-]</code></li>
+<li>file names                                           <code>i_CTRL-X_CTRL-F</code></li>
+<li>definitions or macros                                <code>i_CTRL-X_CTRL-D</code></li>
+<li>Vim command-line                                     <code>i_CTRL-X_CTRL-V</code></li>
+<li>User defined completion                             <code>i_CTRL-X_CTRL-U</code></li>
+<li>omni completion                                     <code>i_CTRL-X_CTRL-O</code></li>
+<li>Spelling suggestions                                <code>i_CTRL-X_s</code></li>
+<li>keywords in &lsquo;complete&rsquo;                              <code>i_CTRL-N</code></li>
+</ol>
+
+
+<p>若要熟悉这些模式和对应命令，每次补全时需要自己选择补全模式，完全不是 easy writing.</p>
+
+<p><code>&lt;c-x&gt;</code> 模式是 insert-mode 的子模式。在该模式下，用快捷键实现对应模式补全<code>&lt;c-k&gt;</code>(dictionary),  <code>&lt;c-o&gt;</code>(omni)</p>
+
+<h4>理想的自动补全方式</h4>
+
+<p>快捷键调用一个模式判断函数，根据上下文选择最佳模式并自动调用。</p>
+
+<ol>
+<li>其中 omni complete 的优先级可以最高。</li>
+<li>keyword 和 上下文 次之</li>
+<li>特殊场景的判断函数，如 文件名(包含路径时)，时间日期等。</li>
+</ol>
+
+
+<p>快捷键使用 tab 与 linux shell 保持一致。
+由此引发一个新的需求：
+当光标在行首或空白字符之后时，插入 \t, 而不是自动补全。</p>
+
+<h4><code>supertab</code> 一键自动补全 plugin</h4>
+
+<p>下载安装：<a href="https://github.com/ervandew/supertab">plugin github repo url</a></p>
+
+<p>可以实现 文件名补全、关键词补全、字典补全、omni 补全等。</p>
+]]></content>
+  </entry>
+  
+</feed>

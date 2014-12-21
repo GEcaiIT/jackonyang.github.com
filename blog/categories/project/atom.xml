@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: project | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/project/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[科技图书的阅读过程管理工具]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/10/21/reading-process-management/"/>
+    <updated>2013-10-21T23:14:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/10/21/reading-process-management</id>
+    <content type="html"><![CDATA[<p>在十月的尾巴上，我终于找到了一个新的项目: 一款针对科技类书籍的阅读过程管理工具。</p>
+
+<p>第一款最小可行产品，从改进豆瓣读书做起。</p>
+
+<!--more-->
+
+
+<h2>背景需求</h2>
+
+<p>我是豆瓣读书的重度用户，特喜欢标注自己读过的书。一方面，看着自己的读书量一点一点的增加，感觉很棒。另一方面，偶尔翻翻自己读过的书目，回忆曾经的喜怒哀乐。</p>
+
+<h4>几个具体的场景：</h4>
+
+<ol>
+<li>当我学习一个专题的时候(比如 python)，喜欢有一个知识地图一类的东东。
+ 然后一边学习，一边标记进度。看着自己不停的前进，心里有底。</li>
+<li>每隔一段时间，我会反思一下，看看自己掌握了多少东西，进度是百分之多少。
+ 豆瓣上有 10 本书，看了 5 本，进度就是 50%。</li>
+<li>有的时候，又想看看自己过去的一个月看了几本书，分别是什么方向的。
+ 反思过去，规划以后的阅读计划。</li>
+</ol>
+
+
+<h4>豆瓣读书存在的问题</h4>
+
+<ol>
+<li>当我重复阅读一本书的时候，豆瓣不能把两次阅读记录分开。</li>
+<li>当我近期只看一本书的几个章节时，不管是标记为读过，还是在读，都不能反映我的阅读过程。</li>
+<li>只有公开发行的有 ISBN 的图书才能加入豆瓣，好多 IT 书籍木有 ISBN&hellip;</li>
+</ol>
+
+
+<p>类似的问题，阅读科技图书时，很常见。
+或许因为豆瓣是文艺的，理解不了理工男的世界。</p>
+
+<p>所以，我尝试着为自己和还在搞科研的兄弟们做一个网站。</p>
+
+<h2>设计目标</h2>
+
+<h4>阅读的 TODO list</h4>
+
+<p>专门用于管理阅读过程的 TODO list.</p>
+
+<p>只是这个 TODO list 不是简单的做完、没做完。
+而且，只要鼠标点一点，不懂手动输入太多内容。</p>
+
+<h4>基本原则</h4>
+
+<p>合理的读书时间分配应该满足二八定律。
+即，80% 的时间花在 20% 最有价值的内容上。</p>
+
+<p>一款好的管理读书过程(非读书笔记)产品，应该满足以下几个要求：</p>
+
+<ol>
+<li>杜绝刷读书量。鼓励用户更关注读书质量，而非数量。</li>
+<li>鼓励反复阅读。好书，只读一次是不够的。每读一次，都会有新的体会。</li>
+<li>&ldquo;读过&rdquo; 一本书，大多数时候，只需要阅读几个重点章节。</li>
+</ol>
+
+
+<h2>实现方案</h2>
+
+<p>上述的 3 个原则，依次对应于如下的 3 个实现方案。</p>
+
+<h4>阅读状态&mdash;不只是“读过/在读“那么简单</h4>
+
+<p>例如：</p>
+
+<ol>
+<li>&lsquo;重复内容&rsquo;: 虽然第一次阅读，但内容都知道了，属于无效阅读。</li>
+<li>&lsquo;学习了&rsquo;: 学到了非常有用的东西，但是理解的不够深刻，值得再次阅读。</li>
+<li>&lsquo;掌握&rsquo;: 掌握了全部或大多数内容。未掌握的小细节，建议通过其他方式深入学习。</li>
+<li>&lsquo;晕&rsquo;: 虽然没看懂，但我隐约感觉到了高端大气上档次。</li>
+<li>&lsquo;没价值&rsquo;: 内容空洞无物，或者充满错误之物。</li>
+</ol>
+
+
+<p>通过阅读状态，我们可以很好的鼓励大家关注质量，莫用重复内容刷读书量。
+具体方法如下：</p>
+
+<ol>
+<li>统计一个人的阅读量时，不统计重复内容的阅读。</li>
+<li>根据个人的阅读记录，结合他人标注的'没价值'/&lsquo;重复内容'等标签，生成一个 ignoreList(不推荐阅读的章节)。</li>
+<li>如果读者期望尽快了解并评估自己的知识状态，则推荐阅读'掌握'标签最多的章节。</li>
+</ol>
+
+
+<h4>多写简评</h4>
+
+<p>我们把读书过程中写下的文字，细分为：</p>
+
+<ul>
+<li>简评，即简单评论，更多的是本次阅读体验的概括。
+  简评的内容因人而异，同一个人的 2 次阅读往往也不一样。</li>
+<li>笔记，书中有价值内容的摘录、总结等。相似度较高，而且随着阅读次数的增加，一般越来越少。</li>
+</ul>
+
+
+<p>如果是反复阅读一本书，当我们期望反思自己的阅读记录时，简评最有用。
+所以，鼓励大家多写简评。</p>
+
+<h4>按章节标记阅读状态</h4>
+
+<p>学术类书籍，尤其是科技类，通常不需要完整阅读一本书。
+或者说，大多数时候，我们阅读的最小单位是章/节。</p>
+
+<p>标记一个章节是否读过，可以更精确度的跟踪自己的读书进展。</p>
+
+<h2>基本功能</h2>
+
+<h4>用户注册与登录</h4>
+
+<p>若不登录，则无法管理和录入自己的阅读过程。</p>
+
+<p>初期，只提供简单的注册/登录功能。</p>
+
+<h4>图书与章节信息页面</h4>
+
+<p>用户无需登录就可以查阅图书列表，并进入一本图书的详细信息页面。
+图书详细信息页面，主要展示章节的名字和摘要。</p>
+
+<p>用户登录后，可以在图书详细信息页面看到自己的历史阅读记录。</p>
+
+<h4>录入自己的阅读记录</h4>
+
+<p>阅读记录的关键信息是：时间、章节、阅读状态、简评、笔记。</p>
+
+<p>阅读状态，从系统预置的选项中选择。</p>
+
+<h4>我的阅读记录</h4>
+
+<p>可以查看自己全部的历史阅读记录，或者某一本书、某一个章节的历史阅读记录。</p>
+
+<h2>发展方向</h2>
+
+<p>网站的出路很多，做起来之前，没人能猜到哪条路最好。
+具体以后怎么走，我现在也说不清。</p>
+
+<h4>科研人的自媒体平台。</h4>
+
+<p>阅读过程反映学术能力，至于如何反映，是一个需要数据挖掘与建模解决的难题。随着罗辑思维第一轮收费的成功，自媒体已经成为趋势。</p>
+
+<h4>威客平台。</h4>
+
+<p>根据一个人读过的书可以容易的分析出掌握的知识，反向做索引，个人的知识地图就有了。依次为基础做威客，才有可能能真正解决当前威客平台的混乱，避免沦为廉价体力劳动平台。代表网站是猪八戒网。</p>
+
+<h4>走时间管理的方向。</h4>
+
+<p>管理阅读过程，就是管理时间，反思过去，计划将来，任务提醒。这方面的需求有目共睹，但没有一款真正普及的产品。</p>
+
+<h4>其他思路</h4>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[电话本优化]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/09/03/contact-individual/"/>
+    <updated>2013-09-03T10:36:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/09/03/contact-individual</id>
+    <content type="html"><![CDATA[<p>目前的电话本，在以下方面处理的不够人性化</p>
+
+<ul>
+<li>多个联系人拥有相同的名字。通常需要用户手动处理。</li>
+<li>号码变更。通常只能保存最新的号码。</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>重名问题</h2>
+
+<h4>解决方案</h4>
+
+<p>重名问题，最大的影响在于：我们通过姓名来区分一个人，重名之后无法区分了。<br/>
+为了解决这个问题，我们增加一个 identifier 字段，表示联系人的简单描述。</p>
+
+<p>如果每次都需要 name + identifier 才能找到一个联系人，那么使用起来不方便了很多。
+如果没有重复 name 时只需要 name，那么，添加联系人时，如何判断此人是否重复。</p>
+
+<p>此处需要减少 identifier 字段的用途 &mdash; 仅用于重名时区分联系人。
+不再存储联系人的简单描述信息。
+如果没有重名，name 对应的 identifier 为空。</p>
+
+<p>用户查询时，可以只填写 name，但后台匹配时，需要追加 identifier 为空的约束条件。</p>
+
+<h4>数据库设计</h4>
+
+<ul>
+<li>name: 纯文本，不能为空。</li>
+<li>identifer: 纯文本。</li>
+</ul>
+
+
+<p>name + identifer 满足唯一约束。</p>
+
+<p>identier 为空，表示没有重名。故，name 如果有多个 identifer，均不能为空。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[支持半自动化自定义词库的背单词软件]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/08/13/personalization-vocabulary/"/>
+    <updated>2013-08-13T11:15:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/08/13/personalization-vocabulary</id>
+    <content type="html"><![CDATA[<p>背单词总是很痛苦的一件事情。</p>
+
+<p>我尝试过很多种背单词的方法和软件，主要可以分为 2 类。</p>
+
+<ol>
+<li>教材模式。基于某一教材或者考试的标准词库，背一段时间以后，越来越多不需要的单词，影响效率。</li>
+<li>生词本模式。纯手工维护一个生词本，维护成本偏高一些。</li>
+</ol>
+
+
+<p>基于这些不好的背单词经历，我试图做一个半自动的自定义词库。</p>
+
+<p>项目地址：<a href="https://github.com/JackonYang/personalization-vocabulary">https://github.com/JackonYang/personalization-vocabulary</a></p>
+
+<!--more-->
+
+
+<h4>功能概述</h4>
+
+<p>根据个人的英语水平、兴趣和经常阅读的文章，
+自动创建一个自定义的生词库，供背单词使用。</p>
+
+<p>自定义生词库的关键是找出一个人可能感兴趣的生词，供反复背诵。
+从而避免按照四六级词库背单词，背了一堆没用的单词。</p>
+
+<p>当然，用户也可以手动添加和删除生词库中的单词，精调自己的生词库。</p>
+
+<h4>基本的原理</h4>
+
+<ol>
+<li>记录用户查询单词的历史记录，由此获取用户需要记忆的单词，本质就是词汇量测试。</li>
+<li>用户指定 n 篇自己感兴趣的文章，从中找出出现频率偏高的单词、话题，</li>
+<li>感兴趣的单词与不认识的单词取交集，即为初始的自定义词库。</li>
+</ol>
+
+
+<h4>应用</h4>
+
+<ol>
+<li>研究生，写论文。前期针对物理 + 计算机</li>
+<li>学渣。学渣不求满分，只求过线，不需要背完四六级词库的所有单词。指定一个目标分数，个性化一下，少背一点单词。</li>
+</ol>
+
+
+<h4>用户数据获取与分析</h4>
+
+<p>没有用户数据的个性化，都是耍流氓。</p>
+
+<p>用户的词汇量，是比较关键的数据之一。一般采用抽样测试 + 估算的方法。</p>
+
+<p>大多数人的词汇量在 5k 左右，本科低年级的词汇量在 3k 左右。
+平均每 3 秒钟识别一个单词，识别 5k 个单词需要 4h， 3k 个单词只要 2.5h。
+如果软件界面设计的人性化一点，
+比如每次同时识别 3 个单词，另有 300 个绝对安全的单词。
+最终可以把时间控制在 30min-1h。用户的接受度会比较高一些。</p>
+
+<p>这么做，不仅仅是评估词汇量，更重要的是形成了一个真实的个人标志。
+可以更准确的分析出自己下一步需要背的单词，以及需要背多少单词。</p>
+
+<h4>记忆曲线</h4>
+
+<p>艾宾浩斯曲线等各种经典的记忆曲线，都只能是一个参考曲线。</p>
+
+<p>效率最高的记忆曲线，
+必然是针对个人英语水平、记忆能力、一般记忆难度计算出的曲线。</p>
+
+<p>所谓一般记忆难度，值得是背过这个单词的人，平均需要多长时间可以记住。
+记忆能力，则是根据自己背过的单词，计算出的个人记忆能力。
+这二者的关系，恰如经济理论中的一般劳动和特殊劳动。</p>
+
+<h4>熟词记忆</h4>
+
+<p>我们要背的真的是生词么？</p>
+
+<p>据说美国农夫的词汇量是 2000。我大中国高中生的词汇量都是3k了。
+考过六级的，五千左右不算夸张吧？</p>
+
+<p>但是，有几个过了六级的能像美国农夫那样说英语，更不用说高中生了。</p>
+
+<p>我们的短板，不是生词，而是熟词掌握的不熟练。
+对熟词的掌握程度，是影响大多数人英语水平的关键。</p>
+
+<p>对于一篇（几篇）感兴趣的文章，统计词频，评估单词的重要程度。
+推荐用户先掌握重要的熟词。</p>
+
+<p>这里的重要程度，参考 TF-INF 算法。
+出现的频率是关键因素，但不是唯一因素，
+比如 the/a/an 等冠词出现频率通常最高，但无需背诵。</p>
+
+<p>熟词，除了读和写以外，听和发音也很关键。</p>
+
+<h4>听与说</h4>
+
+<p>这是大多数人的短版，需要从单词入手彻底解决。</p>
+
+<p>另外，外出时，零碎时间最多，可以利用起来背单词。
+走路、坐车时盯着屏幕很不方便，所以，需要语音式的。</p>
+
+<h4>社交</h4>
+
+<p>推荐阅读、相互修改作文。</p>
+
+<p>付费请高手修改自己的作文。</p>
+
+<h4>UI 设计</h4>
+
+<p>为了防止用户背单词时，不知道进度的时间恐慌症，需要有一个进度条提示进度。</p>
+
+<h4>词库</h4>
+
+<p>巴朗 3500 词，SAT 考生。单词太多，需要优化精选。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[博客页面原型设计]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/08/13/blog-page-design/"/>
+    <updated>2013-08-13T10:30:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/08/13/blog-page-design</id>
+    <content type="html"><![CDATA[<p>使用 octopress 搭建个人博客，重新设计前端页面的主题和展示样式.
+遵循形式为内容服务的原则。</p>
+
+<h4>基本元素</h4>
+
+<ul>
+<li>banner</li>
+<li>navigation</li>
+<li>博客摘要与详细内容</li>
+<li>最近发表、标签索引等扩展信息</li>
+<li>footer</li>
+</ul>
+
+
+<!--more-->
+
+
+<h4>banner 设计与实现</h4>
+
+<p>banner 代码位于 <code>source/_includes/custom/header.html</code></p>
+
+<p>2 种设计风格：</p>
+
+<ul>
+<li>简洁风 &mdash; 个人头像/logo + name + 简要介绍</li>
+<li>秀  &mdash; 大幅 banner 图片，爱因斯坦头像</li>
+</ul>
+
+
+<h4>navigation 导航栏</h4>
+
+<p>需要专门的导航栏么？</p>
+
+<p>需要以下几种页面信息：</p>
+
+<ul>
+<li>blog</li>
+<li>about</li>
+<li>rss订阅</li>
+<li>分类浏览</li>
+</ul>
+
+
+<p>博客内容的导航&mdash;目录，参考
+<a href="http://www.zfanw.com/blog/zencoding-vim-tutorial-chinese.html">http://www.zfanw.com/blog/zencoding-vim-tutorial-chinese.html</a></p>
+
+<h4>博客摘要与详细信息</h4>
+
+<ul>
+<li>发表时间</li>
+<li>题目</li>
+<li>文章摘要/完整内容</li>
+<li>分类</li>
+<li>标签</li>
+<li>阅读数</li>
+<li>评论</li>
+<li>喜欢</li>
+<li>分享</li>
+</ul>
+
+
+<p>读者首先关注当前文章，所以，应该突出当前文章的题目、时间、概要。<br/>
+我的博客当前不存在太多的评论，无法获取阅读数，所以，不予展示。</p>
+
+<p>题目与时间靠前展示，概要随后，最后展示分类和标签信息。</p>
+
+<p>为了响应式和布局方便，
+题目和时间是否需要分行展示?
+分类和标签信息是否需要分行展示?</p>
+
+<h4>reference</h4>
+
+<p><a href="http://ux.etao.com/">http://ux.etao.com/</a></p>
+
+<p><a href="http://coolshell.cn/articles/10337.html">http://coolshell.cn/articles/10337.html</a></p>
+
+<p><a href="http://ethan.herokuapp.com/work">http://ethan.herokuapp.com/work</a></p>
+
+<p><a href="http://blog.alexharr.is/">http://blog.alexharr.is/</a></p>
+
+<p><a href="http://designthinking.ideo.com/">http://designthinking.ideo.com/</a></p>
+
+<p><a href="http://article.yeeyan.org/view/163202/156620">http://article.yeeyan.org/view/163202/156620</a></p>
+
+<p><a href="http://www.yeeyan.org/articles/view/38227/11310">http://www.yeeyan.org/articles/view/38227/11310</a></p>
+
+<p><a href="http://tech.ddvip.com/2008-10/122345307175323.html">http://tech.ddvip.com/2008-10/122345307175323.html</a></p>
+
+<p><a href="http://www.hi-id.com/">http://www.hi-id.com/</a></p>
+
+<p><a href="http://designmind.frogdesign.com/blog/">http://designmind.frogdesign.com/blog/</a></p>
+
+<p><a href="http://www.360doc.com/content/11/0314/21/519755_101151742.shtml">http://www.360doc.com/content/11/0314/21/519755_101151742.shtml</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[design of local pkm system]]></title>
+    <link href="http://JackonYang.github.io/blog/2012/09/04/design-of-local-pkm-system/"/>
+    <updated>2012-09-04T02:25:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2012/09/04/design-of-local-pkm-system</id>
+    <content type="html"><![CDATA[<p>我相信，个人知识管理(pkm)终将会成为一个时代的宠儿，尤其是随着大数据时代的到来。</p>
+
+<p>速度决定成败，加速是亘古不变的话题。
+机械工业时代加速的是交通工具，信息时代加速的是知识流通。</p>
+
+<!--more-->
+
+
+<p>从pc机时代到互联网时代，从 web1.0 到 web2.0，
+每一次变革，都是知识流通速度的突变。
+所以，以微软为代表的 pc 机时代取代了以 IBM 为代表的企业级应用时代，
+随后又进入了以 google 为代表的互联网搜索时代，知识大爆炸。
+社交圈可以提供更有针对性的有效信息，所以，facebook 赢了。
+智能终端的灵活性远远超过 PC 机，所以大家削尖了脑袋挤进手机市场。</p>
+
+<p>有效的知识管理，可以将人的大脑从琐碎的记忆中解放出来。
+提升效率，加速个人知识流动。
+同时，高质量的个人知识仓库，可以帮助建立较高的个人品牌价值。</p>
+
+<h2>系统设计</h2>
+
+<p>基于 web server 的本地化个人知识管理系统。
+即：在个人电脑上搭建一个服务器，集成一系列知识管理应用。
+最大的挑战和风险在于：数据安全。
+暂时，通过频繁的的备份来规避风险。</p>
+
+<p>只要电脑开机，任何地点任何时间，都能用手机或者其他电脑接入自己电脑。
+查询、更新项目进展，获取重要文档资料。</p>
+
+<h4>应用：</h4>
+
+<ol>
+<li><p>项目管理与时间管理——redmine</p>
+
+<p> 跟踪项目进展和时间进度，记录个人时间花费情况。</p>
+
+<p> 现在，我们往往需要同时做几件大的事情。
+ 及时制定计划并录入 redmine，后续只要跟着 redmine 依次执行即可。
+ 化多线程为单线程，单线程，我们总是可以把事情做的更棒更快。</p></li>
+<li><p>笔记系统——基于 wordpress 的 blog。</p>
+
+<p> 有效的总结可以避免车轮式的前进，个人进步与提升的基础。</p>
+
+<p> 选择独立的blog:</p>
+
+<ul>
+<li>数据安全，天朝最不能相信的就是互联网，说封就封，说墙就墙。重要的东西必须本地存储。</li>
+<li>当前，没有一个稳定的blog，既支持tex语法，又支持代码高亮显示。</li>
+<li>干净整洁无广告，可扩展性高，可定制。
+  与本地的文件系统、项目管理系统等可以集成。</li>
+</ul>
+</li>
+<li><p>文档代码等电子文件——svn</p></li>
+<li>人际关系管理——代码开发中。。。</li>
+<li>图片服务器——piwigo</li>
+</ol>
+
+
+<h4>底层服务：</h4>
+
+<ul>
+<li>server——apache2</li>
+<li>database——mysql</li>
+<li>server script——php，python</li>
+<li>os——windows/ubuntu7</li>
+</ul>
+
+
+<h2>环境搭建</h2>
+
+<p>以 ubuntu 12.04 为例。</p>
+
+<h4>磁盘分区与安装规划</h4>
+
+<p>划分2个单独的磁盘分区:</p>
+
+<ol>
+<li>apache2 的 <code>document_root</code>。 即网站文档的根目录。</li>
+<li>存储备份文件，保证数据安全。</li>
+</ol>
+
+
+<h4>磁盘挂载与文件权限</h4>
+
+<p>www开机自动挂载，文件所有者为 apache2 用户 www-data。
+权限策略 umask = 022.
+uid是 www-data 的id，安装apache2后自动创建。</p>
+
+<p>``` bash auto mount www
+$ sudo vim /etc/fstab</p>
+
+<h1>insert Entry for /dev/sda6 : www</h1>
+
+<p>/dev/sda6 /media/www ntfs uid=33,gid=1001,umask=002,dmask=022,utf8</p>
+
+<h1>get uuid of the partition</h1>
+
+<p>$ sudo blkid</p>
+
+<h1>get uid</h1>
+
+<p>$ id www-data</p>
+
+<h1>bash watch group id and group members</h1>
+
+<p>$ cat /etc/group|grep subversion
+subversion:x:1001:www-data,jackonyang</p>
+
+<h1>mount</h1>
+
+<p>mount -a
+```</p>
+
+<p>备份区，备份时挂载，备份后卸载。禁止自动挂载。
+防止误操作。</p>
+
+<h4>apache2</h4>
+
+<p>``` bash install apache2 and config
+$ sudo apt-get install apache2</p>
+
+<h1>edit serverName:</h1>
+
+<p>$ sudo vim /etc/apache2/httpd.conf</p>
+
+<h1>insert</h1>
+
+<p>ServerName localhost</p>
+
+<h1>edit document_root</h1>
+
+<p>$ sudo vim /etc/apache2/sites-enabled/000-default</p>
+
+<h1>by default in ubuntu: /var/www</h1>
+
+<p>DocumentRoot /media/server_root/www
+<Directory /media/server_root/www/>
+```</p>
+
+<h4>svn 与 http 访问方式</h4>
+
+<p>预置条件：apache2已安装。</p>
+
+<p>``` bash install svn and access by http
+$ sudo apt-get install subversion
+$ sudo apt-get install libapache2-svn</p>
+
+<h1>create user group and add user</h1>
+
+<p>$ sudo addgroup subversion
+$ sudo usermod -G subversion -a www-data
+$ sudo usermod -G subversion -a jackonyang</p>
+
+<h1>修改http访问svn模块配置参数：</h1>
+
+<p>$ sudo a2enmod dav_svn
+$ sudo vim /etc/apache2/mods-enabled/dav_svn.conf
+<Location /svn></p>
+
+<pre><code>DAV svn
+SVNPath /media/svn/src_svn
+AuthType Basic
+AuthName "JackonYang Subversion Repository"
+AuthUserFile /etc/apache2/dav_svn.passwd
+</code></pre>
+
+<p></Location></p>
+
+<h1>create svn repo and user</h1>
+
+<p>$ sudo mkdir /media/svn/src_svn
+$ sudo svnadmin create /media/svn/src_svn
+$ sudo chown -R www-data /media/svn/src_svn
+$ sudo htpasswd -cm /etc/apache2/dav_svn.passwd jackonyang</p>
+
+<h1>restart apache2</h1>
+
+<p>$ sudo service apache2 restart
+```</p>
+
+<h4>mysql 安装配置</h4>
+
+<p>``` bash install mysql and config
+$ sudo apt-get install mysql-server</p>
+
+<h1>charset</h1>
+
+<p>$ sudo vim /etc/mysql/my.cnf</p>
+
+<h1>add or edit</h1>
+
+<p>[client]
+default-character-set = utf8
+[mysqld]
+character-set-server = utf8
+collation-server = utf8_general_ci
+$ sudo service mysql restart</p>
+
+<h1>login and check</h1>
+
+<p>$ mysql -uroot -p
+mysql> show variables like &lsquo;character_set<em>%&rsquo;;
+mysql> show variables like &lsquo;collation</em>%&rsquo;;</p>
+
+<h1>security grant</h1>
+
+<p>mysql> use mysql;
+mysql> delete from user where user = &lsquo;&rsquo;;
+Query OK, 2 rows affected (0.00 sec)
+```</p>
+
+<h4>redmine</h4>
+
+<p>预置条件：apache2，mysql已安装
+``` bash install redmine and config
+$ sudo apt-get install libapache2-mod-passenger redmine redmine-mysql</p>
+
+<h1>input mysql root password and default passwd for redmine to login mysql</h1>
+
+<h1>config apache2</h1>
+
+<p>$ sudo vim /etc/apache2/conf.d/redmine.conf
+RailsEnv production
+RailsBaseURI /redmine
+$ sudo ln -s /usr/share/redmine/public /media/server_root/www/redmine
+$ sudo service apache2 restart
+```</p>
+
+<p>访问 redmine
+浏览器访问: <code>localhost/redmine</code>
+默认用户密码：admin/admin</p>
+
+<h4>wordpress</h4>
+
+<p>依赖于 php，phpmyadmin，mysql</p>
+
+<p>安装 php5，phpmyadmin</p>
+
+<p>``` bash install php5 and phpmyadmin
+$ sudo apt-get install php5
+$ sudo apt-get install phpmyadmin
+$ sudo ln -s /usr/share/phpmyadmin/ /media/server_root/www/</p>
+
+<h1>restart apache2, or report error: 缺少 mysqli 扩展。请检查 PHP 配置。</h1>
+
+<p>$ sudo service apache2 restart
+```</p>
+
+<p>测试:</p>
+
+<p><code>bash testphp
+$ sudo vim /media/server_root/www/testphp.php
+&lt;?php phpinfo(); ?&gt;
+</code></p>
+
+<p>wordpress安装包复制到 apache2 document_root 目录下解压
+进入目录，根据sample文件创建wp-config.php
+<code>cp wp-config-sample.php wp-config.php</code> 然后修改wp-config.php中的数据库链接信息。
+浏览器打开，完成安装即可。</p>
+]]></content>
+  </entry>
+  
+</feed>

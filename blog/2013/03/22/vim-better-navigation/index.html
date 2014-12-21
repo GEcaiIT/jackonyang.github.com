@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>vim 快速移动 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="vim 支持众多快速跳转命令，以至于，只有想不到的，没有做不到的。 我所需要的快速移动命令，分类如下： 通用移动命令: 在行列、单词、句子间快速移动，查找, marker等;
+代码相关移动: 变量/函数/类定义之间跳动，文件间跳动。 详细说明如下： 通用移动命令 行列位置移动 上下左右移动: &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/03/22/vim-better-navigation/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">vim 快速移动</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T18:23:00+08:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>vim 支持众多快速跳转命令，以至于，只有想不到的，没有做不到的。</p>
+
+<p>我所需要的快速移动命令，分类如下：</p>
+
+<ol>
+<li>通用移动命令: 在行列、单词、句子间快速移动，查找, marker等;</li>
+<li>代码相关移动: 变量/函数/类定义之间跳动，文件间跳动。</li>
+</ol>
+
+
+<p>详细说明如下：</p>
+
+<!--more-->
+
+
+<h3>通用移动命令</h3>
+
+<h5>行列位置移动</h5>
+
+<ol>
+<li>上下左右移动: hjkl</li>
+<li>跳转至特定行：nG. n为跳转的行数。</li>
+<li>文件头尾：gg/G</li>
+</ol>
+
+
+<h5>语义移动</h5>
+
+<p>语义移动，即: 以单词、句子、段落等为单位的移动。</p>
+
+<ol>
+<li>单词。下一个单词开头 w, 下一个结尾 e, 上一个开头 b。若不在当前单词的结尾/开头，e/b 则是跳至当前单词的尾/头，否则是下一单词的尾/头。</li>
+<li>句子间跳转 ()，</li>
+<li>段落间跳转 {}</li>
+</ol>
+
+
+<h5>查找移动</h5>
+
+<p>即：移动到特定字符处。</p>
+
+<ol>
+<li>nfa: f 是关键词。找到之后的第 n 个 a。</li>
+<li><code>n*</code>: 找到之后的第 n 个当前单词。# 向前查找。</li>
+<li>/xxx: 一个强大的搜索引擎搜索 xxx。支持正则。n/N 向下/上继续搜索。</li>
+</ol>
+
+
+<h5>特殊重要位置</h5>
+
+<p>ma 标记当前位置为 a，&#8217;a 调至 a 处。</p>
+
+<h5>屏幕位置操作</h5>
+
+<p>查看大量 log 时比较常用。</p>
+
+<ol>
+<li>ctrl+f: 下一屏。</li>
+<li>ctrl+b: 上一屏。</li>
+<li>H, L, M: 屏幕的最上/最下/中间</li>
+</ol>
+
+
+<h3>代码相关移动</h3>
+
+<p>代码与普通文件主要区别是: 1. 增加了变量/函数/类等的定义，2. 涉及多文件相互导入。</p>
+
+<h5>变量的定义与使用之间移动。</h5>
+
+<p>ctags 可以很好的实现跳转至变量定义处。若要跳转至使用处，则需要 cscope。
+从个人实践来看，ctags 是最佳选择。
+因为，cscope 使用相对复杂一些，而增加的功能，并不怎么重要。
+甚至，我们在编码的过程中，不应该关心谁调用了自己，甚至让他们影响了模块的设计。
+重构阶段，修改函数/变量的定义会对第三方造成影响，那也要用重构工具，而不是跳来跳去手动改。</p>
+
+<p><code>ctags -R</code> 会在当前目录下迭代创建一个 tags 文件。</p>
+
+<ol>
+<li>tags 定义处 &lt;c-]>。若多处定义，g&lt;c-]> 给出列表。</li>
+<li>&lt;c-t> 回到前一个 tag。</li>
+<li>tags show tags history</li>
+<li>tags tagsname tagsname 的一个匹配处。</li>
+</ol>
+
+
+<h5>文件之间跳动</h5>
+
+<p>gf 跳到光标所在文件名的文件。适合于 inclue/import 行。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T18:23:00+08:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/22/thoughtworks-interview/" title="Previous Post: thoughtworks 面试总结">&laquo; thoughtworks 面试总结</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/04/08/advices/" title="Next Post: 如何对待别人的建议">如何对待别人的建议 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/03/22/vim-better-navigation/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/03/22/vim-better-navigation/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

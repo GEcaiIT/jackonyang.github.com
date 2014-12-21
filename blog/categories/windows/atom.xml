@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: windows | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/windows/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[搭建 python 开发环境]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/09/02/python-dev-env/"/>
+    <updated>2013-09-02T14:16:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/09/02/python-dev-env</id>
+    <content type="html"><![CDATA[<p>开发环境主要包括：</p>
+
+<ul>
+<li>运行环境: python2.7</li>
+<li>类库管理工具: pip</li>
+<li>ubuntu 下常用类库</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>windows</h2>
+
+<h4>安装 python2.7</h4>
+
+<p>python 主要包括 2.x 和 3.x 两个大版本，代码之间不兼容。
+推荐使用 Python2.7，类库较为丰富，安装相对简单。</p>
+
+<ol>
+<li><a href="http://www.python.org/getit/">下载 python</a> 并安装。</li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a> PATH 中添加 python 安装路径，默认为 <code>C:\python27</code></li>
+</ol>
+
+
+<h4>setuptools</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/setuptools/1.1">下载 setuptools</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+</ol>
+
+
+<h4>pip</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/pip">下载 pip</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a>，PATH 中添加 pip 的路径，默认为 `c:\python27\Scripts'</li>
+</ol>
+
+
+<h2>ubuntu</h2>
+
+<h4>python and pip tools</h4>
+
+<pre><code>
+$ sudo apt-get install -y python python-setuptools python-dev
+$ sudo easy_install -U distribute
+$ sudo apt-get install python-pip
+</code></pre>
+
+
+<p>如果 python-dev 未安装,
+使用 easy_install or setup.py 时报错:
+<code>command 'gcc' failed with exit status 1</code></p>
+
+<h4>lib for apache2/mysql</h4>
+
+<pre><code>
+$ apt-get install libapache2-mod-python, libmysqlclient-dev
+</code></pre>
+
+
+<p>如果 libmysqlclient-dev 未安装，安装 mysql-python 时报错：
+<code>EnvironmentError: mysql_config not found</code></p>
+
+<h4>flake8</h4>
+
+<pre><code>
+$ sudo pip install flake8
+</code></pre>
+
+]]></content>
+  </entry>
+  
+</feed>

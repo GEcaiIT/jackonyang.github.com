@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>vim auto complete - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="linux shell 下重度依赖自动补全命令和文件名，
+vim 下一直用的很少，主要因为补全的模式很多，命令又比较复杂。 本文试图分析各种补全模式及其应用场景，将适合自己的几种模式进行封装并设置快捷键(&lt;tab&gt;) vim auto-complete 模式概述 三种核心模式： &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/03/19/vim-auto-complete/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">vim auto complete</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-19T14:34:00+08:00" pubdate data-updated="true">Mar 19<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>linux shell 下重度依赖自动补全命令和文件名，
+vim 下一直用的很少，主要因为补全的模式很多，命令又比较复杂。</p>
+
+<p>本文试图分析各种补全模式及其应用场景，将适合自己的几种模式进行封装并设置快捷键(<code>&lt;tab&gt;</code>)</p>
+
+<!--more-->
+
+
+<h4>vim auto-complete 模式概述</h4>
+
+<p>三种核心模式：</p>
+
+<ul>
+<li>Auto-completion with known words: 当前打开的文件/窗口中已出现过的 words</li>
+<li>Auto-completion using a dictionary file: 在固定 dictionary 中检索.
+  <code>set dictionary+=/path/to/dictionary/file/with/words</code></li>
+<li>Context-aware auto-completion with Omni-completion: 灵活的自定义补全方式，一般根据编程语言使用对应模板。模板位置：
+  <code>ftplugin/&lt;language&gt;complete.vim</code> or <code>$VIMRUNTIME/autoload/&lt;language&gt;complete.vim</code></li>
+</ul>
+
+
+<p>当然，模式可以分的更精细，而且每种模式都有对应的一些快捷键。
+vim 手册给出的模式与快捷键列表：</p>
+
+<ol>
+<li>Whole lines                                          <code>i_CTRL-X_CTRL-L</code></li>
+<li>keywords in the current file                         <code>i_CTRL-X_CTRL-N</code></li>
+<li>keywords in &lsquo;dictionary&rsquo;                             <code>i_CTRL-X_CTRL-K</code></li>
+<li>keywords in &lsquo;thesaurus&rsquo;, thesaurus-style             <code>i_CTRL-X_CTRL-T</code></li>
+<li>keywords in the current and included files           <code>i_CTRL-X_CTRL-I</code></li>
+<li>tags                                                 <code>i_CTRL-X_CTRL-]</code></li>
+<li>file names                                           <code>i_CTRL-X_CTRL-F</code></li>
+<li>definitions or macros                                <code>i_CTRL-X_CTRL-D</code></li>
+<li>Vim command-line                                     <code>i_CTRL-X_CTRL-V</code></li>
+<li>User defined completion                             <code>i_CTRL-X_CTRL-U</code></li>
+<li>omni completion                                     <code>i_CTRL-X_CTRL-O</code></li>
+<li>Spelling suggestions                                <code>i_CTRL-X_s</code></li>
+<li>keywords in &lsquo;complete&rsquo;                              <code>i_CTRL-N</code></li>
+</ol>
+
+
+<p>若要熟悉这些模式和对应命令，每次补全时需要自己选择补全模式，完全不是 easy writing.</p>
+
+<p><code>&lt;c-x&gt;</code> 模式是 insert-mode 的子模式。在该模式下，用快捷键实现对应模式补全<code>&lt;c-k&gt;</code>(dictionary),  <code>&lt;c-o&gt;</code>(omni)</p>
+
+<h4>理想的自动补全方式</h4>
+
+<p>快捷键调用一个模式判断函数，根据上下文选择最佳模式并自动调用。</p>
+
+<ol>
+<li>其中 omni complete 的优先级可以最高。</li>
+<li>keyword 和 上下文 次之</li>
+<li>特殊场景的判断函数，如 文件名(包含路径时)，时间日期等。</li>
+</ol>
+
+
+<p>快捷键使用 tab 与 linux shell 保持一致。
+由此引发一个新的需求：
+当光标在行首或空白字符之后时，插入 \t, 而不是自动补全。</p>
+
+<h4><code>supertab</code> 一键自动补全 plugin</h4>
+
+<p>下载安装：<a href="https://github.com/ervandew/supertab">plugin github repo url</a></p>
+
+<p>可以实现 文件名补全、关键词补全、字典补全、omni 补全等。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-19T14:34:00+08:00" pubdate data-updated="true">Mar 19<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/19/more-efficient-by-vim/" title="Previous Post: 用 vim 加速工作效率">&laquo; 用 vim 加速工作效率</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/20/gae-working-as-a-proxy/" title="Next Post: goagent 翻墙的核心配置流程">goagent 翻墙的核心配置流程 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/03/19/vim-auto-complete/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/03/19/vim-auto-complete/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

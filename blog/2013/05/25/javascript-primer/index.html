@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>原生 javascript 概述 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="JAVAScript 可以分成 3 部分来看，分别是：core(EMCAScript), DOM, BOM. core 即原生 javascript，提供核心语言功能。多使用 EMCAScript 标准。
+DOM 即文档对象模型，访问和操作网页内容的方法和接口。如：事件
+BOM 浏览器对象模型， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/05/25/javascript-primer/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title">原生 javascript 概述</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-25T10:19:00+08:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>JAVAScript 可以分成 3 部分来看，分别是：core(EMCAScript), DOM, BOM.</p>
+
+<ul>
+<li>core 即原生 javascript，提供核心语言功能。多使用 EMCAScript 标准。</li>
+<li>DOM 即文档对象模型，访问和操作网页内容的方法和接口。如：事件</li>
+<li>BOM 浏览器对象模型，提供与浏览器交互的方法和接口，如：AJAX/cookies.</li>
+</ul>
+
+
+<!--more-->
+
+
+<p><img src="/images/JAVAScriptOverview.png" title="'JAVAScript overview'" ></p>
+
+<h2>原生 JAVAScript 的核心概念</h2>
+
+<p>Douglas Crockford 在下面的 2 部视频中非常精髓的讲解了原生 JAVAScript 的核心概念:</p>
+
+<ul>
+<li><a href="http://v.youku.com/v_show/id_XMzMzNzQ0MzY4.html">The JavaScript Programming Language</a></li>
+<li><a href="http://v.youku.com/v_show/id_XMzMzNzgxNzA4.html">Advanced JavaScript</a></li>
+</ul>
+
+
+<p>整理如下：</p>
+
+<ul>
+<li><p>Prototype 继承:</p>
+
+<p>  Crockford 说：这是 JAVAScript 完成 JAVA 想做但没做成的事情的主要原因。</p></li>
+<li>closure 闭包: 函数式编程。</li>
+<li><p>Objects as general containers:</p>
+
+<p>  使用 object 作为存储容器。object/array/function 等都使用这种结构存储。<br/>
+  <code>new Object()</code>创建了一个空的容器。</p></li>
+<li><p>linkage though global variables:</p>
+
+<p>  Prototype 继承的原因，导致对象之间存在 linkage。<br/>
+  global 变量之间也会有 linkage，表现为共享一个命名空间。<br/>
+  这是糟粕，导致的了很多问题。不得不理解，尽量规避。</p></li>
+</ul>
+
+
+<h2>JAVAScript 语法该要</h2>
+
+<p>大小写敏感，所有的关键字都是小写的，习惯上，构造函数首字母大写。</p>
+
+<h4>基本数据类型</h4>
+
+<ol>
+<li>number. 只有 float 类型，不精确, <code>0.1 + 0.2 = 0.30000000000000004</code></li>
+<li>boolean. false 值包括：0, &lsquo;&rsquo;, null, undefined</li>
+<li>string. 不可变。</li>
+<li>undefined. 变量的默认值,</li>
+<li>null. 空的对象引用，变量赋值为 null 以后，会自动被回收。</li>
+</ol>
+
+
+<h4>数据类型转换</h4>
+
+<p>number/boolean/string，数据类型的首字母大写即为构造函数，可以实现类型转换。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 数据类型转换</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="nb">Number</span><span class="p">(</span><span class="s1">&#39;0001230&#39;</span><span class="p">)</span> <span class="c1">// 转为 number</span>
+</span><span class='line'><span class="mi">1230</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="o">+</span><span class="p">[]</span> <span class="c1">// 转为 number</span>
+</span><span class='line'><span class="mi">0</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="nb">Boolean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">// 转为 boolean</span>
+</span><span class='line'><span class="kc">false</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="o">!!</span><span class="s1">&#39;0&#39;</span> <span class="c1">// 转为 boolean</span>
+</span><span class='line'><span class="kc">true</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="nb">String</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1">// 转为 string</span>
+</span><span class='line'><span class="s2">&quot;123&quot;</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="nb">String</span><span class="p">(</span><span class="mi">0123</span><span class="p">)</span>  <span class="c1">// 0 开头的数字，八进制</span>
+</span><span class='line'><span class="s2">&quot;83&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>注意事项</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// undefined 与 false</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="o">!!</span><span class="kc">undefined</span>
+</span><span class='line'><span class="kc">false</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="kc">undefined</span> <span class="o">==</span> <span class="kc">false</span>
+</span><span class='line'><span class="kc">false</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="kc">undefined</span> <span class="o">===</span> <span class="kc">false</span>
+</span><span class='line'><span class="kc">false</span>
+</span><span class='line'><span class="c1">// 特殊变量的数据类型</span>
+</span><span class='line'><span class="k">typeof</span> <span class="kc">NaN</span>
+</span><span class='line'><span class="s2">&quot;number&quot;</span>
+</span><span class='line'><span class="c1">// NaN 不等于任何值，包括本身</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="kc">NaN</span> <span class="o">===</span> <span class="kc">NaN</span>
+</span><span class='line'><span class="kc">false</span>
+</span><span class='line'><span class="c1">// undefined 的类型是 undefined</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="k">typeof</span> <span class="kc">undefined</span>
+</span><span class='line'><span class="s2">&quot;undefined&quot;</span>
+</span><span class='line'><span class="c1">// null 的类型是 object</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="k">typeof</span> <span class="kc">null</span>
+</span><span class='line'><span class="s2">&quot;object&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>操作符</h4>
+
+<ol>
+<li><code>a &amp;&amp; b</code>: 如果 a 为true，返回b，否则，返回a</li>
+<li><code>a || b</code>: 如果 a 为 false，返回b。可以用于取变量值的默认值。</li>
+<li><code>+</code>: 可以用于做加法运算，或连接string。加法运算时，自动类型转换。</li>
+</ol>
+
+
+<h4>Object</h4>
+
+<ol>
+<li>字面量</li>
+<li>constructor</li>
+<li>prototype, linkage</li>
+<li>container, key/value</li>
+<li><code>===</code> 比较的是reference，而不是value</li>
+</ol>
+
+
+<h4>Arrays</h4>
+
+<ol>
+<li>inherits from Object</li>
+<li>indexes are converted to strings and used as names for retrieving values.</li>
+<li>very efficient for sparse arrays.</li>
+<li>length 方法, 比最大的索引大1.</li>
+<li>建议使用传统的for循环，而不是 for in</li>
+<li>delete 一个value, value 的值变为 undefined，占位符不会消失。用 splice 删除。</li>
+<li>don&rsquo;t use arrays as protytypes, length 方法不会继承。</li>
+<li>Array.prototype 赋值来修改全部 array 的行为。</li>
+</ol>
+
+
+<h4>函数与闭包</h4>
+
+<p>在 JAVAScript 中，函数即对象。</p>
+
+<p>与 python 的一切皆对象的理念略有不同，JAVAScript 中，函数是第一位的。</p>
+
+<p>一般的编程语言中，包含 modules/class/function 等很多概念，
+Javascript 中只有 function，通过 function 实现了上述所有功能。<br/>
+通过 function 可以封装变量的命名空间，<br/>
+通过 function 可以创建对象，即 class 的实例，<br/>
+通过 Prototype 方式可以从一个对象继承出一个新的对象，不需要显式定义 class。</p>
+
+<h2>DOM 与 BOM</h2>
+
+<p>与浏览器配合，是 JAVAScript 的一大竞争力。</p>
+
+<p>可以直接访问操纵 HTML，方便的控制显示的样式和内容。无需涉及太深的技术细节。
+只要搞清显示的内容、用户操作等之间的关系即可。
+可以理解为一种快速 GUI 的方式，跨平台。</p>
+
+<p>事件监听让交互成为可能，极其方便的互动。</p>
+
+<p>AJAX 动态获取数据，大大丰富了网页的行为。</p>
+
+<h2>学习曲线与书籍</h2>
+
+<ol>
+<li><p><a href="http://book.douban.com/subject/3590768/">JavaScript语言精粹</a> 很关键。</p>
+
+<p> js 与其他语言不同，没有在实验室中经过长时间的打磨，
+ 其中很多不好的特性没有被修复。<br/>
+ 不管是学习还是写代码的过程中，都需要有所侧重点。<br/>
+ 学习 js 之前先读一下第一章，熟悉一下基本的概念和名词。<br/>
+ 对js 有了一定理解以后，再回来认真的再读这本书，或许是不错的选择。</p></li>
+<li><p><a href="http://book.douban.com/subject/10759600/">疯狂HTML 5/CSS 3/JavaScript讲义</a> 入门效率高。</p>
+
+<p> 首先，这书写的真不咋地，<br/>
+ 一没什么思想性，二没多少优秀的实践，还比较不严禁！<br/>
+ 但是，条例性还不错，非常适合入门，一天翻完了解概貌的那种！</p></li>
+<li><p><a href="http://book.douban.com/subject/10546125/">JavaScript高级程序设计（第3版）</a> 系统学习js的好书。</p>
+
+<p> 对 js 的语法介绍的很细，分析的很透彻。来龙去脉很清晰。</p></li>
+<li><p><a href="http://book.douban.com/subject/4881987/">编写高质量代码 : Web前端开发修炼之道</a> 学习编码规范。</p>
+
+<p> 这书读起来速度快，不耽误时间。<br/>
+ 从最烂的代码一点一点优化到最佳规范，触动很大，也加深的对规范的理解。</p></li>
+<li><p><a href="http://book.douban.com/subject/21792530/">编写可维护的JavaScript</a> 关于如何写出高质量的代码。</p>
+
+<p> 内容很赞，讲解了规范的来龙去脉和影响。</p></li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-25T10:19:00+08:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coding/'>coding</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/19/vim-general-settings/" title="Previous Post: vim 全局插件的配置">&laquo; vim 全局插件的配置</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/13/blog-page-design/" title="Next Post: 博客页面原型设计">博客页面原型设计 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/05/25/javascript-primer/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/05/25/javascript-primer/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

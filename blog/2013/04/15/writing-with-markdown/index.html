@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title> 使用 markdown 编写文档 - Jackon Yang's blog</title>
+  <meta name="author" content="Jackon Yang">
+
+  
+  <meta name="description" content="Markdown 是一种轻量级标记语言，所想即所得，优势较多： 比 latex/html/xml 等更加便捷，可读性更高。
+使用纯文本写作，可以方便的进行版本控制。
+通过 pandoc 等工具可以方便的转换为 docx/html/latex 等多种格式。 使用 markdown 已经半年多， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://JackonYang.github.io/blog/2013/04/15/writing-with-markdown/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jackon Yang's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1 id="site-title"><a href="/">Jackon Yang</a></h1>
+  
+    <h2 id="site-description">社交网络与数据挖掘</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+
+    <!--article title-->
+    
+      <h1 class="entry-title"> 使用 markdown 编写文档</h1>
+    
+
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-15T01:52:00+08:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
+      </p>
+      <!-- no comment -->
+    
+  </header>
+
+
+<div class="entry-content"><p>Markdown 是一种轻量级标记语言，所想即所得，优势较多：</p>
+
+<ul>
+<li>比 latex/html/xml 等更加便捷，可读性更高。</li>
+<li>使用纯文本写作，可以方便的进行版本控制。</li>
+<li>通过 pandoc 等工具可以方便的转换为 docx/html/latex 等多种格式。</li>
+</ul>
+
+
+<p>使用 markdown 已经半年多，结合多年的 latex 排版经验，整理如下。</p>
+
+<!--more-->
+
+
+<h2>markdown 设计理念 <a id="design"></a></h2>
+
+<p>markdown 首先是一个所想即所得的语言。<br/>
+精髓在于：源码可读性高，书写方便。</p>
+
+<h4>高可读性的负面作用是逻辑和显示分离不彻底</h4>
+
+<p>即使是初学者写出的 markdown 源码，读起来也像阅读最终的页面一样方便。<br/>
+换一个角度思考就是，markdown 的源码与最终的显示样式还是有些关联的。<br/>
+latex 彻底分离显示与逻辑结构，书写时只需关心逻辑结构。<br/>
+一个典型的例子是：markdown 本没有标题的概念，只有字号，字号明显与逻辑无关，是一个显示样式。
+latex 则是标题，下一级标题，下下一级标题——纯粹的逻辑结构</p>
+
+<h4>首次书写方便，适合于快速迭代</h4>
+
+<p>markdown 的本质是书写语言，可以满足一般的书写任务。<br/>
+latex 则是排版语言，越追求完美的任务，latex 的优势越明显。<br/>
+对于需要反复修改的文章，markdown 就显得力不从心。
+比如：各种交叉引用、序号，都需要手动维护。</p>
+
+<h2>语法的学习资料</h2>
+
+<p><a href="http://daringfireball.net/projects/markdown/">markdown 首页</a> 提供了当不错的学习说明。<br/>
+一个高效的学习方法是：
+看 markdown 首页的介绍和源码、在 <a href="http://daringfireball.net/projects/markdown/dingus">dingus</a> 中测试一下效果。</p>
+
+<p>markdown 版本众多，不同版本的语法存在一些区别。</p>
+
+<h4>github wiki 语法</h4>
+
+<p><a href="https://github.com/JackonYang/book-repo/wiki/markdown-%E8%AF%AD%E6%B3%95-%E6%A1%88%E5%88%97">wiki 语法案例</a>
+包含了大部分常用的 markdown 语法。</p>
+
+<p>使用 wiki 时需要特别注意：</p>
+
+<ol>
+<li><p>wiki 编辑时的工具栏。</p>
+
+<p> 主要的功能是提示语法。如果能够记住语法，完全不需要工具栏。
+ word的工具栏，则是直接把文字变成需要的样子。</p></li>
+<li><p>第一个标题之前必须有正文文字，否则标题不会正常显示。</p></li>
+</ol>
+
+
+<h4>octopress blog</h4>
+
+<p>提供了大量了插件，对 markdown 进行了扩充。
+主要体现在插入代码源文件，插入图片等。</p>
+
+<h2>书写高质量的代码</h2>
+
+<p>关于高质量的 markdown 源码，个人理解如下：</p>
+
+<ol>
+<li>后续修改、维护方便。</li>
+<li>文章本身的逻辑结构更加专业。</li>
+</ol>
+
+
+<p>具体做法如下：</p>
+
+<ol>
+<li><p>超链接多使用 reference 格式，后续维护链接的有效性时较为方便。</p>
+
+<p> 即，正文中使用 <code>[显示内容][tag]</code>，
+ 用 <code>[tag]: url</code> 声明 tag 的指向，后续维护链接有效性时方便。</p></li>
+<li><p>title 最多分 3 级。</p>
+
+<p> 从 <code>#</code> 到 <code>######</code>，markdown 支持 6 层甚至更多的标题级别。<br/>
+ 但是，从写作实践来说，文章标题深度如果超过 3 层，通常是难以理解的。
+ 此时需要反思文章的内容结构是否合理。</p></li>
+<li><p>文章内的超链接</p>
+
+<p> 比如，本文在&#8221;设计理念&#8221;的标题处用 <code>&lt;a id="design"&gt;&lt;/a&gt;</code> 设置了一个 anchor，
+ <a href="#design">点击这里</a>
+ (语法<code>[点击这里](#desgin)</code> )
+ 可以直接跳到到那里。</p></li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jackon Yang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-15T01:52:00+08:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coding/'>coding</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/12/first-book-for-beginners-to-open-its-mind/" title="Previous Post: 时间管理——调整自己心智的第一本书">&laquo; 时间管理——调整自己心智的第一本书</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/04/17/python-learning-plan/" title="Next Post: python 学习计划与书目">python 学习计划与书目 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <h4>Category</h4>
+<ul>
+    
+    <li>
+    <a href="/blog/categories/reading/">reading 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/data-mining/">data-mining 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/project/">project 6</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/etc/">etc 7</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/encoding/">encoding 4</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vivian/">vivian 10</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/vim/">vim 8</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/coding/">coding 9</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/python/">python 3</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/review/">review 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/history/">history 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/ubuntu/">ubuntu 2</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/windows/">windows 1</a>
+    </li>
+    
+    <li>
+    <a href="/blog/categories/微信/">微信 1</a>
+    </li>
+    
+</ul>
+<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1812460214&verifier=73dc4ca5&dpc=1"></iframe>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/weixin_msg/">微信公众号历史信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/03/ubuntu-dev-env/">ubuntu 开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/21/reading-process-management/">科技图书的阅读过程管理工具</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/contact-individual/">电话本优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/03/learning-vim/">vim 入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Jackon Yang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
+  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jackonyang';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://JackonYang.github.io/blog/2013/04/15/writing-with-markdown/';
+        var disqus_url = 'http://JackonYang.github.io/blog/2013/04/15/writing-with-markdown/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

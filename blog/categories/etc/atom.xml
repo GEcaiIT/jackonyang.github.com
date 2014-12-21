@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: etc | Jackon Yang's blog]]></title>
+  <link href="http://JackonYang.github.io/blog/categories/etc/atom.xml" rel="self"/>
+  <link href="http://JackonYang.github.io/"/>
+  <updated>2014-12-21T11:15:17+08:00</updated>
+  <id>http://JackonYang.github.io/</id>
+  <author>
+    <name><![CDATA[Jackon Yang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ubuntu 开发环境]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/11/03/ubuntu-dev-env/"/>
+    <updated>2013-11-03T12:00:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/11/03/ubuntu-dev-env</id>
+    <content type="html"><![CDATA[<p>主要包括: git/github, vim, mysql, markdown, octopress, rar/gtalk 等日常工具</p>
+
+<!--more-->
+
+
+<h2>apt-get 源更新</h2>
+
+<pre> <code>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+</code> </pre>
+
+
+<p></p>
+
+<p>apt-get 的 2 个重要参数，封装为脚本时比较有帮助。</p>
+
+<ul>
+<li><code>-y</code> Assume Yes to all queries and do not prompt</li>
+<li><code>-qq</code> No output except for errors</li>
+</ul>
+
+
+<h2>git &amp; github</h2>
+
+<h4>安装 git 并配置 github 帐号信息</h4>
+
+<pre> <code>
+$ sudo apt-get install git-all xclip
+$ git config --global user.name "Jackon Yang" 
+$ git config --global user.email "jiekunyang@gmail.com"
+</code> </pre>
+
+
+<p></p>
+
+<h4>添加 ssh 密钥</h4>
+
+<p>详细说明: <a href="https://help.github.com/articles/generating-ssh-keys">https://help.github.com/articles/generating-ssh-keys</a></p>
+
+<pre> <code>
+$ mkdir -p ~/.ssh && cd ~/.ssh
+$ ssh-keygen -t rsa -C "jiekunyang@gmail.com"
+$ xclip -sel clip < ~/.ssh/id_rsa.pub  # id_rsa.pub 中的密钥保存到剪切板中
+$ ssh -T git@github.com  # test connection
+
+# output
+# Hi JackonYang! You've successfully authenticated, but GitHub does not provide shell access.
+</code> </pre>
+
+
+<p></p>
+
+<h2>mysql</h2>
+
+<h4>mysql server and GUI</h4>
+
+<pre> <code>
+$ sudo apt-get install mysql-server mysql-workbench  # mysql toolbox
+$ sudo service mysql restart
+</code> </pre>
+
+
+<p></p>
+
+<h4>字符编码配置：</h4>
+
+<p><code>etc/mysql/my.cnf</code> 中添加:</p>
+
+<pre> <code>
+[client]
+default-character-set = utf8
+
+[mysqld]
+character-set-server = utf8
+collation-server = utf8_general_ci
+</code> </pre>
+
+
+<p></p>
+
+<h4>完全删除 mysql 及其配置</h4>
+
+<p>有一些是多余的，建议还是按照顺序执行一遍</p>
+
+<pre> <code>
+$ sudo apt-get autoremove --purge mysql-server-5.0
+$ sudo apt-get remove mysql-server
+$ sudo apt-get autoremove mysql-server
+$ sudo apt-get remove mysql-common  # VIP
+$ dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P  # 清理残留数据
+</code> </pre>
+
+
+<p></p>
+
+<h2>vim and markdown</h2>
+
+<pre> <code>
+$ sudo apt-get install vim-gtk exuberant-ctags  # vim and ctags
+$ sudo apt-get install zathura vifm  # pdf and explorer with vim shortcut
+$ sudo apt-get install pandoc retext
+</code> </pre>
+
+
+<p></p>
+
+<h2>daily app</h2>
+
+<pre> <code>
+$ sudo apt-get install xchm unzip shutter
+$ sudo apt-get install calibre  # e-book management
+$ sudo apt-get install convmv p7zip-full
+# gtalk
+$ sudo add-apt-repository ppa:pidgin-developers/ppa
+$ sudo apt-get update
+$ sudo apt-get install -y --force-yes pidgin
+</code> </pre>
+
+
+<p></p>
+
+<h2>unrar</h2>
+
+<p><a href="http://www.rarsoft.com/download.htm">download rar</a>
+并执行如下安装命令:</p>
+
+<pre> <code>
+$ sudo make install
+$ sudo ln -s /usr/local/bin/rar /usr/bin
+</code> </pre>
+
+
+<p></p>
+
+<h2>blog with octopress</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>blog with octopress  (install_octopress.sh)</span> <a href='/downloads/code/install_octopress.sh'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'>sudo apt-get install -y curl rbenv
+</span><span class='line'>curl -L https://get.rvm.io | bash -s stable --ruby
+</span><span class='line'><span class="nb">source</span> ~/.rvm/scripts/rvm
+</span><span class='line'>rvm install 1.9.3
+</span><span class='line'>rvm use 1.9.3
+</span><span class='line'>rvm rubygems latest
+</span><span class='line'>
+</span><span class='line'>rm -rf ~/blog
+</span><span class='line'>git clone git@github.com:JackonYang/jackonyang.github.com.git ~/blog
+</span><span class='line'><span class="nb">cd</span> ~/blog
+</span><span class='line'>
+</span><span class='line'>gem install bundler
+</span><span class='line'>gem install RedCloth
+</span><span class='line'><span class="c"># If you use rbenv, rehash to be able to run the bundle command</span>
+</span><span class='line'>rbenv rehash
+</span><span class='line'>bundle install
+</span><span class='line'>rvm rvmrc warning ignore /home/jackonyang/blog/.rvmrc
+</span><span class='line'>
+</span><span class='line'>rake setup_github_pages<span class="o">[</span>git@github.com:JackonYang/jackonyang.github.com.git<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># error shooting</span>
+</span><span class='line'><span class="c"># https://rvm.io/integration/gnome-terminal/</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>dropped</h2>
+
+<p>曾经需要，正常情况下，现在不再需要</p>
+
+<h4>pdf for chinese</h4>
+
+<p>upgrade 后已不需要</p>
+
+<pre> <code>
+$ sudo apt-get install poppler-data poppler-utils
+</code> </pre>
+
+
+<p></p>
+
+<p>用如下内容替换 <code>/etc/fonts/conf.d/49-sansserif.conf</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>font conf  (font_conf.conf)</span> <a href='/downloads/code/font_conf.conf'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span class='line'><span class="cp">&lt;!DOCTYPE fontconfig SYSTEM &quot;fonts.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;fontconfig&gt;</span>
+</span><span class='line'><span class="c">&lt;!--</span>
+</span><span class='line'><span class="c">  If the font still has no generic name, add sans-serif</span>
+</span><span class='line'><span class="c"> --&gt;</span>
+</span><span class='line'>	<span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">&quot;pattern&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;test</span> <span class="na">qual=</span><span class="s">&quot;all&quot;</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">compare=</span><span class="s">&quot;not_eq&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/test&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">&quot;family&quot;</span> <span class="na">mode=</span><span class="s">&quot;append_last&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>			<span class="nt">&lt;string&gt;</span>Garuda<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>		<span class="nt">&lt;/edit&gt;</span>
+</span><span class='line'>	<span class="nt">&lt;/match&gt;</span>
+</span><span class='line'><span class="nt">&lt;/fontconfig&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4>解压中文目录乱码</h4>
+
+<pre> <code>
+$ LANG=C 7z X zipFileName
+$ convmv -f gbk -t utf8 -r --notest *  # convert directory
+</code> </pre>
+
+
+<p></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[搭建 python 开发环境]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/09/02/python-dev-env/"/>
+    <updated>2013-09-02T14:16:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/09/02/python-dev-env</id>
+    <content type="html"><![CDATA[<p>开发环境主要包括：</p>
+
+<ul>
+<li>运行环境: python2.7</li>
+<li>类库管理工具: pip</li>
+<li>ubuntu 下常用类库</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>windows</h2>
+
+<h4>安装 python2.7</h4>
+
+<p>python 主要包括 2.x 和 3.x 两个大版本，代码之间不兼容。
+推荐使用 Python2.7，类库较为丰富，安装相对简单。</p>
+
+<ol>
+<li><a href="http://www.python.org/getit/">下载 python</a> 并安装。</li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a> PATH 中添加 python 安装路径，默认为 <code>C:\python27</code></li>
+</ol>
+
+
+<h4>setuptools</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/setuptools/1.1">下载 setuptools</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+</ol>
+
+
+<h4>pip</h4>
+
+<ol>
+<li><a href="https://pypi.python.org/pypi/pip">下载 pip</a> 并解压</li>
+<li>DOS 下进入解压目录执行 <code>python setup.py install</code></li>
+<li><a href="http://zhidao.baidu.com/question/187573577.html">设置环境变量</a>，PATH 中添加 pip 的路径，默认为 `c:\python27\Scripts'</li>
+</ol>
+
+
+<h2>ubuntu</h2>
+
+<h4>python and pip tools</h4>
+
+<pre><code>
+$ sudo apt-get install -y python python-setuptools python-dev
+$ sudo easy_install -U distribute
+$ sudo apt-get install python-pip
+</code></pre>
+
+
+<p>如果 python-dev 未安装,
+使用 easy_install or setup.py 时报错:
+<code>command 'gcc' failed with exit status 1</code></p>
+
+<h4>lib for apache2/mysql</h4>
+
+<pre><code>
+$ apt-get install libapache2-mod-python, libmysqlclient-dev
+</code></pre>
+
+
+<p>如果 libmysqlclient-dev 未安装，安装 mysql-python 时报错：
+<code>EnvironmentError: mysql_config not found</code></p>
+
+<h4>flake8</h4>
+
+<pre><code>
+$ sudo pip install flake8
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Win7 系统安装与常用软件列表]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/04/10/win7-settings/"/>
+    <updated>2013-04-10T22:18:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/04/10/win7-settings</id>
+    <content type="html"><![CDATA[<p>主要记录个人安装 win7 的步骤，以及常用软件列表。</p>
+
+<!--more-->
+
+
+<h4>系统安装与磁盘分区</h4>
+
+<p>鉴于 win7 与 xp 磁盘管理机制的根本区别，操作系统与软件全部装在 c 盘。
+保证 c 盘至少有 20G 的剩余空间即可。</p>
+
+<p>个人采用 80G 的 c 盘分区，NTFS 格式。</p>
+
+<p>安装以后激活系统，使用 <code>Win7_active_1.0_XiaZaiBa.exe</code></p>
+
+<p>安装驱动，从电脑官网下载即可。</p>
+
+<h4>系统优化设置</h4>
+
+<ol>
+<li>通知设置：控制面板\系统和安全\操作中心\更改操作中心设置</li>
+<li>防火墙：控制面板\系统和安全\Windows 防火墙</li>
+<li>自动更新：控制面板\系统和安全\Windows Update\更改设置</li>
+<li>账户控制：更改设置时，不提醒。运行软件时提醒。控制面板\系统和安全\操作中心</li>
+<li>自动播放：控制面板\硬件和声音\自动播放</li>
+</ol>
+
+
+<h4>日常应用软件–daily</h4>
+
+<p>使用习惯:</p>
+
+<ol>
+<li>软件全部安装到 c 盘。非软件统一放到 d 盘。</li>
+<li>所有的下载文件，全部保存到 d:\download 。比如浏览器下载、iku、千千静听</li>
+<li>平常不使用，但重装系统时需要备份的，统一放到 d:\backup。比如 qq 自定义文件夹</li>
+<li>临时文件全部放在 d:\temp</li>
+<li>图片、音乐等分别放到 d:\picture, d:\music</li>
+</ol>
+
+
+<p>软件列表：</p>
+
+<ol>
+<li>输入法：
+<a href="http://download.ime.sogou.com/sogou_pinyin_65j.exe?st=2T7jLQwCiahxQxVeky3YaA&amp;e=1365531122&amp;fn=sogou_pinyin_65j.exe">搜狗</a></li>
+<li>浏览器：
+ <a href="http://download.ie.sogou.com/se/sogou_explorer_4.1_0409.exe">搜狗</a>,
+ <a href="http://download.firefox.com.cn/releases/partners/baidu/webins3.0/zh-CN/Firefox-setup.exe">firefox</a></li>
+<li>pdf 阅读器：
+ <a href="http://cdn04.foxitsoftware.com/pub/foxit/reader/desktop/win/5.x/5.1/chs/FoxitReader510.1117_chs_Setup.exe">foxit</a></li>
+<li>文字办公：
+ <a href="http://wdl.cache.ijinshan.com/wps/download/WPS.19.552.exe">wps</a></li>
+<li>实时聊天：
+ <a href="http://afp.csbew.com/c.htm?pv=1&amp;sp=0,41109,90211,71935,0,90,728&amp;target=http://skype.tom.com/download/SkypeSetup.exe">skype</a>,
+ <a href="http://dldir1.qq.com/qqfile/qq/QQ2013/2013Beta2/8051/QQ2013Beta2.exe">qq</a>,
+ <a href="http://download.fetion-portal.com/Fetion2013March.exe">feixin</a></li>
+<li>音乐：
+ <a href="http://qianqian.baidu.com/download/ttpsetup_700-44059078.exe">千千静听</a></li>
+<li>电影：
+ <a href="http://dl.baofeng.com/baofeng5/Baofeng5-5.23.0328.exe">暴风影音</a></li>
+<li>在线视频播放：
+ <a href="http://neirong.funshion.com/download/FunshionInstall2.8.5.24.exe">风行</a>,
+ <a href="http://desktop.youku.com/youkuclient/youkuclient_setup_3.9.0.3271.exe">优库</a>,
+ <a href="http://download.tudou.com/itudou/download/iTudou_Setup_3.3.1.0_20130123-181452.exe">土豆</a></li>
+<li>词典：
+ <a href="http://codown.youdao.com/cidian/download/YoudaoDict.exe">有道</a></li>
+</ol>
+
+
+<h4>工具类软件–tools</h4>
+
+<ul>
+<li>必选：winrar， SlysoftVirtualCloneDrive(虚拟光驱，支持 64bit)</li>
+<li>可选：iNode(校园网客户端)，p2pcover(局域网网速监控)，wisecam(桌面录制)</li>
+</ul>
+
+
+<h4>高级应用软件–better life</h4>
+
+<ol>
+<li>图书管理：calibre <a href="http://calibre-ebook.com/demo">英文版的演示视频</a></li>
+<li>心智图：xmind</li>
+<li>资料管理：github</li>
+<li>编辑器：gvim</li>
+<li>撰写论文：ctex(latex), JabRef(参考文献管理)</li>
+<li>科学计算：matlab</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[goagent 翻墙的核心配置流程]]></title>
+    <link href="http://JackonYang.github.io/blog/2013/03/20/gae-working-as-a-proxy/"/>
+    <updated>2013-03-20T19:11:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2013/03/20/gae-working-as-a-proxy</id>
+    <content type="html"><![CDATA[<p>用 goagent 做代理，应该是当前最稳定的选择之一，而且免费。</p>
+
+<p>目前已经有很多配置攻略，各种复杂、高端的感觉，看的很晕。
+本文试图阐述其中的核心流程，保证参考其他有详细截图的攻略时不会被绕晕。
+同时，为了提高配置效率，分步配置，每一步给出验证方法，检查该步配置是否正确。</p>
+
+<!--more-->
+
+
+<p>访问 google 旗下的网站时，建议全部使用 https 协议。
+否则被 GFW 封掉的概率很高。</p>
+
+<h3>goagent proxy 配置过程: 3 个必选，1 个可选</h3>
+
+<ol>
+<li>获取一个 google 帐号，在 appengine 中 create application,</li>
+<li>上传 goagent server 至 application,</li>
+<li>本机运行 goagent local/proxy.py,</li>
+<li>[可选] 安装浏览器插件。让 proxy 更智能，只对被 GFW 墙掉的网站使用代理。</li>
+</ol>
+
+
+<h5>google account 2-step verification</h5>
+
+<p>通常 create application 时需要把 google 帐号的安全机制升级为 2-step verification。
+即: 绑定手机，每次登录都会收到验证码短信，正确输入才可登录成功。</p>
+
+<p>大部分应用(手机/桌面)都无法获取验证码，所以不支持 2-step 验证。为了使用这些应用，google 提供了 application-specific password 来替代帐号密码。</p>
+
+<p><a href="https://accounts.google.com/IssuedAuthSubTokens?hide_authsub=1">点击这里</a> 创建 application-specific password 供 application 使用，替代正常密码，无需短信验证，每个密码仅能使用一次，可以创建很多个密码供不同 app 使用。</p>
+
+<p><a href="https://accounts.google.com/SmsAuthConfig">点击这里</a> 配置 2-step 验证方式</p>
+
+<h3>google appengine application</h3>
+
+<p>点击 <a href="https://appengine.google.com/">https://appengine.google.com/</a>  create application</p>
+
+<p>每一个 application 有一个唯一的标识( Application Identifier) 即 appid，其他 application 信息都可以随便填写。</p>
+
+<h3>上传 goagent server</h3>
+
+<p>推荐使用 appengine 而非 goagent 自带的 uploader。
+<a href="https://code.google.com/appengine/downloads.html">download Google App Engine SDK for Python</a> 这个页面打开速度各自慢，喝杯茶的功夫。</p>
+
+<p>{path-to-goagent}/server/python/app.yaml 中修改 appid. 然后用 <code>python google_appengine/appcfg.py update goagent/server/python/</code> 命令上传</p>
+
+<p>上传过程中要求输入 email/password, password 要用 application-specific password。
+上传成功后，在 <a href="https://appengine.google.com/">google appengine</a> 可以看到自己的 application，status 是 running</p>
+
+<h3>本地运行 local/proxy.py</h3>
+
+<p>修改 local/proxy.ini, appid 是刚刚上传的 appid。
+因为目前 <code>google_cn</code> 已经不稳定，所以 profile 需要换一个稳定的，比如 <code>google_hk</code></p>
+
+<p>切换到 local 目录下执行 <code>python proxy.py</code> 否则启动 proxy 不会报错，但访问页面失败。</p>
+
+<p>检查 proxy 启动是否成功的最简单方法是：
+proxy 启动后会在命令行打印一串信息，其中一个是 listen address. 默认 <code>Listen Address: 127.0.0.1:8087</code>
+在浏览器中输入这个地址，如果不是错误信息页面，则表示启动成功。</p>
+
+<h3>安装并配置浏览器插件 AutoProxy</h3>
+
+<ol>
+<li>代理服务器: 添加新代理作为默认代理服务器，ip/port 与 <code>Listen Address: 127.0.0.1:8087</code> 一致。</li>
+<li>订阅代理规则：用于自动代理，即只对被墙的网站用代理。此处的代理规则是 gfwlist, 该文件是一个被 GFW 墙掉的网站列表，自动更新。</li>
+<li>可能还需要手动导入证书。</li>
+</ol>
+
+
+<p>插件配置成功以后，可以正常访问被墙的网站。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ubuntu and vim encoding settings]]></title>
+    <link href="http://JackonYang.github.io/blog/2012/11/21/ubuntu-and-vim-encoding-settings/"/>
+    <updated>2012-11-21T12:40:00+08:00</updated>
+    <id>http://JackonYang.github.io/blog/2012/11/21/ubuntu-and-vim-encoding-settings</id>
+    <content type="html"><![CDATA[<p>ubuntu 与 windows 默认字符编码不一致，导致跨平台时常常出现乱码问题。</p>
+
+<!--more-->
+
+
+<h2>一般攻略的处理方式</h2>
+
+<p>通常攻略的解决方法是修改 ubuntu 的默认字符编码为 gbk 或者 gb2312。
+个人认为，为了兼容部分 windows 文件，修改 linux 系统默认字符编码，并不是最优解决方案。</p>
+
+<ol>
+<li>ubuntu下，处理 utf-8 编码的情况远多于 gbk 或 gb2312.
+ 尤其是代码源文件，比如 python, mysql.</li>
+<li><p>gb系编码，目前相对混乱。</p>
+
+<p> 使用最多的是gb2312，但支持字符太少，难以满足日常应用。很多攻略都建议修改为gb2312。
+ GBK 是 gb2312 的替代者，扩展了支持的字符，但亦有一些不支持的生僻字。
+ GB18030，支持的字符较多，但与一些程序可能存在不兼容的问题。</p></li>
+</ol>
+
+
+<h2>Solution</h2>
+
+<h4>keep ubuntu default encoding unchanged, add gb18030 and gbk support.</h4>
+
+<p>``` bash add support of gb* encoding
+$ sudo vim /var/lib/locales/supported.d/local
+zh_CN.UTF-8 UTF-8
+en_US.UTF-8 UTF-8
+zh_CN.GB18030 GB18030
+zh_CN.GBK GBK</p>
+
+<h1>make it effect</h1>
+
+<p>$ sudo locale-gen</p>
+
+<h1>make sure that all the encodings are utf-8</h1>
+
+<p>$ locale
+LANG=zh_CN.UTF-8
+LANGUAGE=zh_CN:zh
+LC_CTYPE=&ldquo;zh_CN.UTF-8&rdquo;
+LC_NUMERIC=&ldquo;zh_CN.UTF-8&rdquo;
+LC_TIME=&ldquo;zh_CN.UTF-8&rdquo;
+LC_COLLATE=&ldquo;zh_CN.UTF-8&rdquo;
+LC_MONETARY=&ldquo;zh_CN.UTF-8&rdquo;
+LC_MESSAGES=&ldquo;zh_CN.UTF-8&rdquo;
+LC_PAPER=&ldquo;zh_CN.UTF-8&rdquo;
+LC_NAME=&ldquo;zh_CN.UTF-8&rdquo;
+LC_ADDRESS=&ldquo;zh_CN.UTF-8&rdquo;
+LC_TELEPHONE=&ldquo;zh_CN.UTF-8&rdquo;
+LC_MEASUREMENT=&ldquo;zh_CN.UTF-8&rdquo;
+LC_IDENTIFICATION=&ldquo;zh_CN.UTF-8&rdquo;
+LC_ALL=
+```</p>
+
+<h4>encoding settings of vim</h4>
+
+<p><code>bash setting of vim in vimrc
+"encoding
+:set encoding=utf-8
+:set fileencodings=utf-8,gb18030,gbk
+:set fileencoding=utf-8
+:set termencoding=utf-8
+</code></p>
+
+<h2>vim 字符编码工作原理</h2>
+
+<h4>vim 字符编码说明</h4>
+
+<p>Vim 有四个跟字符编码方式有关的选项，encoding、fileencoding、fileencodings、termencoding</p>
+
+<ul>
+<li><p>encoding: Vim 内部使用的字符编码方式，包括 Vim 的 buffer (缓冲区)、菜单文本、消息文本等。</p>
+
+<p>  如果vim的encoding为utf-8,所编辑的文件采用GBK编码,
+  vim会自动将读入的文件转成utf-8，而写入文件时,自动转回成GBK（文件的保存编码).</p></li>
+<li>fileencoding: Vim 中当前编辑的文件的字符编码方式，保存文件时也会将文件保存为这种字符编码方式。</li>
+<li><p>fileencodings: Vim 自动探测 fileencodings 的顺序列表， 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。</p>
+
+<p>  最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p></li>
+<li><p>termencoding: Vim 所工作的终端 terminal 的字符编码方式。</p>
+
+<p>  如果 vim 所在的 terminal 与 vim 编码相同，则无需设置。如其不然，你可以用 vim 的 termencoding 选项将自动转换成 terminal 的编码.这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是 Windows 控制台的代码页，并且通常我们不需要改变它。</p></li>
+</ul>
+
+
+<h4>Vim 的多字符编码方式支持的工作方式</h4>
+
+<ol>
+<li>Vim 启动，根据 <code>.vimrc</code> 中设置的 encoding 的值来设置 buffer、菜单文本、消息文的字符编码方式。</li>
+<li>读取需要编辑的文件，根据 fileencodings 中列出的字符编码方式逐一探测该文件编码方式。并设置 fileencoding 为探测到的，看起来是正确的字符编码方式。</li>
+<li><p>对比 fileencoding 和 encoding 的值，若不同则调用 iconv 将文件内容转换为 encoding 所描述的字符编码方式，并且把转换后的内容放到为此文件开辟的 buffer 里，此时我们就可以开始编辑这个文件了。</p>
+
+<p> 注意，完成这一步动作需要调用外部的 iconv.dll(windows)，你需要保证这个文件存在于 $VIMRUNTIME 或者其他列在 PATH 环境变量中的目录里。</p></li>
+<li>编辑完成后保存文件时，再次对比 fileencoding 和 encoding 的值。若不同，再次调用 iconv 将即将保存的 buffer 中的文本转换为 fileencoding 所描述的字符编码方式，并保存到指定的文件中。</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
